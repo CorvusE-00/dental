@@ -23,14 +23,14 @@ export function Hero() {
             </h1>
           </div>
 
-          <div className="order-2 relative mt-6 aspect-[4/5] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
+          <div data-hide-sticky-cta className="order-2 relative mt-6 aspect-[4/3] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
             <Image
               src="/images/editorial/hero-consultation.jpg"
               alt={copy.hero.imageAlt}
               fill
               priority
               sizes="(min-width: 1280px) 1184px, 100vw"
-              className="object-cover object-center sm:object-[center_36%] lg:object-[center_28%]"
+              className="object-cover object-[center_30%] sm:object-[center_36%] lg:object-[center_28%]"
             />
           </div>
 
