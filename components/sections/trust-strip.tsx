@@ -9,8 +9,9 @@ export function TrustStrip({ compact = false, className }: { compact?: boolean; 
   return (
     <section aria-label={copy.trust.ariaLabel} className={cn(compact ? 'py-2 md:py-20' : 'py-14 md:py-20', className)}>
       <div className="container-page">
-        <dl className={cn('grid', compact ? 'grid-cols-4 gap-x-2 gap-y-0' : 'grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4')}>
+        <dl className={cn('grid', compact ? 'grid-cols-3 gap-x-3 gap-y-0' : 'grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4')}>
           {trustMetrics.map((metric) => (
+            compact && metric.id === 'care' ? null :
             <div key={metric.id} className={cn('flex flex-col border-t border-foreground/15', compact ? 'gap-1 pt-2' : 'gap-2 pt-5')}>
               <dt className={cn('order-2 text-muted-foreground', compact ? 'text-[0.625rem] leading-[1.2] sm:text-sm sm:leading-normal' : 'text-sm')}>
                 {compact ? copy.trust.mobileMetrics[metric.id] ?? copy.trust.metrics[metric.id] ?? metric.label : copy.trust.metrics[metric.id] ?? metric.label}

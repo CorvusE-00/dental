@@ -60,7 +60,7 @@ function LocalizedPageContent() {
         <Header />
         <main id="main">
           <Hero />
-          <TrustStrip compact className="border-y border-foreground/10 bg-sage-soft py-5 md:hidden" />
+          <TrustStrip compact className="py-4 md:hidden" />
           <TrustStrip className="hidden md:block" />
           <Results />
           <Treatments />

@@ -23,9 +23,11 @@ export type SiteCopy = {
     mobileDescription: string
     localLink: string
     internationalLink: string
+    localShortLink: string
+    internationalShortLink: string
     imageAlt: string
   }
-  trust: { ariaLabel: string; prototypeNotice: string; items: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
+  trust: { ariaLabel: string; prototypeNotice: string; items: string[]; mobileItems: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
   sections: {
     treatments: { eyebrow: string; title: string; supporting: string }
     local: { eyebrow: string; title: string; description: string; imageAlt: string }
@@ -101,9 +103,11 @@ const english: SiteCopy = {
     mobileDescription: 'Thoughtful cosmetic, restorative and implant care for people in Istanbul and patients travelling from abroad.',
     localLink: 'Already in Istanbul? See local care',
     internationalLink: 'Travelling here? See how planning works',
+    localShortLink: "I'm in Istanbul",
+    internationalShortLink: "I'm travelling here",
     imageAlt: 'A dentist and patient discussing care in a bright modern clinic.',
   },
-  trust: { ariaLabel: 'Luma at a glance', prototypeNotice: 'Illustrative prototype figures. Replace with verified clinic facts before launch.', items: ['Clinician-led planning', 'Clear next steps', 'Support from first conversation to aftercare'], metrics: { patients: 'Patients treated', experience: 'Clinical experience', rating: 'Patient rating', care: 'Care planned in Istanbul' }, mobileMetrics: { patients: 'Patients', experience: 'Experience', rating: 'Rating', care: 'Istanbul care' }, values: { patients: '8,000+', experience: '14+ years', rating: '4.9 / 5', care: 'Local + global' } },
+  trust: { ariaLabel: 'Luma at a glance', prototypeNotice: 'Illustrative prototype figures. Replace with verified clinic facts before launch.', items: ['Clinician-led planning', 'Clear next steps', 'Support from first conversation to aftercare'], mobileItems: ['Clinician-led care', 'Clear next steps', 'Support after treatment'], metrics: { patients: 'Patients treated', experience: 'Clinical experience', rating: 'Patient rating', care: 'Care planned in Istanbul' }, mobileMetrics: { patients: 'Patients', experience: 'Experience', rating: 'Rating', care: 'Istanbul care' }, values: { patients: '8,000+', experience: '14+ years', rating: '4.9 / 5', care: 'Local + global' } },
   sections: {
     treatments: { eyebrow: 'Treatments', title: 'Care for everyday needs and bigger changes.', supporting: 'Also available:' },
     local: {
@@ -215,8 +219,8 @@ const turkish: SiteCopy = {
   ...english,
   nav: ['Tedaviler', 'Yerel Bakım', 'Uluslararası Bakım', 'Sonuçlar', 'Doktorlarımız', 'SSS'],
   menu: 'Menü', openMenu: 'Menüyü aç', close: 'Kapat', skipToContent: 'İçeriğe geç',
-  hero: { eyebrow: "İstanbul'da özel diş bakımı", title: 'Daha sağlıklı, daha özgüvenli bir gülüş.', emphasis: 'Size göre planlandı.', description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için modern estetik, restoratif ve implant diş hekimliği. Değiştirmek istediklerinizi konuşarak başlayın.", mobileDescription: "İstanbul'da yaşayanlar ve yurt dışından gelenler için modern, kişiye özel diş bakımı.", localLink: "İstanbul'da mısınız? Yerel bakımı keşfedin", internationalLink: "Buraya mı geliyorsunuz? Planlamanın nasıl işlediğini görün", imageAlt: 'Aydınlık ve modern bir klinikte bakım planını konuşan diş hekimi ve hasta.' },
-  trust: { ariaLabel: 'Luma hakkında kısaca', prototypeNotice: 'Örnek prototip verileri. Yayından önce doğrulanmış klinik bilgileri kullanın.', items: ['Klinisyen liderliğinde planlama', 'Net sonraki adımlar', 'İlk görüşmeden bakım sonrasına destek'], metrics: { patients: 'Tedavi gören hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da planlanan bakım" }, mobileMetrics: { patients: 'Hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da bakım" }, values: { patients: '8.000+', experience: '14+ yıl', rating: '4,9 / 5', care: 'Yerel + global' } },
+  hero: { eyebrow: "İstanbul'da özel diş bakımı", title: 'Daha sağlıklı, daha özgüvenli bir gülüş.', emphasis: 'Size göre planlandı.', description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için modern estetik, restoratif ve implant diş hekimliği. Değiştirmek istediklerinizi konuşarak başlayın.", mobileDescription: "İstanbul'da yaşayanlar ve yurt dışından gelenler için modern, kişiye özel diş bakımı.", localLink: "İstanbul'da mısınız? Yerel bakımı keşfedin", internationalLink: "Buraya mı geliyorsunuz? Planlamanın nasıl işlediğini görün", localShortLink: "İstanbul'dayım", internationalShortLink: 'Buraya geliyorum', imageAlt: 'Aydınlık ve modern bir klinikte bakım planını konuşan diş hekimi ve hasta.' },
+  trust: { ariaLabel: 'Luma hakkında kısaca', prototypeNotice: 'Örnek prototip verileri. Yayından önce doğrulanmış klinik bilgileri kullanın.', items: ['Klinisyen liderliğinde planlama', 'Net sonraki adımlar', 'İlk görüşmeden bakım sonrasına destek'], mobileItems: ['Klinisyen liderliğinde bakım', 'Net sonraki adımlar', 'Tedavi sonrası destek'], metrics: { patients: 'Tedavi gören hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da planlanan bakım" }, mobileMetrics: { patients: 'Hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da bakım" }, values: { patients: '8.000+', experience: '14+ yıl', rating: '4,9 / 5', care: 'Yerel + global' } },
   sections: {
     treatments: { eyebrow: 'Tedaviler', title: 'Günlük ihtiyaçlar ve daha kapsamlı değişiklikler için bakım.', supporting: 'Ayrıca:' },
     local: { eyebrow: 'Yerel hastalar için', title: "İstanbul'daki hayatınıza uyan bakım.", description: 'Sağlığınız, hedefleriniz ve yapmak istediğiniz değişiklikler hakkında yüz yüze bir görüşmeyle başlayın.', imageAlt: 'Sakin bir klinik odasında hasta ile konuşan klinisyen.' },

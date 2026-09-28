@@ -41,7 +41,15 @@ export function Hero() {
             </p>
             <div className="flex flex-col gap-3 lg:gap-5">
               <PrimaryCta size="lg" className="h-12 w-full px-5 text-[0.9375rem] sm:h-14 sm:w-fit sm:px-7 sm:text-base" />
-              <p className="text-[0.75rem] leading-[1.4] text-muted-foreground sm:hidden">{copy.trust.items.join(' · ')}</p>
+              <div className="grid grid-cols-2 gap-2 sm:hidden">
+                <a href="#local-care" className="rounded-[10px] border border-foreground/15 px-3 py-2.5 text-center text-[0.75rem] leading-tight text-foreground transition-colors hover:bg-sage-soft">
+                  {copy.hero.localShortLink}
+                </a>
+                <a href="#international-care" className="rounded-[10px] border border-foreground/15 px-3 py-2.5 text-center text-[0.75rem] leading-tight text-foreground transition-colors hover:bg-sage-soft">
+                  {copy.hero.internationalShortLink}
+                </a>
+              </div>
+              <p className="text-[0.75rem] leading-[1.4] text-muted-foreground sm:hidden">{copy.trust.mobileItems.join(' · ')}</p>
               <ul className="hidden flex-col gap-1.5 text-[0.8125rem] leading-5 text-foreground/80 sm:flex sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:text-sm sm:leading-normal">
                 {copy.trust.items.map((item) => (
                   <li key={item} className="flex items-center gap-2">
