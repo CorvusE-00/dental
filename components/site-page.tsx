@@ -60,7 +60,7 @@ function LocalizedPageContent() {
         <Header />
         <main id="main">
           <Hero />
-          <TrustStrip />
+          <TrustStrip className="hidden md:block" />
           <Results />
           <Treatments />
           <WhyLuma />

@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { PrimaryCta } from '@/components/shared/primary-cta'
+import { TrustStrip } from '@/components/sections/trust-strip'
 import { useLocale } from '@/lib/i18n'
 
 export function Hero() {
@@ -23,7 +24,7 @@ export function Hero() {
             </h1>
           </div>
 
-          <div data-hide-sticky-cta className="order-2 relative mt-6 aspect-[4/3] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
+          <div data-hide-sticky-cta className="order-2 relative mt-6 aspect-[16/10] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
             <Image
               src="/images/editorial/hero-consultation.jpg"
               alt={copy.hero.imageAlt}
@@ -34,7 +35,9 @@ export function Hero() {
             />
           </div>
 
-          <div data-hide-sticky-cta className="order-3 flex flex-col gap-7 lg:order-none lg:col-span-5 lg:pb-3">
+          <TrustStrip compact className="order-3 md:hidden" />
+
+          <div data-hide-sticky-cta className="order-4 flex flex-col gap-7 lg:order-none lg:col-span-5 lg:pb-3">
             <p className="max-w-md text-base leading-relaxed text-pretty text-muted-foreground md:text-lg">
               {copy.hero.description}
             </p>

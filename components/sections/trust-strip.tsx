@@ -2,23 +2,24 @@
 
 import { trustMetrics } from '@/lib/data'
 import { useLocale } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 
-export function TrustStrip() {
+export function TrustStrip({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { copy } = useLocale()
   return (
-    <section aria-label={copy.trust.ariaLabel} className="py-14 md:py-20">
+    <section aria-label={copy.trust.ariaLabel} className={cn(compact ? 'py-4 md:py-20' : 'py-14 md:py-20', className)}>
       <div className="container-page">
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+        <dl className={cn('grid grid-cols-2 lg:grid-cols-4', compact ? 'gap-x-4 gap-y-5' : 'gap-x-6 gap-y-10')}>
           {trustMetrics.map((metric) => (
-            <div key={metric.id} className="flex flex-col gap-2 border-t border-foreground/15 pt-5">
+            <div key={metric.id} className={cn('flex flex-col border-t border-foreground/15', compact ? 'gap-1 pt-3' : 'gap-2 pt-5')}>
               <dt className="order-2 text-sm text-muted-foreground">{copy.trust.metrics[metric.id] ?? metric.label}</dt>
-              <dd className="order-1 font-serif text-3xl leading-none tracking-[-0.01em] md:text-4xl lg:text-5xl">
+              <dd className={cn('order-1 font-serif leading-none tracking-[-0.01em]', compact ? 'text-2xl' : 'text-3xl md:text-4xl lg:text-5xl')}>
                 {copy.trust.values[metric.id] ?? metric.value}
               </dd>
             </div>
           ))}
         </dl>
-        <p className="mt-8 text-xs text-muted-foreground">{copy.trust.prototypeNotice}</p>
+        <p className={cn('text-xs text-muted-foreground', compact ? 'mt-4' : 'mt-8')}>{copy.trust.prototypeNotice}</p>
       </div>
     </section>
   )
