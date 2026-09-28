@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { PrimaryCta } from '@/components/shared/primary-cta'
-import { TrustStrip } from '@/components/sections/trust-strip'
 import { useLocale } from '@/lib/i18n'
 
 export function Hero() {
@@ -65,16 +64,6 @@ export function Hero() {
             </div>
           </div>
 
-          <TrustStrip compact className="order-4 md:hidden" />
-
-          <div className="order-5 flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] leading-5 text-muted-foreground sm:hidden">
-            <a href="#local-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
-              {copy.hero.localLink}
-            </a>
-            <a href="#international-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
-              {copy.hero.internationalLink}
-            </a>
-          </div>
         </div>
       </div>
     </section>

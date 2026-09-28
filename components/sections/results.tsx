@@ -9,7 +9,7 @@ import { useLocale } from '@/lib/i18n'
 export function Results() {
   const { copy } = useLocale()
   return (
-    <section id="results" aria-labelledby="results-title" className="section-y">
+    <section id="results" aria-labelledby="results-title" className="section-y pt-12 md:pt-24 2xl:pt-[8.5rem]">
       <div className="container-page flex flex-col gap-12 md:gap-16">
         <SectionHeading
           id="results-title"
