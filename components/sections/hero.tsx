@@ -23,7 +23,7 @@ export function Hero() {
             </h1>
           </div>
 
-          <div data-hide-sticky-cta className="order-2 relative mt-2 aspect-[2.1/1] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
+          <div data-hide-sticky-cta className="order-2 relative mt-2 aspect-[2/1] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
             <Image
               src="/images/editorial/hero-consultation.jpg"
               alt={copy.hero.imageAlt}
@@ -49,7 +49,14 @@ export function Hero() {
                   {copy.hero.internationalShortLink}
                 </a>
               </div>
-              <p className="text-[0.75rem] leading-[1.4] text-muted-foreground sm:hidden">{copy.trust.mobileItems.join(' · ')}</p>
+              <ul className="flex flex-wrap gap-x-3 gap-y-1.5 text-[0.75rem] leading-[1.4] text-muted-foreground sm:hidden">
+                {copy.trust.mobileItems.map((item) => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <Check aria-hidden="true" className="size-3.5 shrink-0 text-foreground/60" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
               <ul className="hidden flex-col gap-1.5 text-[0.8125rem] leading-5 text-foreground/80 sm:flex sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:text-sm sm:leading-normal">
                 {copy.trust.items.map((item) => (
                   <li key={item} className="flex items-center gap-2">
