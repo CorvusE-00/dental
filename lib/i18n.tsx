@@ -305,7 +305,7 @@ export function useLocale() {
 }
 
 export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
-  const { locale, setLocale } = useLocale()
+  const { locale } = useLocale()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -313,8 +313,9 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
     if (nextLocale === locale) return
     const hash = typeof window === 'undefined' ? '' : window.location.hash
     const path = nextLocale === 'en' ? pathname.replace(/^\/tr(?=\/|$)/, '') || '/' : `/tr${pathname === '/' ? '' : pathname}`
-    setLocale(nextLocale)
-    router.push(`${path}${hash}`)
+    const scrollY = typeof window === 'undefined' ? 0 : window.scrollY
+    router.replace(`${path}${hash}`, { scroll: false })
+    window.requestAnimationFrame(() => window.scrollTo({ top: scrollY, behavior: 'auto' }))
   }
 
   return (

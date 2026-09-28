@@ -4,7 +4,7 @@
 
 This document replaces `IMPLEMENTATION_KICKSTART.md` as the implementation anchor for the Luma Dental Istanbul prototype.
 
-Implementation status: the dual-audience pass, mobile care-section hierarchy, distinct editorial image system, English/Turkish prototype routes, responsive journey and FAQ layouts, opaque mobile header treatment, stable in-page anchor positioning, a single header language control, and the desktop hero crop refinement are implemented. The next work should replace prototype facts and imagery with approved clinic material and complete final content review.
+Implementation status: the dual-audience pass, mobile care-section hierarchy, distinct editorial image system, English/Turkish prototype routes, responsive journey and FAQ layouts, opaque mobile header treatment, stable in-page anchor positioning, a single header language control, the desktop hero crop refinement, a mobile-first hero image opening, and scroll-preserving locale switching are implemented. The next work should replace prototype facts and imagery with approved clinic material and complete final content review.
 
 The prototype has two jobs:
 
