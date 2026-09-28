@@ -2,16 +2,17 @@ export type NavItem = { id: string; label: string; href: `#${string}` }
 
 export const primaryNav: NavItem[] = [
   { id: 'treatments', label: 'Treatments', href: '#treatments' },
+  { id: 'local-care', label: 'Local Care', href: '#local-care' },
+  { id: 'international-care', label: 'International Care', href: '#international-care' },
   { id: 'results', label: 'Results', href: '#results' },
-  { id: 'why-luma', label: 'Why Luma', href: '#why-luma' },
   { id: 'doctors', label: 'Our Doctors', href: '#doctors' },
   { id: 'faq', label: 'FAQ', href: '#faq' },
 ]
 
 export const trustIndicators = [
-  'No commitment',
-  'Response within 24 hours',
-  'English-speaking team',
+  'Clinician-led planning',
+  'Clear next steps',
+  'Support from first conversation to aftercare',
 ] as const
 
 export type Metric = { id: string; value: string; label: string }
@@ -20,10 +21,11 @@ export const trustMetrics: Metric[] = [
   { id: 'patients', value: '8,000+', label: 'Patients treated' },
   { id: 'experience', value: '14+ years', label: 'Clinical experience' },
   { id: 'rating', value: '4.9 / 5', label: 'Patient rating' },
-  { id: 'countries', value: '40+ countries', label: 'International patients' },
+  { id: 'care', value: 'Local + global', label: 'Care planned in Istanbul' },
 ]
 
 export type TreatmentId =
+  | 'routine-care'
   | 'dental-implants'
   | 'veneers'
   | 'crowns'
@@ -41,6 +43,15 @@ export type Treatment = {
 }
 
 export const featuredTreatments: Treatment[] = [
+  {
+    id: 'routine-care',
+    name: 'Check-ups & Preventive Care',
+    summary:
+      'Examinations, hygiene, fillings and gum care planned around your everyday health and the concerns you want to address.',
+    details: ['In-person assessment', 'Prevention-first planning'],
+    image: '/images/editorial/routine-care.jpg',
+    imageAlt: 'A bright dental treatment room prepared for a routine appointment.',
+  },
   {
     id: 'dental-implants',
     name: 'Dental Implants',
@@ -68,28 +79,39 @@ export const featuredTreatments: Treatment[] = [
     image: '/images/treatments/veneers.png',
     imageAlt: 'A row of porcelain veneers arranged on a neutral surface beside a shade guide.',
   },
-  {
-    id: 'all-on-4',
-    name: 'All-on-4 / All-on-6',
-    summary:
-      'Full-arch restoration supported by four or six implants, for patients missing most or all of their teeth.',
-    details: ['Usually 2 visits', 'Temporary teeth on day of surgery'],
-    image: '/images/treatments/all-on-4.png',
-    imageAlt: 'A full-arch implant-supported bridge model on a clinic workbench.',
-  },
 ]
 
-export const supportingTreatments = ['Zirconium Crowns', 'Teeth Whitening'] as const
+export const supportingTreatments = [
+  'Crowns and bridges',
+  'Dentures',
+  'All-on-4 / All-on-6',
+  'Teeth whitening',
+] as const
 
 export type TreatmentOption = { value: TreatmentId; label: string }
 
 export const treatmentInterestOptions: TreatmentOption[] = [
+  { value: 'routine-care', label: 'Check-ups or preventive care' },
   { value: 'dental-implants', label: 'Dental implants' },
   { value: 'veneers', label: 'Veneers' },
   { value: 'crowns', label: 'Crowns' },
   { value: 'smile-makeover', label: 'Full smile makeover' },
   { value: 'not-sure', label: 'Not sure yet' },
 ]
+
+export type PatientLocation = 'istanbul' | 'turkiye' | 'abroad'
+
+export const patientLocationOptions = [
+  { value: 'istanbul' as PatientLocation, label: 'I live in Istanbul' },
+  { value: 'turkiye' as PatientLocation, label: 'I live elsewhere in Türkiye' },
+  { value: 'abroad' as PatientLocation, label: 'I live outside Türkiye' },
+] as const
+
+export const carePathOptions = [
+  { value: 'exploring', label: 'I am exploring my options' },
+  { value: 'consultation', label: 'I need an in-person consultation' },
+  { value: 'international', label: 'I am planning treatment from abroad' },
+] as const
 
 export type ResultCase = {
   id: string
@@ -151,62 +173,117 @@ export const resultCases: ResultCase[] = [
 
 export type Feature = { id: string; title: string; description: string }
 
+export const localFeatures: Feature[] = [
+  {
+    id: 'local-consultation',
+    title: 'Meet the team in Istanbul',
+    description:
+      'Start with an in-person conversation about your health, your goals and the changes you would like to make.',
+  },
+  {
+    id: 'clear-options',
+    title: 'Understand your options',
+    description:
+      'We explain suitable routes, timings and next steps before you decide how you want to proceed.',
+  },
+  {
+    id: 'everyday-care',
+    title: 'Care for everyday needs',
+    description:
+      'From examinations and hygiene to restorative and cosmetic care, your plan can grow with your needs.',
+  },
+  {
+    id: 'local-aftercare',
+    title: 'Follow-up close to home',
+    description:
+      'Continue with clear aftercare and regular support at the clinic in Istanbul.',
+  },
+]
+
 export const internationalFeatures: Feature[] = [
+  {
+    id: 'international-planning',
+    title: 'Plan before you travel',
+    description:
+      'Share the information you have and receive clear options to discuss before you arrange your visit.',
+  },
   {
     id: 'coordinator',
     title: 'One coordinator, start to finish',
     description:
-      'A dedicated English- or German-speaking coordinator answers your questions and organises every appointment.',
-  },
-  {
-    id: 'planning',
-    title: 'Planned before you travel',
-    description:
-      'Your photos and X-rays are reviewed by our clinicians, so you arrive with a clear, individualised plan.',
+      'A dedicated coordinator helps organise appointments and keeps the practical details in one place.',
   },
   {
     id: 'logistics',
-    title: 'Transfers and stay, arranged',
+    title: 'A visit shaped around your dates',
     description:
-      'Airport pick-up, clinic transfers and partner hotels in Nişantaşı, coordinated around your treatment days.',
+      'When appropriate, appointment timing and local travel guidance can be planned around your stay.',
   },
   {
     id: 'aftercare',
     title: 'Aftercare that continues at home',
     description:
-      'Follow-up video consultations and clear written guidance once you are back home.',
+      'Receive clear written guidance and follow-up support once you have returned home.',
   },
 ]
 
 export type JourneyStep = { id: string; title: string; description: string }
 
-export const patientJourney: JourneyStep[] = [
+export const localPatientJourney: JourneyStep[] = [
   {
-    id: 'share',
-    title: 'Share your smile',
-    description: 'Send a few photos or recent X-rays and tell us what you would like to change.',
+    id: 'local-start',
+    title: 'Tell us what you need',
+    description: 'Share what has changed, what concerns you and what you would like to understand.',
   },
   {
-    id: 'plan',
-    title: 'Receive your treatment plan',
+    id: 'local-assessment',
+    title: 'Meet the team for an assessment',
+    description: 'Discuss your health and goals in person at the clinic in Istanbul.',
+  },
+  {
+    id: 'local-options',
+    title: 'Review your options',
+    description: 'Receive a clear explanation of suitable routes, timing and the next decision.',
+  },
+  {
+    id: 'local-treatment',
+    title: 'Begin when you are ready',
+    description: 'Move forward with a plan that fits your priorities and your schedule.',
+  },
+  {
+    id: 'local-aftercare',
+    title: 'Continue with local follow-up',
+    description: 'Keep receiving guidance and aftercare close to home.',
+  },
+]
+
+export const internationalPatientJourney: JourneyStep[] = [
+  {
+    id: 'international-share',
+    title: 'Share what you have',
+    description: 'Send a few photos or recent records and tell us what you would like to change.',
+  },
+  {
+    id: 'international-plan',
+    title: 'Review your initial options',
     description:
-      'Within 24 hours, a clinician-reviewed plan with options, timings and a transparent estimate.',
+      'Discuss possible routes, timings and the information still needed before you travel.',
   },
   {
-    id: 'travel',
-    title: 'Travel to Istanbul',
-    description: 'We coordinate your appointments, transfers and accommodation around your dates.',
+    id: 'international-dates',
+    title: 'Coordinate your dates',
+    description: 'Plan appointments and practical details around your time in Istanbul.',
   },
   {
-    id: 'treatment',
-    title: 'Treatment in clinic',
+    id: 'international-treatment',
+    title: 'Complete your in-clinic assessment',
     description:
       'A full clinical assessment confirms your plan before any treatment begins.',
   },
   {
-    id: 'aftercare',
+    id: 'international-aftercare',
     title: 'Aftercare at home',
-    description: 'Follow-up check-ins with your coordinator and clinician once you have returned.',
+    description: 'Continue with clear guidance and follow-up once you have returned home.',
   },
 ]
 
@@ -298,40 +375,46 @@ export type Faq = { id: string; question: string; answer: string }
 
 export const faqs: Faq[] = [
   {
-    id: 'plan-cost',
-    question: 'Is the treatment plan really free?',
+    id: 'first-consultation',
+    question: 'What happens at the first consultation?',
     answer:
-      'Yes. Sharing your photos or X-rays and receiving an initial plan is free and carries no commitment. Final recommendations are confirmed after an in-person clinical assessment.',
-  },
-  {
-    id: 'duration',
-    question: 'How long will I need to stay in Istanbul?',
-    answer:
-      'It depends on your treatment. Veneers and crowns usually take 5–7 days in one visit. Implant treatments typically involve two visits several months apart to allow healing.',
+      'We listen to what you want to change, review your dental health and explain the next useful step. Final recommendations depend on an appropriate clinical assessment.',
   },
   {
     id: 'suitability',
-    question: 'How do you know if I am suitable for treatment?',
+    question: 'How do you know which treatment is suitable?',
     answer:
-      'Your initial plan is based on the records you share. Suitability varies from person to person, and your clinician will confirm the plan with a full examination and 3D imaging on arrival.',
+      'Suitability varies from person to person. The team considers your health, anatomy, goals and records before confirming any treatment route.',
   },
   {
-    id: 'languages',
-    question: 'Will I be able to communicate with the team?',
+    id: 'estimate',
+    question: 'Will I understand the estimate before treatment?',
     answer:
-      'Our clinicians speak English, and your patient coordinator supports you in English or German from your first message through aftercare.',
+      'The aim is to explain the proposed options, timings and expected costs clearly before you decide how to proceed. The final plan follows the appropriate assessment.',
   },
   {
-    id: 'travel',
-    question: 'Do you help with flights and accommodation?',
+    id: 'routine-care',
+    question: 'Do you offer routine check-ups and hygiene?',
     answer:
-      'We arrange airport transfers, clinic transfers and partner hotels close to the clinic. You book your own flights so you keep full control over your dates.',
+      'The prototype includes examinations, hygiene, restorative care, cosmetic care and implant planning. The future clinic should replace this list with its verified services.',
+  },
+  {
+    id: 'international-planning',
+    question: 'Can I start planning from outside Istanbul?',
+    answer:
+      'Yes. You can begin by sharing the information you have. An in-clinic assessment is still required before any final treatment recommendation.',
+  },
+  {
+    id: 'travel-support',
+    question: 'Can you help with practical travel planning?',
+    answer:
+      'For international patients, appointment timing and local travel guidance can be discussed around the visit. Any transfer, accommodation or language services should be confirmed by the real clinic.',
   },
   {
     id: 'aftercare',
-    question: 'What happens if I need support after I return home?',
+    question: 'What happens after treatment?',
     answer:
-      'Your coordinator stays in touch after treatment, with scheduled video check-ins and written aftercare guidance. If a concern arises, we will advise on next steps.',
+      'You receive written aftercare guidance and follow-up support appropriate to your treatment. If a concern arises, the clinic will explain the next step.',
   },
 ]
 
@@ -362,13 +445,14 @@ export const footerColumns: FooterColumn[] = [
     ],
   },
   {
-    id: 'international',
-    title: 'International Patients',
+    id: 'patient-care',
+    title: 'Patient Care',
     links: [
+      { label: 'Local Care', href: '#local-care' },
+      { label: 'International Care', href: '#international-care' },
       { label: 'Treatment Planning', href: '#journey' },
-      { label: 'Travel Information', href: '#why-luma' },
-      { label: 'Aftercare', href: '#why-luma' },
-      { label: 'Patient Coordinator', href: '#doctors' },
+      { label: 'Aftercare', href: '#international-care' },
+      { label: 'Contact', href: '#contact' },
     ],
   },
 ]

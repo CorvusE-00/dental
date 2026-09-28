@@ -1,8 +1,14 @@
+'use client'
+
 import Image from 'next/image'
 import type { TeamMember } from '@/lib/data'
+import { useLocale } from '@/lib/i18n'
 
 export function DoctorCard({ member }: { member: TeamMember }) {
-  const meta = [member.credentials, member.experience, member.languages].filter(Boolean)
+  const { locale, copy } = useLocale()
+  const localized = copy.doctors[member.id] ?? {}
+  const experience = locale === 'tr' ? member.experience?.replace('years experience', 'yıl deneyim') : member.experience
+  const meta = [member.credentials, experience, localized.languages ?? member.languages].filter(Boolean)
 
   return (
     <article className="flex flex-col gap-5">
@@ -17,7 +23,7 @@ export function DoctorCard({ member }: { member: TeamMember }) {
       </div>
       <div className="flex flex-col gap-1.5">
         <h3 className="text-lg font-medium tracking-[-0.01em]">{member.name}</h3>
-        <p className="text-sm text-foreground/80">{member.role}</p>
+        <p className="text-sm text-foreground/80">{localized.role ?? member.role}</p>
         <p className="text-sm text-muted-foreground">{meta.join(' · ')}</p>
       </div>
     </article>

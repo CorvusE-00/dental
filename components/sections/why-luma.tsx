@@ -1,32 +1,72 @@
+'use client'
+
 import Image from 'next/image'
 import { Reveal } from '@/components/shared/reveal'
 import { SectionHeading } from '@/components/shared/section-heading'
-import { internationalFeatures } from '@/lib/data'
+import { internationalFeatures, localFeatures } from '@/lib/data'
+import { useLocale } from '@/lib/i18n'
 
 export function WhyLuma() {
+  const { copy } = useLocale()
   return (
-    <section id="why-luma" aria-labelledby="why-luma-title" className="section-y bg-secondary">
-      <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted lg:col-span-5">
-          <Image
-            src="/images/international.png"
-            alt="A patient coordinator welcoming an international patient at the clinic reception."
-            fill
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover"
-          />
-        </div>
+    <>
+      <CareSection
+        id="local-care"
+        image="/images/editorial/local-care.jpg"
+        imageAlt={copy.sections.local.imageAlt}
+        eyebrow={copy.sections.local.eyebrow}
+        title={copy.sections.local.title}
+        description={copy.sections.local.description}
+        features={localFeatures.map((feature) => ({ ...feature, ...copy.localFeatures[feature.id] }))}
+      />
+      <CareSection
+        id="international-care"
+        image="/images/editorial/patient-journey.jpg"
+        imageAlt={copy.sections.international.imageAlt}
+        eyebrow={copy.sections.international.eyebrow}
+        title={copy.sections.international.title}
+        description={copy.sections.international.description}
+        features={internationalFeatures.map((feature) => ({ ...feature, ...copy.internationalFeatures[feature.id] }))}
+        tone="secondary"
+        imageOnRight
+      />
+    </>
+  )
+}
 
-        <div className="flex flex-col justify-center gap-12 lg:col-span-7">
-          <SectionHeading
-            id="why-luma-title"
-            eyebrow="Why Luma"
-            title="Designed around international patients."
-            description="Travelling for treatment should feel considered, not complicated. Every detail of your visit is coordinated around your plan."
-          />
+function CareSection({
+  id,
+  image,
+  imageAlt,
+  eyebrow,
+  title,
+  description,
+  features,
+  tone = 'default',
+  imageOnRight = false,
+}: {
+  id: string
+  image: string
+  imageAlt: string
+  eyebrow: string
+  title: string
+  description: string
+  features: { id: string; title: string; description: string }[]
+  tone?: 'default' | 'secondary'
+  imageOnRight?: boolean
+}) {
+  return (
+    <section
+      id={id}
+      aria-labelledby={`${id}-title`}
+      className={`section-y scroll-mt-[calc(var(--header-height)+1rem)] ${tone === 'secondary' ? 'bg-secondary' : ''}`}
+    >
+      <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className={`order-1 flex flex-col justify-center gap-10 lg:col-span-7 lg:gap-12 ${imageOnRight ? 'lg:order-1' : 'lg:order-2'}`}>
+          <SectionHeading id={`${id}-title`} eyebrow={eyebrow} title={title} description={description} />
 
           <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-            {internationalFeatures.map((feature, index) => (
+            {features.map((feature, index) => (
               <li key={feature.id}>
                 <Reveal delay={index * 0.06} className="flex flex-col gap-3 border-t border-foreground/15 pt-5">
                   <h3 className="text-lg font-medium tracking-[-0.01em]">{feature.title}</h3>
@@ -35,6 +75,10 @@ export function WhyLuma() {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className={`order-2 relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted sm:aspect-[3/2] lg:col-span-5 lg:aspect-[4/5] ${imageOnRight ? 'lg:order-2' : 'lg:order-1'}`}>
+          <Image src={image} alt={imageAlt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
         </div>
       </div>
     </section>

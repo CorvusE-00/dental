@@ -4,10 +4,12 @@ import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { ChevronsLeftRight } from 'lucide-react'
 import type { ResultCase } from '@/lib/data'
+import { useLocale } from '@/lib/i18n'
 
 const clamp = (value: number) => Math.min(100, Math.max(0, value))
 
 export function BeforeAfterSlider({ result }: { result: ResultCase }) {
+  const { copy } = useLocale()
   const [position, setPosition] = useState(50)
   const containerRef = useRef<HTMLDivElement>(null)
   const draggingRef = useRef(false)
@@ -83,10 +85,10 @@ export function BeforeAfterSlider({ result }: { result: ResultCase }) {
       </div>
 
       <span className="pointer-events-none absolute top-3 left-3 rounded-md bg-background/85 px-2.5 py-1 text-xs font-medium tracking-wide text-foreground">
-        Before
+        {copy.common.before}
       </span>
       <span className="pointer-events-none absolute top-3 right-3 rounded-md bg-background/85 px-2.5 py-1 text-xs font-medium tracking-wide text-foreground">
-        After
+        {copy.common.after}
       </span>
 
       <div
@@ -97,11 +99,11 @@ export function BeforeAfterSlider({ result }: { result: ResultCase }) {
       <div
         role="slider"
         tabIndex={0}
-        aria-label={`Before and after comparison, ${result.patient}`}
+        aria-label={`${copy.common.comparison}, ${result.patient}`}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={rounded}
-        aria-valuetext={`${rounded}% before image visible`}
+        aria-valuetext={`${rounded}${copy.common.beforeVisible}`}
         aria-orientation="horizontal"
         onKeyDown={handleKeyDown}
         className="absolute top-1/2 flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-background text-foreground shadow-[0_2px_12px_rgba(21,35,33,0.18)] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-background"

@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PRIMARY_CTA_LABEL } from '@/lib/constants'
 import { useTreatmentPlan } from '@/components/shared/treatment-plan-provider'
+import { useLocale } from '@/lib/i18n'
 
 type PrimaryCtaProps = {
   tone?: 'ink' | 'light'
@@ -33,6 +34,7 @@ export function PrimaryCta({
   returnFocusTo,
 }: PrimaryCtaProps) {
   const { openTreatmentPlan } = useTreatmentPlan()
+  const { locale } = useLocale()
 
   return (
     <button
@@ -48,7 +50,7 @@ export function PrimaryCta({
         className,
       )}
     >
-      {PRIMARY_CTA_LABEL}
+      {locale === 'en' ? PRIMARY_CTA_LABEL : 'Tedavi Planımı Başlat'}
       <ArrowRight
         aria-hidden="true"
         className="size-4 transition-transform duration-300 group-hover:translate-x-0.5"

@@ -17,9 +17,9 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: 'Luma Dental Istanbul | International Dental Care',
+  title: 'Luma Dental Istanbul | Thoughtful Dental Care',
   description:
-    'A fictional premium dental tourism clinic prototype for international patients travelling to Istanbul.',
+    'A fictional premium dental care prototype for people in Istanbul and patients travelling from abroad.',
   icons: {
     icon: [
       { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },

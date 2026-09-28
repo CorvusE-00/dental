@@ -3,6 +3,7 @@
 import { useId, useRef, useState } from 'react'
 import { FileText, ImageIcon, Upload, X } from 'lucide-react'
 import { UPLOAD_RULES } from '@/lib/constants'
+import { useLocale } from '@/lib/i18n'
 
 type FileUploadFieldProps = {
   id: string
@@ -24,6 +25,7 @@ function isAcceptedType(file: File) {
 }
 
 export function FileUploadField({ id, files, onChange }: FileUploadFieldProps) {
+  const { locale, copy } = useLocale()
   const inputRef = useRef<HTMLInputElement>(null)
   const [errors, setErrors] = useState<string[]>([])
   const hintId = useId()
@@ -36,13 +38,13 @@ export function FileUploadField({ id, files, onChange }: FileUploadFieldProps) {
 
     for (const file of Array.from(selected)) {
       if (!isAcceptedType(file)) {
-        nextErrors.push(`${file.name} is not a supported file type. Use JPG, PNG or PDF.`)
+        nextErrors.push(locale === 'tr' ? `${file.name} desteklenmeyen bir dosya türü. JPG, PNG veya PDF kullanın.` : `${file.name} is not a supported file type. Use JPG, PNG or PDF.`)
       } else if (file.size > UPLOAD_RULES.maxFileSizeBytes) {
-        nextErrors.push(`${file.name} is larger than 10 MB.`)
+        nextErrors.push(locale === 'tr' ? `${file.name} 10 MB'dan büyük.` : `${file.name} is larger than 10 MB.`)
       } else if (accepted.some((existing) => existing.name === file.name && existing.size === file.size)) {
-        nextErrors.push(`${file.name} has already been added.`)
+        nextErrors.push(locale === 'tr' ? `${file.name} zaten eklendi.` : `${file.name} has already been added.`)
       } else if (accepted.length >= UPLOAD_RULES.maxFiles) {
-        nextErrors.push(`${file.name} was not added. You can attach up to ${UPLOAD_RULES.maxFiles} files.`)
+        nextErrors.push(locale === 'tr' ? `${file.name} eklenmedi. En fazla ${UPLOAD_RULES.maxFiles} dosya ekleyebilirsiniz.` : `${file.name} was not added. You can attach up to ${UPLOAD_RULES.maxFiles} files.`)
       } else {
         accepted.push(file)
       }
@@ -64,7 +66,7 @@ export function FileUploadField({ id, files, onChange }: FileUploadFieldProps) {
   return (
     <div className="flex flex-col gap-2">
       <span id={`${id}-label`} className="text-sm font-medium text-foreground">
-        Photos / X-rays <span className="font-normal text-muted-foreground">(optional)</span>
+        {copy.form.uploadLabel} <span className="font-normal text-muted-foreground">({copy.form.uploadOptional})</span>
       </span>
 
       <div className="relative">
@@ -87,13 +89,13 @@ export function FileUploadField({ id, files, onChange }: FileUploadFieldProps) {
         >
           <Upload aria-hidden="true" className="size-5 text-muted-foreground" />
           <span id={`${id}-action`} className="text-sm font-medium">
-            {limitReached ? 'File limit reached' : 'Choose files'}
+            {limitReached ? copy.form.fileLimitReached : copy.form.chooseFiles}
           </span>
         </label>
       </div>
 
       <p id={hintId} className="text-xs text-muted-foreground">
-        JPG, PNG or PDF · Up to {UPLOAD_RULES.maxFiles} files · 10 MB each
+        {copy.form.uploadHint}
       </p>
 
       <div id={errorId} aria-live="polite">
@@ -107,7 +109,7 @@ export function FileUploadField({ id, files, onChange }: FileUploadFieldProps) {
       </div>
 
       {files.length > 0 ? (
-        <ul className="flex flex-col divide-y divide-border rounded-[10px] border border-border" aria-label="Selected files">
+        <ul className="flex flex-col divide-y divide-border rounded-[10px] border border-border" aria-label={copy.form.selectedFiles}>
           {files.map((file, index) => {
             const Icon = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf') ? FileText : ImageIcon
             return (
@@ -118,7 +120,7 @@ export function FileUploadField({ id, files, onChange }: FileUploadFieldProps) {
                 <button
                   type="button"
                   onClick={() => removeFile(index)}
-                  aria-label={`Remove ${file.name}`}
+                  aria-label={`${copy.form.removeFile} ${file.name}`}
                   className="flex size-11 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-sage-soft hover:text-foreground"
                 >
                   <X aria-hidden="true" className="size-4" />

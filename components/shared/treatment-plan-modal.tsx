@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { TreatmentPlanForm } from '@/components/shared/treatment-plan-form'
 import { PRIMARY_CTA_LABEL } from '@/lib/constants'
+import { useLocale } from '@/lib/i18n'
 
 type TreatmentPlanModalProps = {
   open: boolean
@@ -20,6 +21,7 @@ type TreatmentPlanModalProps = {
 
 export function TreatmentPlanModal({ open, onOpenChange, returnFocusRef }: TreatmentPlanModalProps) {
   const [submitted, setSubmitted] = useState(false)
+  const { locale, copy } = useLocale()
 
   return (
     <Dialog
@@ -38,13 +40,12 @@ export function TreatmentPlanModal({ open, onOpenChange, returnFocusRef }: Treat
         ) : (
           <div className="flex flex-col gap-8 p-6 sm:p-10">
             <header className="flex flex-col gap-3 pr-8">
-              <p className="eyebrow">Free · No commitment</p>
+              <p className="eyebrow">{copy.modal.eyebrow}</p>
               <DialogTitle className="font-serif text-3xl leading-[1.1] font-normal tracking-[-0.01em] sm:text-4xl">
-                {PRIMARY_CTA_LABEL}
+                {locale === 'tr' ? 'Tedavi Planımı Başlat' : PRIMARY_CTA_LABEL}
               </DialogTitle>
               <DialogDescription className="text-[0.9375rem] leading-relaxed text-muted-foreground">
-                Tell us a little about you and what you would like to change. A clinician-reviewed
-                plan usually follows within 24 hours.
+                {copy.modal.description}
               </DialogDescription>
             </header>
             <TreatmentPlanForm onSubmitted={() => setSubmitted(true)} />
@@ -56,6 +57,7 @@ export function TreatmentPlanModal({ open, onOpenChange, returnFocusRef }: Treat
 }
 
 function SubmissionSuccess() {
+  const { copy } = useLocale()
   const headingRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
@@ -73,14 +75,14 @@ function SubmissionSuccess() {
           tabIndex={-1}
           className="font-serif text-3xl leading-[1.1] font-normal tracking-[-0.01em] outline-none sm:text-4xl"
         >
-          Thank you. Your treatment request has been received.
+          {copy.modal.successTitle}
         </DialogTitle>
         <DialogDescription className="text-[0.9375rem] leading-relaxed text-muted-foreground">
-          This is a demonstration form. No information has been transmitted.
+          {copy.modal.successDescription}
         </DialogDescription>
       </div>
       <DialogClose className="inline-flex h-12 items-center justify-center rounded-[10px] bg-primary px-6 text-[0.9375rem] font-medium text-primary-foreground transition-colors hover:bg-primary/90">
-        Close
+        {copy.modal.close}
       </DialogClose>
     </div>
   )

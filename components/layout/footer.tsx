@@ -1,7 +1,11 @@
+'use client'
+
 import { SITE } from '@/lib/constants'
-import { footerColumns, legalLinks } from '@/lib/data'
+import { footerColumns } from '@/lib/data'
+import { useLocale } from '@/lib/i18n'
 
 export function Footer() {
+  const { copy } = useLocale()
   return (
     <footer data-hide-sticky-cta className="overflow-hidden border-t border-border bg-background">
       <div className="container-page pt-18 md:pt-24">
@@ -9,10 +13,10 @@ export function Footer() {
           <div className="flex flex-col gap-5 lg:col-span-4">
             <p className="font-serif text-3xl leading-none tracking-[-0.01em]">{SITE.name}</p>
             <p className="max-w-xs leading-relaxed text-muted-foreground">
-              Premium cosmetic and restorative dentistry for international patients in Istanbul.
+              {copy.footer.description}
             </p>
             <address className="flex flex-col gap-1 text-sm text-muted-foreground not-italic">
-              <span>{SITE.location}</span>
+              <span>{copy.footer.location}</span>
               <a href={`mailto:${SITE.email}`} className="w-fit py-1 hover:text-foreground">
                 {SITE.email}
               </a>
@@ -23,7 +27,7 @@ export function Footer() {
             {footerColumns.map((column) => (
               <nav key={column.id} aria-labelledby={`footer-${column.id}`} className="flex flex-col gap-4">
                 <h2 id={`footer-${column.id}`} className="eyebrow">
-                  {column.title}
+                  {copy.footer.columns[column.id]?.title ?? column.title}
                 </h2>
                 <ul className="flex flex-col">
                   {column.links.map((link) => (
@@ -32,7 +36,7 @@ export function Footer() {
                         href={link.href}
                         className="inline-flex min-h-10 items-center text-sm text-foreground/85 transition-colors hover:text-foreground"
                       >
-                        {link.label}
+                        {copy.footer.columns[column.id]?.links[link.label] ?? link.label}
                       </a>
                     </li>
                   ))}
@@ -47,14 +51,14 @@ export function Footer() {
             {'© '}
             {SITE.year} {SITE.name}
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2" aria-label="Legal (not available in this prototype)">
-            {legalLinks.map((label) => (
+          <ul className="flex flex-wrap gap-x-6 gap-y-2" aria-label={copy.footer.legalLabel}>
+            {copy.footer.legal.map((label) => (
               <li key={label}>{label}</li>
             ))}
           </ul>
         </div>
         <p className="pb-6 text-xs text-muted-foreground">
-          Luma Dental Istanbul is a fictional clinic created for demonstration purposes.
+          {copy.footer.prototype}
         </p>
       </div>
 
