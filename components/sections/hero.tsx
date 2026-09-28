@@ -35,15 +35,15 @@ export function Hero() {
             />
           </div>
 
-          <TrustStrip compact className="order-3 md:hidden" />
-
-          <div data-hide-sticky-cta className="order-4 flex flex-col gap-3 lg:order-none lg:col-span-5 lg:gap-7 lg:pb-3">
+          <div data-hide-sticky-cta className="order-3 flex flex-col gap-3 lg:order-none lg:col-span-5 lg:gap-7 lg:pb-3">
             <p className="max-w-md text-[0.9375rem] leading-[1.45] text-pretty text-muted-foreground md:text-lg">
-              {copy.hero.description}
+              <span className="sm:hidden">{copy.hero.mobileDescription}</span>
+              <span className="hidden sm:inline">{copy.hero.description}</span>
             </p>
             <div className="flex flex-col gap-3 lg:gap-5">
               <PrimaryCta size="lg" className="h-12 w-full px-5 text-[0.9375rem] sm:h-14 sm:w-fit sm:px-7 sm:text-base" />
-              <ul className="flex flex-col gap-1.5 text-[0.8125rem] leading-5 text-foreground/80 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:text-sm sm:leading-normal">
+              <p className="text-[0.75rem] leading-[1.4] text-muted-foreground sm:hidden">{copy.trust.items.join(' · ')}</p>
+              <ul className="hidden flex-col gap-1.5 text-[0.8125rem] leading-5 text-foreground/80 sm:flex sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:text-sm sm:leading-normal">
                 {copy.trust.items.map((item) => (
                   <li key={item} className="flex items-center gap-2">
                     <Check aria-hidden="true" className="size-3.5 text-foreground/60" />
@@ -51,7 +51,7 @@ export function Hero() {
                   </li>
                 ))}
               </ul>
-              <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] leading-5 text-muted-foreground sm:gap-y-2 sm:text-sm sm:leading-normal">
+              <div className="hidden flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] leading-5 text-muted-foreground sm:flex sm:gap-y-2 sm:text-sm sm:leading-normal">
                 <a href="#local-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
                   {copy.hero.localLink}
                 </a>
@@ -63,6 +63,17 @@ export function Hero() {
                 </a>
               </div>
             </div>
+          </div>
+
+          <TrustStrip compact className="order-4 md:hidden" />
+
+          <div className="order-5 flex flex-wrap gap-x-5 gap-y-1.5 text-[0.8125rem] leading-5 text-muted-foreground sm:hidden">
+            <a href="#local-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
+              {copy.hero.localLink}
+            </a>
+            <a href="#international-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
+              {copy.hero.internationalLink}
+            </a>
           </div>
         </div>
       </div>
