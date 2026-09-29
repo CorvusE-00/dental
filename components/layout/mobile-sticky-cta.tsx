@@ -1,29 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { useTreatmentPlan } from '@/components/shared/treatment-plan-provider'
+import { useMobileStickyCtaVisibility } from '@/components/shared/use-mobile-sticky-cta-visibility'
 import { cn } from '@/lib/utils'
 import { usePatientAssistant } from '@/components/patient-assistant/patient-assistant-provider'
 
 export function MobileStickyCta() {
   const { isOpen } = useTreatmentPlan()
   const { isOpen: assistantOpen } = usePatientAssistant()
-  const [blocked, setBlocked] = useState(true)
-
-  useEffect(() => {
-    const targets = document.querySelectorAll('[data-hide-sticky-cta]')
-    const visible = new Set<Element>()
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) visible.add(entry.target)
-        else visible.delete(entry.target)
-      }
-      setBlocked(visible.size > 0)
-    })
-    targets.forEach((target) => observer.observe(target))
-    return () => observer.disconnect()
-  }, [])
+  const { isStickyCtaBlocked: blocked } = useMobileStickyCtaVisibility()
 
   const hidden = blocked || isOpen || assistantOpen
 

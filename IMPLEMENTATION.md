@@ -176,6 +176,28 @@ Do not redesign the site or introduce a second visual identity. The panel should
 - [x] Run build and TypeScript checks and review English/Turkish desktop and mobile rendering.
 - [x] Confirm no AI model, backend, external service, database, analytics, authentication, file upload, or medical diagnosis was introduced.
 
+## 14. Patient Assistant mobile launcher positioning correction
+
+### Scope
+
+Make one focused responsive correction to the existing Patient Assistant launcher. Keep the assistant design, conversation flow, panel, Treatment Plan workflow, copy, and desktop behavior unchanged.
+
+The launcher currently uses a fixed mobile offset that assumes the mobile sticky Treatment Plan CTA is always visible. Reuse the existing `[data-hide-sticky-cta]` visibility model so the launcher can distinguish these states:
+
+- When the sticky CTA is hidden, place the launcher near the mobile viewport edge with normal spacing and `env(safe-area-inset-bottom)`.
+- When the sticky CTA is visible, raise the launcher enough to clear the CTA with deliberate spacing.
+- When the assistant or Treatment Plan modal is open, avoid overlapping floating controls and preserve the current open/close behavior.
+- Preserve the desktop launcher position and panel behavior.
+
+Prefer extracting a small shared visibility hook from `MobileStickyCta` rather than duplicating its IntersectionObserver logic or adding a broad context refactor. Keep the launcher touch target and reduced-motion behavior unchanged or better.
+
+### Implementation checklist
+
+- [x] Extract or share the existing sticky CTA visibility calculation without changing its current behavior.
+- [x] Drive the mobile launcher offset from actual sticky CTA visibility and preserve desktop positioning.
+- [x] Verify the initial hero, a sticky-CTA-visible section, assistant open/close, Treatment Plan modal, safe-area, and desktop states.
+- [x] Run the production build and TypeScript checks, review the focused diff, and confirm no unrelated changes.
+
 ### Definition of ready for the assistant shell
 
 The assistant pass is ready when the launcher is quiet, accessible, responsive, and visually native to Luma; when the panel works as a contained desktop and mobile conversation surface; when English and Turkish copy is complete; when the welcome, quick-reply, typed-message, reset, close, focus-return, Escape, safe-area, keyboard, and reduced-motion behaviors are verified; when the existing Treatment Plan flow remains unchanged; and when the implementation is clearly local-only and ready for a later backend adapter without including one now.
