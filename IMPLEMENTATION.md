@@ -11,7 +11,7 @@ The prototype has two jobs:
 1. Present a credible, polished example of what a modern clinic website could be.
 2. Model a clinic website that can serve people who already live in Istanbul as well as patients travelling to Istanbul from elsewhere.
 
-The current phase remains frontend-only. There is no backend, CRM, booking engine, authentication, payment flow, analytics infrastructure, AI assistant, or real transmission of form data or uploaded files.
+The current phase remains frontend-only. There is no backend, CRM, booking engine, authentication, payment flow, analytics infrastructure, AI assistant, or real transmission of form data or uploaded files. The next planned pass is metadata, search visibility, and share-preview preparation; it will not change the product boundary or add a data service.
 
 All clinic names, people, credentials, statistics, reviews, patient cases, imagery, and clinical content remain fictional demonstration content until replaced with verified material and appropriate permissions.
 
@@ -403,3 +403,160 @@ The next implementation pass is ready when:
 - Reduced-motion support.
 
 This document is the current source of truth for the next review and implementation pass.
+
+## 12. Metadata, social previews, and search foundation plan
+
+### Objective
+
+Replace the current minimal metadata with a complete, localized, production-safe metadata system for the English homepage (`/`) and Turkish homepage (`/tr`). The shared preview should show a polished snapshot of the actual Luma landing page instead of a generic or incomplete URL preview.
+
+This phase will prepare the site for search engines and link sharing on Facebook, Instagram messages, WhatsApp, LinkedIn, Slack, Telegram, X, and similar services that read Open Graph or Twitter Card metadata. It will not claim real clinic facts, verified reviews, clinician credentials, or social profiles until those details are supplied and approved.
+
+### Current gaps to address
+
+- `app/layout.tsx` has a title, a short prototype description, and icons, but no `metadataBase`, Open Graph object, Twitter Card object, publisher information, robots policy, sitemap, or social preview image.
+- The localized page has a Turkish title and description, but the English route does not provide a route-specific description and both routes need a shared, explicit metadata strategy.
+- Canonical and alternate language URLs are currently relative and do not include an `x-default` alternate.
+- The root layout always renders `lang="en"`, including `/tr`; the document language should follow the active route.
+- No committed website snapshot is available as an Open Graph or Twitter image.
+- There is no `robots.txt` or XML sitemap route.
+- There is no approved production origin, clinic social profile, phone number, address, opening hours, or verified organization data to put into metadata or structured data.
+
+### Recommended metadata model
+
+Create one typed site configuration module for values shared by `layout.tsx`, localized `generateMetadata`, `robots.ts`, `sitemap.ts`, and JSON-LD. Read the public production origin from a dedicated environment variable such as `NEXT_PUBLIC_SITE_URL`; use the final clinic domain when available and never use `localhost` or a temporary Vercel preview URL in canonical, sitemap, or social tags.
+
+Use localized metadata for `/` and `/tr`:
+
+- English title: `Luma Dental Istanbul | Thoughtful Dental Care`.
+- Turkish title: `Luma Dental Istanbul | Özenli Diş Bakımı`.
+- English description focused on cosmetic, restorative, implant, everyday care, Istanbul patients, and patients travelling from abroad.
+- Turkish description with the same meaning and natural Turkish healthcare wording.
+- `metadataBase` set to the approved production origin.
+- Absolute canonical URLs for `/` and `/tr`.
+- `alternates.languages` for `en`, `tr`, and `x-default`, with `/` as the default English route.
+- `applicationName`, `siteName`, `publisher`, and `creator` only where the clinic has approved the wording.
+- Existing favicons and Apple icon retained, with an audit of their light and dark appearance.
+- A light theme color and viewport configuration retained unless the final brand system changes.
+
+Keep titles concise enough for search results and descriptions readable when truncated. Avoid keyword stuffing, unverified treatment guarantees, price claims, “best clinic” language, or claims that the prototype figures are real.
+
+### Website snapshot for URL previews
+
+Create a clean social snapshot from the rendered landing page rather than using a browser screenshot with browser chrome, scrollbars, or mobile UI. The capture should use the approved desktop composition at `1200 × 630` pixels, the standard Open Graph ratio.
+
+Recommended snapshot composition:
+
+- Luma wordmark and `Dental Istanbul` identifier.
+- The approved landing headline or a shorter share headline that remains legible at preview size.
+- The real hero consultation image already used by the page, with both faces visible.
+- A quiet ivory background and deep ink typography matching the site.
+- A small Istanbul location cue and a neutral line such as `Thoughtful dental care, planned around you.`
+- No placeholder statistics, fictional patient claims, browser controls, visible scrollbars, or dense body copy.
+
+Generate and review two committed snapshots so shared links remain language-appropriate:
+
+- `public/images/social/luma-og-en.png`.
+- `public/images/social/luma-og-tr.png`.
+
+Each file should be optimized below the platform limits, checked at 1200 × 630, and accompanied by explicit accessible image alt text in metadata. The implementation can reference these static files from localized `openGraph.images` and `twitter.images`. Next.js file-based `opengraph-image` and `twitter-image` conventions remain a valid alternative, but a committed static snapshot is preferable here because the request is for a stable visual snapshot of the approved website and avoids runtime rendering differences between crawlers.
+
+The capture workflow should be reproducible: build the production app, render `/` and `/tr` at the agreed desktop viewport, hide any preview-only overlays, capture the approved viewport, optimize the PNG, inspect it visually, and record the source and date in an image register. The snapshot must be regenerated whenever the hero headline, hero image, logo, or primary color changes materially.
+
+### Open Graph and social metadata
+
+Add a shared `openGraph` configuration with:
+
+- `type: website`.
+- Absolute `url` for the active locale.
+- Localized `title`, `description`, and `siteName`.
+- Localized `locale` values such as `en_TR` and `tr_TR`.
+- The matching 1200 × 630 snapshot with width, height, MIME type, and alt text.
+
+Add a `twitter` configuration with:
+
+- `card: summary_large_image`.
+- Localized title and description.
+- The matching snapshot and alt text.
+- `site` and `creator` handles only after the clinic confirms the official X account; do not invent handles.
+
+Open Graph will cover Facebook, LinkedIn, WhatsApp, Slack, Telegram, and most link-preview surfaces. Instagram profile links do not support a separate website card format, so the same canonical URL and share image should be used wherever a link is posted. A Facebook App ID should only be added if the clinic has an actual approved App ID.
+
+### Robots and sitemap
+
+Add the Next.js metadata route files:
+
+- `app/robots.ts` with an allow-all production policy, the approved sitemap URL, and a preview protection policy when running on temporary preview deployments.
+- `app/sitemap.ts` containing `/` and `/tr`, absolute URLs, stable `lastModified` handling, and language alternates for each route.
+
+Do not publish a sitemap or index a temporary preview hostname as the canonical site. Decide whether the current fictional prototype should remain `noindex` until the clinic approves the content; if it will be shown privately to clinics, the safer default is to keep non-production previews out of search and enable indexing only on the approved public domain.
+
+### Structured data
+
+Keep structured data conservative while the site contains fictional content. Do not add fake `Dentist`, `MedicalClinic`, `LocalBusiness`, `Review`, `AggregateRating`, or `FAQPage` data to make the prototype look more established.
+
+Once the clinic supplies verified information, add sanitized JSON-LD from a server component:
+
+- `WebSite` for the canonical site name and URL.
+- `WebPage` for the localized homepage.
+- `Dentist` or an appropriate medical business type with verified name, address, phone, hours, services, and official profile links.
+- `sameAs` links for confirmed Instagram, Facebook, LinkedIn, and other official profiles.
+- `FAQPage` only when the visible FAQ is approved, factual, and eligible for the intended search treatment.
+
+Escape `<` characters in serialized JSON-LD and validate the result with Google's Rich Results Test and Schema Markup Validator. Structured data must match visible page content and must never introduce a stronger medical or review claim than the page itself.
+
+### Files expected in the implementation pass
+
+- `app/layout.tsx` — shared metadata base, icons, theme values, and safe global defaults.
+- `app/[locale]/page.tsx` — localized title, description, canonical, alternates, Open Graph, and Twitter metadata.
+- A route-aware layout or equivalent server boundary — correct `html lang` for English and Turkish.
+- `app/robots.ts` — crawler policy and sitemap reference.
+- `app/sitemap.ts` — localized homepage URLs and alternates.
+- `lib/site-config.ts` or an equivalent typed module — production origin, approved brand strings, and social handles.
+- `public/images/social/luma-og-en.png` and `public/images/social/luma-og-tr.png` — approved website snapshots.
+- `public/images/social/SOURCES.md` — snapshot source, viewport, date, copy, image source, and approval status.
+- A server-rendered JSON-LD block — added only after verified clinic facts are available.
+
+### Implementation sequence
+
+1. Confirm the production domain, whether the public site should be indexable, the official clinic name, and the canonical English/Turkish descriptions.
+2. Confirm official social profile URLs and handles. Leave unknown fields out until confirmed.
+3. Capture and approve the English and Turkish 1200 × 630 website snapshots without browser chrome or prototype-only UI.
+4. Add shared typed configuration and route-aware localized metadata.
+5. Add `robots.ts` and `sitemap.ts` with production and preview behavior.
+6. Correct the document language for `/` and `/tr`.
+7. Add only safe `WebSite`/`WebPage` structured data initially; add medical business data after clinic verification.
+8. Build the site and inspect the rendered `<head>` for both routes.
+9. Verify that both snapshots return `200`, have the correct content type and dimensions, and are under platform limits.
+10. Test the share previews with Facebook Sharing Debugger, LinkedIn Post Inspector, Slack or WhatsApp link sharing, and an X card preview where available. Clear cached previews after any approved image change.
+11. Recheck canonical URLs, `hreflang`, robots, sitemap, icon rendering, localized `lang`, and absence of localhost or preview-host URLs.
+
+### Implementation checklist
+
+- [x] Read the repository instructions and the installed Next.js 16 metadata guides before editing.
+- [x] Reserve port `3001` for this preview so the other local website can keep its existing port.
+- [x] Add one typed site configuration with localized copy, preview image paths, absolute URL helpers, and a safe local fallback.
+- [x] Add localized canonical, alternate-language, Open Graph, and Twitter metadata for `/` and `/tr`.
+- [x] Add preview-safe `robots.txt` and production-only sitemap behavior.
+- [x] Replace the starter v0 favicon assets with the Luma mark and fresh cache-safe asset URLs.
+- [x] Capture and review the English and Turkish 1200 × 630 social snapshots.
+- [x] Add and verify the snapshot source register.
+- [x] Set the server-rendered document language from the requested route using the Next 16 `proxy.ts` boundary.
+- [x] Add safe `WebSite` and localized `WebPage` JSON-LD without fictional medical, review, or business claims.
+- [x] Run the production build and inspect rendered head output and metadata routes.
+- [x] Verify both social images at `1200 × 630`, under platform limits, with `200 image/png` responses.
+- [ ] Confirm the public domain, indexability decision, approved clinic facts, and official social profiles before launch.
+- [ ] Validate public share previews after a real domain is configured.
+
+### Decisions required before implementation
+
+- What is the final public domain that should appear in canonical URLs and social previews?
+- Should this fictional prototype be indexable, or should only a future approved clinic deployment be indexable?
+- Which official social accounts should be linked in `sameAs` and optional platform metadata?
+- Should the preview snapshot show the current fictional Luma brand, or should it be labeled as a prototype until clinic approval?
+- Which English and Turkish share headlines and descriptions are approved for external sharing?
+- Which real clinic facts, address, phone, opening hours, services, and clinician details are approved for future structured data?
+
+### Definition of ready
+
+This metadata pass is ready when `/` and `/tr` produce correct localized titles, descriptions, canonical URLs, language alternates, Open Graph tags, Twitter Card tags, icons, and document language; when the committed snapshots show the approved page clearly at 1200 × 630; when robots and sitemap behavior separates production from previews; when no unverified medical, review, social, or business claims are emitted; and when the final head output and share previews have been checked on representative social and messaging surfaces.

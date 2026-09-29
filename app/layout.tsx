@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next'
+import { headers } from 'next/headers'
 import { Geist, Instrument_Serif } from 'next/font/google'
+import { getLocalizedMetadata } from '@/lib/metadata'
+import { siteConfig } from '@/lib/site-config'
 import './globals.css'
 
 const geist = Geist({
@@ -17,16 +20,18 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: 'Luma Dental Istanbul | Thoughtful Dental Care',
-  description:
-    'A fictional premium dental care prototype for people in Istanbul and patients travelling from abroad.',
+  ...getLocalizedMetadata('en'),
+  metadataBase: siteConfig.origin,
+  applicationName: siteConfig.name,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   icons: {
     icon: [
-      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
-      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/luma-icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
+      { url: '/luma-icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
+      { url: '/luma-icon.svg', type: 'image/svg+xml' },
     ],
-    apple: '/apple-icon.png',
+    apple: '/luma-apple-icon.png',
   },
 }
 
@@ -37,13 +42,16 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const requestHeaders = await headers()
+  const locale = requestHeaders.get('x-luma-locale') === 'tr' ? 'tr' : 'en'
+
   return (
-    <html lang="en" className={`${geist.variable} ${instrumentSerif.variable}`}>
+    <html lang={locale} className={`${geist.variable} ${instrumentSerif.variable}`}>
       <body>{children}</body>
     </html>
   )
