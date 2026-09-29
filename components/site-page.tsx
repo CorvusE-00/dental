@@ -5,6 +5,8 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { MobileStickyCta } from '@/components/layout/mobile-sticky-cta'
 import { TreatmentPlanProvider } from '@/components/shared/treatment-plan-provider'
+import { PatientAssistantProvider } from '@/components/patient-assistant/patient-assistant-provider'
+import { PatientAssistant } from '@/components/patient-assistant/patient-assistant'
 import { LocaleProvider, type Locale, useLocale } from '@/lib/i18n'
 import { Hero } from '@/components/sections/hero'
 import { TrustStrip } from '@/components/sections/trust-strip'
@@ -21,7 +23,10 @@ export function SitePage({ locale }: { locale: Locale }) {
   return (
     <LocaleProvider initialLocale={locale}>
       <TreatmentPlanProvider>
-        <LocalizedPageContent />
+        <PatientAssistantProvider>
+          <LocalizedPageContent />
+          <PatientAssistant />
+        </PatientAssistantProvider>
       </TreatmentPlanProvider>
     </LocaleProvider>
   )

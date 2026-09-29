@@ -84,6 +84,32 @@ export type SiteCopy = {
     successDescription: string
     close: string
   }
+  patientAssistant: {
+    eyebrow: string
+    title: string
+    description: string
+    quickRepliesLabel: string
+    launcherLabel: string
+    closeLabel: string
+    resetLabel: string
+    resetConversation: string
+    welcome: string
+    treatmentPlanAction: string
+    consultationAction: string
+    questionAction: string
+    locationQuestion: string
+    localReply: string
+    internationalReply: string
+    consultationResponse: string
+    questionResponse: string
+    locationResponse: string
+    typedResponse: string
+    composerPlaceholder: string
+    sendMessage: string
+    prototypeNotice: string
+    assistantRole: string
+    patientRole: string
+  }
   footer: { description: string; legalLabel: string; prototype: string; columns: Record<string, { title: string; links: Record<string, string> }>; language: string; location: string; legal: string[] }
   common: { before: string; after: string; comparison: string; beforeVisible: string; optional: string }
 }
@@ -211,6 +237,32 @@ const english: SiteCopy = {
     treatmentOptions: { 'routine-care': 'Check-ups or preventive care', 'dental-implants': 'Dental implants', veneers: 'Veneers', crowns: 'Crowns', 'smile-makeover': 'Full smile makeover', 'not-sure': 'Not sure yet' },
   },
   modal: { eyebrow: 'Free · No commitment', description: 'Tell us where you are starting from and what you would like to change. We will help you understand the next useful step.', successTitle: 'Thank you. Your treatment request has been received.', successDescription: 'This is a demonstration form. No information has been transmitted.', close: 'Close' },
+  patientAssistant: {
+    eyebrow: 'Patient support',
+    title: 'Luma Patient Assistant',
+    description: 'A simple way to find the next useful step.',
+    quickRepliesLabel: 'Suggested actions',
+    launcherLabel: 'Open Luma Patient Assistant',
+    closeLabel: 'Close Luma Patient Assistant',
+    resetLabel: 'Start a new conversation',
+    resetConversation: 'New conversation',
+    welcome: 'Hi, I’m Luma’s virtual patient assistant. How can I help today?',
+    treatmentPlanAction: 'Start a treatment plan',
+    consultationAction: 'Book a consultation',
+    questionAction: 'Ask a question',
+    locationQuestion: 'Are you currently based in Türkiye, or are you planning to travel to Istanbul?',
+    localReply: 'I live in Türkiye',
+    internationalReply: 'I’m travelling from abroad',
+    consultationResponse: 'I can help you think through a consultation. Tell me what you would like to change, and the team can explain the next step.',
+    questionResponse: 'Of course. Ask your question below and I’ll help you find the right information to discuss with the team.',
+    locationResponse: 'Thank you. That helps us understand which planning path may feel most useful to you.',
+    typedResponse: 'Thank you for sharing that. This prototype can help you prepare a question for the Luma team.',
+    composerPlaceholder: 'Type a question…',
+    sendMessage: 'Send message',
+    prototypeNotice: 'Prototype assistant. Messages stay in this browser and are not sent or stored.',
+    assistantRole: 'Luma assistant',
+    patientRole: 'You',
+  },
   footer: { description: 'Thoughtful cosmetic, restorative and everyday dental care for people in Istanbul and patients travelling from abroad.', legalLabel: 'Legal (not available in this prototype)', prototype: 'Luma Dental Istanbul is a fictional clinic created for demonstration purposes.', language: 'Language', location: 'Nişantaşı, Istanbul, Türkiye', legal: ['Privacy Policy', 'Cookie Policy', 'Terms'], columns: { treatments: { title: 'Treatments', links: { 'Dental Implants': 'Dental Implants', Veneers: 'Veneers', 'Smile Makeovers': 'Smile Makeovers', 'All-on-4 / All-on-6': 'All-on-4 / All-on-6', 'Zirconium Crowns': 'Zirconium Crowns' } }, explore: { title: 'Explore', links: { Results: 'Results', 'Our Doctors': 'Our Doctors', 'Patient Journey': 'Patient Journey', FAQ: 'FAQ', Contact: 'Contact' } }, 'patient-care': { title: 'Patient Care', links: { 'Local Care': 'Local Care', 'International Care': 'International Care', 'Treatment Planning': 'Treatment Planning', Aftercare: 'Aftercare', Contact: 'Contact' } } } },
   common: { before: 'Before', after: 'After', comparison: 'Before and after comparison', beforeVisible: '% before image visible', optional: 'optional' },
 }
@@ -283,6 +335,32 @@ const turkish: SiteCopy = {
     locationOptions: { istanbul: "İstanbul'da yaşıyorum", turkiye: "Türkiye'nin başka bir yerinde yaşıyorum", abroad: 'Türkiye dışında yaşıyorum' }, carePathOptions: { exploring: 'Seçeneklerimi araştırıyorum', consultation: 'Yüz yüze görüşmeye ihtiyacım var', international: 'Tedaviyi yurt dışından planlıyorum' }, treatmentOptions: { 'routine-care': 'Kontrol veya koruyucu bakım', 'dental-implants': 'Diş implantları', veneers: 'Porselen laminalar', crowns: 'Kuronlar', 'smile-makeover': 'Gülüş tasarımı', 'not-sure': 'Henüz emin değilim' },
   },
   modal: { eyebrow: 'Ücretsiz · Taahhüt yok', description: 'Nereden başladığınızı ve neyi değiştirmek istediğinizi anlatın. Bir sonraki faydalı adımı anlamanıza yardımcı olalım.', successTitle: 'Teşekkürler. Tedavi talebiniz alındı.', successDescription: 'Bu bir gösterim formudur. Hiçbir bilgi iletilmedi.', close: 'Kapat' },
+  patientAssistant: {
+    eyebrow: 'Hasta desteği',
+    title: 'Luma Hasta Asistanı',
+    description: 'Size en faydalı sonraki adımı bulmanın sade bir yolu.',
+    quickRepliesLabel: 'Önerilen işlemler',
+    launcherLabel: 'Luma Hasta Asistanını aç',
+    closeLabel: 'Luma Hasta Asistanını kapat',
+    resetLabel: 'Yeni bir görüşme başlat',
+    resetConversation: 'Yeni görüşme',
+    welcome: 'Merhaba, ben Luma’nın sanal hasta asistanıyım. Bugün size nasıl yardımcı olabilirim?',
+    treatmentPlanAction: 'Tedavi planıma başlayın',
+    consultationAction: 'Görüşme planlayın',
+    questionAction: 'Bir soru sorun',
+    locationQuestion: 'Şu anda Türkiye’de mi yaşıyorsunuz, yoksa İstanbul’a gelmeyi mi planlıyorsunuz?',
+    localReply: 'Türkiye’de yaşıyorum',
+    internationalReply: 'Yurt dışından geliyorum',
+    consultationResponse: 'Bir görüşmeye hazırlanmanıza yardımcı olabilirim. Değiştirmek istediklerinizi anlatın; ekip sonraki adımı açıklayabilir.',
+    questionResponse: 'Elbette. Sorunuzu aşağıya yazın; ekip ile görüşmeniz için doğru bilgiyi bulmanıza yardımcı olayım.',
+    locationResponse: 'Teşekkürler. Bu bilgi, size en uygun planlama yolunu anlamamıza yardımcı olur.',
+    typedResponse: 'Bunu paylaştığınız için teşekkürler. Bu prototip, Luma ekibiyle konuşacağınız soruyu hazırlamanıza yardımcı olabilir.',
+    composerPlaceholder: 'Bir soru yazın…',
+    sendMessage: 'Mesaj gönder',
+    prototypeNotice: 'Prototip asistan. Mesajlar bu tarayıcıda kalır; gönderilmez veya saklanmaz.',
+    assistantRole: 'Luma asistanı',
+    patientRole: 'Siz',
+  },
   footer: { description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için özenli estetik, restoratif ve günlük diş bakımı.", legalLabel: 'Yasal bilgiler (bu prototipte mevcut değil)', prototype: 'Luma Dental Istanbul, gösterim amacıyla oluşturulmuş kurgusal bir kliniktir.', language: 'Dil', location: "Nişantaşı, İstanbul, Türkiye", legal: ['Gizlilik Politikası', 'Çerez Politikası', 'Koşullar'], columns: { treatments: { title: 'Tedaviler', links: { 'Dental Implants': 'Diş İmplantları', Veneers: 'Porselen Laminalar', 'Smile Makeovers': 'Gülüş Tasarımı', 'All-on-4 / All-on-6': 'All-on-4 / All-on-6', 'Zirconium Crowns': 'Zirkonyum Kuronlar' } }, explore: { title: 'Keşfet', links: { Results: 'Sonuçlar', 'Our Doctors': 'Doktorlarımız', 'Patient Journey': 'Hasta Yolculuğu', FAQ: 'SSS', Contact: 'İletişim' } }, 'patient-care': { title: 'Hasta Bakımı', links: { 'Local Care': 'Yerel Bakım', 'International Care': 'Uluslararası Bakım', 'Treatment Planning': 'Tedavi Planlaması', Aftercare: 'Bakım Sonrası', Contact: 'İletişim' } } } },
   common: { before: 'Önce', after: 'Sonra', comparison: 'Öncesi ve sonrası karşılaştırması', beforeVisible: '% önce görseli görünür', optional: 'isteğe bağlı' },
 }

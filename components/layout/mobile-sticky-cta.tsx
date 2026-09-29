@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { useTreatmentPlan } from '@/components/shared/treatment-plan-provider'
 import { cn } from '@/lib/utils'
+import { usePatientAssistant } from '@/components/patient-assistant/patient-assistant-provider'
 
 export function MobileStickyCta() {
   const { isOpen } = useTreatmentPlan()
+  const { isOpen: assistantOpen } = usePatientAssistant()
   const [blocked, setBlocked] = useState(true)
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export function MobileStickyCta() {
     return () => observer.disconnect()
   }, [])
 
-  const hidden = blocked || isOpen
+  const hidden = blocked || isOpen || assistantOpen
 
   return (
     <div
