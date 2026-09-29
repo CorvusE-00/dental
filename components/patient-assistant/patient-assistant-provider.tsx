@@ -21,15 +21,25 @@ export type AssistantMessage = {
   text: string
 }
 
+function createSessionId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+
+  return `luma-${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
 type AssistantContextValue = {
   isOpen: boolean
   flow: AssistantFlow
   messages: AssistantMessage[]
   activeContext: AssistantOpenContext | null
   returnFocusRef: React.RefObject<HTMLElement | null>
+  getSessionId: () => string
   openAssistant: (context?: AssistantOpenContext, returnFocusTo?: HTMLElement | null) => void
   closeAssistant: () => void
   resetConversation: () => void
+  appendMessage: (role: AssistantMessage['role'], text: string, nextFlow?: AssistantFlow) => void
   addExchange: (patientText: string, assistantText: string, nextFlow?: AssistantFlow) => void
 }
 
@@ -41,12 +51,19 @@ export function PatientAssistantProvider({ children }: { children: React.ReactNo
   const [messages, setMessages] = useState<AssistantMessage[]>([])
   const [activeContext, setActiveContext] = useState<AssistantOpenContext | null>(null)
   const returnFocusRef = useRef<HTMLElement | null>(null)
+  const sessionIdRef = useRef<string | null>(null)
+
+  const getSessionId = useCallback(() => {
+    if (!sessionIdRef.current) sessionIdRef.current = createSessionId()
+    return sessionIdRef.current
+  }, [])
 
   const openAssistant = useCallback((context?: AssistantOpenContext, returnFocusTo?: HTMLElement | null) => {
+    getSessionId()
     setActiveContext(context ?? null)
     returnFocusRef.current = returnFocusTo ?? null
     setIsOpen(true)
-  }, [])
+  }, [getSessionId])
 
   const closeAssistant = useCallback(() => {
     setIsOpen(false)
@@ -56,6 +73,18 @@ export function PatientAssistantProvider({ children }: { children: React.ReactNo
     setFlow('welcome')
     setMessages([])
     setActiveContext(null)
+    sessionIdRef.current = createSessionId()
+  }, [])
+
+  const appendMessage = useCallback((role: AssistantMessage['role'], text: string, nextFlow?: AssistantFlow) => {
+    const trimmedText = text.trim()
+    if (!trimmedText) return
+
+    setMessages((current) => [
+      ...current,
+      { id: `${Date.now()}-${role}-${current.length}`, role, text: trimmedText },
+    ])
+    if (nextFlow) setFlow(nextFlow)
   }, [])
 
   const addExchange = useCallback((patientText: string, assistantText: string, nextFlow: AssistantFlow = 'question') => {
@@ -74,12 +103,14 @@ export function PatientAssistantProvider({ children }: { children: React.ReactNo
       messages,
       activeContext,
       returnFocusRef,
+      getSessionId,
       openAssistant,
       closeAssistant,
       resetConversation,
+      appendMessage,
       addExchange,
     }),
-    [activeContext, addExchange, closeAssistant, flow, isOpen, messages, openAssistant, resetConversation],
+    [activeContext, addExchange, appendMessage, closeAssistant, flow, getSessionId, isOpen, messages, openAssistant, resetConversation],
   )
 
   return <PatientAssistantContext.Provider value={value}>{children}</PatientAssistantContext.Provider>

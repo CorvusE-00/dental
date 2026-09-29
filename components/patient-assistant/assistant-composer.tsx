@@ -3,13 +3,13 @@
 import { ArrowUp } from 'lucide-react'
 import { useState } from 'react'
 
-export function AssistantComposer({ placeholder, sendLabel, onSend }: { placeholder: string; sendLabel: string; onSend: (message: string) => void }) {
+export function AssistantComposer({ placeholder, sendLabel, isPending = false, onSend }: { placeholder: string; sendLabel: string; isPending?: boolean; onSend: (message: string) => void | Promise<void> }) {
   const [value, setValue] = useState('')
-  const canSend = value.trim().length > 0
+  const canSend = value.trim().length > 0 && !isPending
 
   function submit() {
     if (!canSend) return
-    onSend(value.trim())
+    void onSend(value.trim())
     setValue('')
   }
 
@@ -19,6 +19,7 @@ export function AssistantComposer({ placeholder, sendLabel, onSend }: { placehol
         event.preventDefault()
         submit()
       }}
+      aria-busy={isPending}
       className="flex items-end gap-2 border-t border-border bg-background/80 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]"
     >
       <label className="sr-only" htmlFor="patient-assistant-composer">
@@ -28,6 +29,7 @@ export function AssistantComposer({ placeholder, sendLabel, onSend }: { placehol
         id="patient-assistant-composer"
         value={value}
         onChange={(event) => setValue(event.target.value)}
+        disabled={isPending}
         onKeyDown={(event) => {
           if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault()

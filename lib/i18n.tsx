@@ -103,9 +103,10 @@ export type SiteCopy = {
     consultationResponse: string
     questionResponse: string
     locationResponse: string
-    typedResponse: string
     composerPlaceholder: string
     sendMessage: string
+    loadingLabel: string
+    connectionError: string
     prototypeNotice: string
     assistantRole: string
     patientRole: string
@@ -256,9 +257,10 @@ const english: SiteCopy = {
     consultationResponse: 'I can help you think through a consultation. Tell me what you would like to change, and the team can explain the next step.',
     questionResponse: 'Of course. Ask your question below and I’ll help you find the right information to discuss with the team.',
     locationResponse: 'Thank you. That helps us understand which planning path may feel most useful to you.',
-    typedResponse: 'Thank you for sharing that. This prototype can help you prepare a question for the Luma team.',
     composerPlaceholder: 'Type a question…',
     sendMessage: 'Send message',
+    loadingLabel: 'Luma assistant is replying',
+    connectionError: 'I’m having trouble connecting right now. Please try again in a moment.',
     prototypeNotice: 'Prototype assistant. Messages stay in this browser and are not sent or stored.',
     assistantRole: 'Luma assistant',
     patientRole: 'You',
@@ -354,9 +356,10 @@ const turkish: SiteCopy = {
     consultationResponse: 'Bir görüşmeye hazırlanmanıza yardımcı olabilirim. Değiştirmek istediklerinizi anlatın; ekip sonraki adımı açıklayabilir.',
     questionResponse: 'Elbette. Sorunuzu aşağıya yazın; ekip ile görüşmeniz için doğru bilgiyi bulmanıza yardımcı olayım.',
     locationResponse: 'Teşekkürler. Bu bilgi, size en uygun planlama yolunu anlamamıza yardımcı olur.',
-    typedResponse: 'Bunu paylaştığınız için teşekkürler. Bu prototip, Luma ekibiyle konuşacağınız soruyu hazırlamanıza yardımcı olabilir.',
     composerPlaceholder: 'Bir soru yazın…',
     sendMessage: 'Mesaj gönder',
+    loadingLabel: 'Luma asistanı yanıtlıyor',
+    connectionError: 'Şu anda bağlantı kurmakta zorlanıyorum. Lütfen biraz sonra tekrar deneyin.',
     prototypeNotice: 'Prototip asistan. Mesajlar bu tarayıcıda kalır; gönderilmez veya saklanmaz.',
     assistantRole: 'Luma asistanı',
     patientRole: 'Siz',

@@ -1,7 +1,7 @@
 'use client'
 
 import { RotateCcw, X } from 'lucide-react'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -9,23 +9,29 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useLocale } from '@/lib/i18n'
+import { requestChatReply } from '@/lib/chat-client'
 import { AssistantComposer } from './assistant-composer'
+import { AssistantTypingIndicator } from './assistant-typing-indicator'
 import { MessageBubble } from './message-bubble'
 import { QuickReplies } from './quick-replies'
 import { usePatientAssistant } from './patient-assistant-provider'
 
 export function AssistantPanel() {
-  const { copy } = useLocale()
+  const { copy, locale } = useLocale()
   const {
     isOpen,
     flow,
     messages,
     returnFocusRef,
+    getSessionId,
     closeAssistant,
     resetConversation,
+    appendMessage,
     addExchange,
   } = usePatientAssistant()
   const messagesRef = useRef<HTMLDivElement>(null)
+  const requestIdRef = useRef(0)
+  const [isPending, setIsPending] = useState(false)
 
   useEffect(() => {
     const container = messagesRef.current
@@ -69,6 +75,29 @@ export function AssistantPanel() {
     addExchange(reply.label, assistantCopy.locationResponse, 'question')
   }
 
+  function handleReset() {
+    requestIdRef.current += 1
+    setIsPending(false)
+    resetConversation()
+  }
+
+  async function handleTypedMessage(message: string) {
+    if (isPending) return
+
+    const requestId = ++requestIdRef.current
+    appendMessage('patient', message, 'question')
+    setIsPending(true)
+
+    try {
+      const { reply } = await requestChatReply({ message, locale, sessionId: getSessionId() })
+      if (requestId === requestIdRef.current) appendMessage('assistant', reply)
+    } catch {
+      if (requestId === requestIdRef.current) appendMessage('assistant', copy.patientAssistant.connectionError)
+    } finally {
+      if (requestId === requestIdRef.current) setIsPending(false)
+    }
+  }
+
   return (
     <Dialog
       open={isOpen}
@@ -95,7 +124,7 @@ export function AssistantPanel() {
           <div className="flex shrink-0 items-center gap-1">
             <button
               type="button"
-              onClick={resetConversation}
+              onClick={handleReset}
               aria-label={copy.patientAssistant.resetLabel}
               title={copy.patientAssistant.resetLabel}
               className="inline-flex size-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-sage-soft hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
@@ -138,7 +167,9 @@ export function AssistantPanel() {
             />
           ))}
 
-          {replies.length > 0 && (
+          {isPending && <AssistantTypingIndicator label={copy.patientAssistant.loadingLabel} roleLabel={copy.patientAssistant.assistantRole} />}
+
+          {!isPending && replies.length > 0 && (
             <QuickReplies
               replies={replies}
               ariaLabel={copy.patientAssistant.quickRepliesLabel}
@@ -153,7 +184,8 @@ export function AssistantPanel() {
         <AssistantComposer
           placeholder={copy.patientAssistant.composerPlaceholder}
           sendLabel={copy.patientAssistant.sendMessage}
-          onSend={(message) => addExchange(message, copy.patientAssistant.typedResponse, 'question')}
+          isPending={isPending}
+          onSend={handleTypedMessage}
         />
       </DialogContent>
     </Dialog>

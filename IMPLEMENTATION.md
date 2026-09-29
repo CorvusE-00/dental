@@ -203,3 +203,49 @@ Prefer extracting a small shared visibility hook from `MobileStickyCta` rather t
 The assistant pass is ready when the launcher is quiet, accessible, responsive, and visually native to Luma; when the panel works as a contained desktop and mobile conversation surface; when English and Turkish copy is complete; when the welcome, quick-reply, typed-message, reset, close, focus-return, Escape, safe-area, keyboard, and reduced-motion behaviors are verified; when the existing Treatment Plan flow remains unchanged; and when the implementation is clearly local-only and ready for a later backend adapter without including one now.
 
 The implementation handoff should report files created and modified, the component and provider architecture, current local state behavior, what is intentionally mocked, accessibility decisions, build/type-check results, and any follow-up risks. Do not begin backend integration as part of this pass.
+
+## 15. Luma Patient Assistant server transport
+
+### Scope
+
+Add the first real transport path for typed Patient Assistant messages while preserving the existing assistant shell, responsive positioning, accessibility, i18n, Treatment Plan workflow, and quick-reply mock flows. This is transport testing only; it must not become an AI integration.
+
+The browser must call only `POST /api/chat`. The Next.js App Router route will validate the small request contract, forward an allowlisted payload to the server-configured n8n webhook, defensively normalize `{ reply: string }`, and return controlled errors. The n8n URL must never be exposed to the browser or committed to the repository.
+
+### Boundaries and contracts
+
+Use the server-only environment variable `N8N_CHAT_WEBHOOK_URL` and add an empty declaration to `.env.example`. Do not use `NEXT_PUBLIC_` and do not commit a real webhook URL.
+
+Accept only:
+
+```ts
+{ message: string; locale: 'en' | 'tr'; sessionId: string }
+```
+
+Trim and validate every field, reject empty or overlong messages, require JSON, and forward only those three fields. Normalize a valid n8n response to `{ reply: string }`; treat missing, empty, malformed, non-JSON, non-2xx, timeout, network, and missing-environment responses as controlled backend failures without exposing internal details.
+
+Keep the transport boundary narrow with a small route and optional typed client helper. Use built-in `fetch` with a reasonable timeout and no new dependency. Do not add an LLM, AI SDK, database, CRM, analytics, authentication, file upload transport, medical reasoning, RAG, streaming, or persistent patient data.
+
+### Assistant behavior
+
+Change only the typed free-text path. Append the patient message immediately, keep it visible during the request, disable duplicate submission while pending, show a quiet localized assistant typing state, call `/api/chat`, append the returned reply, and recover the composer after success or failure. Do not add artificial delays. Existing welcome, treatment-plan, consultation, and location quick replies remain local and mocked.
+
+Create one in-memory session ID for the current assistant conversation using `crypto.randomUUID()`. Reuse it across typed messages and replace it when the user explicitly resets the conversation. Do not store patient data in cookies or persistent storage.
+
+Add only the localized strings needed for the loading state and friendly connection failure. The user-facing failure copy is:
+
+- English: `I’m having trouble connecting right now. Please try again in a moment.`
+- Turkish: `Şu anda bağlantı kurmakta zorlanıyorum. Lütfen biraz sonra tekrar deneyin.`
+
+### Implementation checklist
+
+- [x] Inspect the current Patient Assistant, App Router route-handler conventions, environment files, and existing provider boundaries.
+- [x] Add the server-only `N8N_CHAT_WEBHOOK_URL` declaration to `.env.example` without adding a real URL.
+- [x] Add the narrow `POST /api/chat` route with request validation, timeout, allowlisted forwarding, defensive response normalization, and controlled errors.
+- [x] Add the minimal typed client/transport types if they improve separation from visual components.
+- [x] Add provider-level session ID creation and reset behavior.
+- [x] Replace only typed-message mock responses with `/api/chat`, including pending state and duplicate-submit protection.
+- [x] Add restrained localized loading and connection-error states with reduced-motion support.
+- [x] Verify quick replies, Treatment Plan behavior, launcher positioning, desktop/mobile layout, and EN/TR rendering remain unchanged.
+- [x] Test success, validation, timeout/network, malformed-response, and missing-environment paths without exposing internal details.
+- [x] Run TypeScript, production build, focused diff, and final security-boundary checks.
