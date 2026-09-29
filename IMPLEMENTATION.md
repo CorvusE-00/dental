@@ -249,3 +249,31 @@ Add only the localized strings needed for the loading state and friendly connect
 - [x] Verify quick replies, Treatment Plan behavior, launcher positioning, desktop/mobile layout, and EN/TR rendering remain unchanged.
 - [x] Test success, validation, timeout/network, malformed-response, and missing-environment paths without exposing internal details.
 - [x] Run TypeScript, production build, focused diff, and final security-boundary checks.
+
+## 16. Luma clinic knowledge server enrichment
+
+### Scope
+
+Add the version-controlled prototype clinic knowledge baseline at `knowledge/luma-clinic.md` and load it only inside the server-side `/api/chat` route. Enrich the existing n8n request with the markdown contents while preserving the browser request contract, frontend assistant behavior, session handling, i18n, accessibility, Treatment Plan behavior, quick replies, and current `{ reply: string }` response handling.
+
+Do not add an AI model, change the Patient Assistant UI, expose the knowledge through a public route, move it into frontend code or `public`, add dependencies, or begin model/backend feature integration beyond this transport payload enrichment.
+
+### Implementation sequence
+
+1. Read the repository instructions and the current route and transport boundaries.
+2. Add the attached clinic knowledge baseline verbatim at `knowledge/luma-clinic.md`.
+3. Add a small server-only file loader using the built-in Node filesystem API and a repository-root path.
+4. Load the knowledge for each valid chat request and forward it alongside the existing message, locale, and session ID fields.
+5. Return the existing controlled `chat_unavailable` error if the file cannot be read; never expose paths, stack traces, or knowledge contents to the browser.
+6. Verify typed chat, the unchanged browser contract, n8n receipt and response normalization, missing-file behavior, build, type-check, and the absence of client-side knowledge exposure.
+
+### Implementation checklist
+
+- [x] Read `AGENTS.md`, the Next.js route-handler guidance, the current `/api/chat` route, and the existing Patient Assistant transport.
+- [x] Create `knowledge/luma-clinic.md` with the attached content exactly and keep it outside public and client code.
+- [x] Add a minimal server-only knowledge loader using the built-in filesystem API.
+- [x] Enrich the outbound n8n payload with `clinicKnowledge` while preserving the browser request contract.
+- [x] Preserve the existing `{ reply: string }` browser response and controlled error behavior.
+- [x] Verify missing or unreadable knowledge fails safely without exposing internal details.
+- [x] Verify typed chat, n8n transport, browser non-exposure, and the existing frontend/Treatment Plan behavior.
+- [x] Run TypeScript checks, the production build, and focused security/diff checks.

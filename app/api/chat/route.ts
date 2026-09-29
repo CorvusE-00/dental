@@ -1,3 +1,6 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+
 type ChatLocale = 'en' | 'tr'
 
 type ChatRequest = {
@@ -10,6 +13,14 @@ const MAX_MESSAGE_LENGTH = 2000
 const MAX_SESSION_ID_LENGTH = 200
 const MAX_REPLY_LENGTH = 4000
 const WEBHOOK_TIMEOUT_MS = 10_000
+
+async function readClinicKnowledge() {
+  try {
+    return await readFile(join(process.cwd(), 'knowledge', 'luma-clinic.md'), 'utf8')
+  } catch {
+    return null
+  }
+}
 
 function errorResponse(status: number, error: 'invalid_request' | 'chat_unavailable') {
   return Response.json({ error }, { status })
@@ -64,6 +75,9 @@ export async function POST(request: Request) {
   const webhookUrl = getWebhookUrl()
   if (!webhookUrl) return errorResponse(503, 'chat_unavailable')
 
+  const clinicKnowledge = await readClinicKnowledge()
+  if (!clinicKnowledge?.trim()) return errorResponse(503, 'chat_unavailable')
+
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT_MS)
 
@@ -71,7 +85,7 @@ export async function POST(request: Request) {
     const upstream = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ ...payload, clinicKnowledge }),
       signal: controller.signal,
       cache: 'no-store',
     })
