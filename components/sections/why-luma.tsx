@@ -1,10 +1,19 @@
 'use client'
 
 import Image from 'next/image'
+import type { LucideIcon } from 'lucide-react'
+import { CalendarDays, ClipboardCheck, HeartHandshake, UserRoundCheck } from 'lucide-react'
 import { Reveal } from '@/components/shared/reveal'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { internationalFeatures, localFeatures } from '@/lib/data'
 import { useLocale } from '@/lib/i18n'
+
+const internationalFeatureIcons: Record<string, LucideIcon> = {
+  'international-planning': ClipboardCheck,
+  coordinator: UserRoundCheck,
+  logistics: CalendarDays,
+  aftercare: HeartHandshake,
+}
 
 export function WhyLuma() {
   const { copy } = useLocale()
@@ -27,6 +36,7 @@ export function WhyLuma() {
         title={copy.sections.international.title}
         description={copy.sections.international.description}
         features={internationalFeatures.map((feature) => ({ ...feature, ...copy.internationalFeatures[feature.id] }))}
+        icons={internationalFeatureIcons}
         tone="secondary"
         imageOnRight
       />
@@ -42,6 +52,7 @@ function CareSection({
   title,
   description,
   features,
+  icons,
   tone = 'default',
   imageOnRight = false,
 }: {
@@ -52,6 +63,7 @@ function CareSection({
   title: string
   description: string
   features: { id: string; title: string; description: string }[]
+  icons?: Record<string, LucideIcon>
   tone?: 'default' | 'secondary'
   imageOnRight?: boolean
 }) {
@@ -66,14 +78,20 @@ function CareSection({
           <SectionHeading id={`${id}-title`} eyebrow={eyebrow} title={title} description={description} />
 
           <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-            {features.map((feature, index) => (
+            {features.map((feature, index) => {
+              const Icon = icons?.[feature.id]
+              return (
               <li key={feature.id}>
                 <Reveal delay={index * 0.06} className="flex flex-col gap-3 border-t border-foreground/15 pt-5">
-                  <h3 className="text-lg font-medium tracking-[-0.01em]">{feature.title}</h3>
+                  <div className="flex items-center gap-3">
+                    {Icon ? <Icon aria-hidden="true" className="size-5 shrink-0 text-foreground/60" strokeWidth={1.5} /> : null}
+                    <h3 className="text-lg font-medium tracking-[-0.01em]">{feature.title}</h3>
+                  </div>
                   <p className="leading-relaxed text-muted-foreground">{feature.description}</p>
                 </Reveal>
               </li>
-            ))}
+              )
+            })}
           </ul>
         </div>
 

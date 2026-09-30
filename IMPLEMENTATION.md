@@ -277,3 +277,42 @@ Do not add an AI model, change the Patient Assistant UI, expose the knowledge th
 - [x] Verify missing or unreadable knowledge fails safely without exposing internal details.
 - [x] Verify typed chat, n8n transport, browser non-exposure, and the existing frontend/Treatment Plan behavior.
 - [x] Run TypeScript checks, the production build, and focused security/diff checks.
+
+## 17. Luma homepage visual and editorial refinement
+
+### Scope
+
+Refine the existing homepage presentation while preserving the Luma visual language, App Router architecture, English/Turkish localization, accessibility, reduced-motion behavior, Treatment Plan flow, mobile sticky CTA, Patient Assistant behavior, and server chat transport.
+
+This pass combines the requested editorial homepage changes with the header, desktop hero, and trust-metric refinements. It removes duplicated patient-journey messaging, adds a dedicated About Luma section, gives treatments a stronger image-led presentation, adds understated patient portraits and feature icons, and improves the final CTA composition. It does not redesign the full site or introduce a parallel design system.
+
+The following paths are explicitly out of scope and must remain untouched: `components/patient-assistant/**`, `app/api/chat/**`, and `lib/chat-client.ts`. Do not change chatbot behavior, prompts, data flow, Treatment Plan behavior, environment variables, backend integration, or dependencies.
+
+### Implementation sequence
+
+1. Inspect the current data, i18n, metadata, site configuration, section composition, image assets, and existing design tokens.
+2. Update the localized data model for one universal four-step journey, the About Luma section, testimonials with portrait metadata, the three trust metrics, and any header/treatment copy changes required by the layout.
+3. Add the dedicated About Luma section in the requested homepage order without renaming Why Luma.
+4. Redesign the desktop-first hero composition, optically center the wordmark, simplify desktop navigation, and reduce the compact language switcher while preserving locale behavior.
+5. Rework the treatment section into image-led editorial panels with readable desktop, tablet, and mobile layouts.
+6. Add prototype patient portrait assets under `public/images/testimonials/`, use them with `next/image`, and add the requested Lucide icons for international features and the remaining trust metrics.
+7. Consolidate Patient Journey into one universal sequence and remove the oversized decorative footer wordmark.
+8. Add an image-backed Final CTA using an existing suitable image and a restrained overlay; verify existing localized metadata and social images before changing metadata code.
+9. Review the homepage at 1440, 1280, 1024, 768, 390, and 360 pixels in both English and Turkish for overflow, crops, anchors, contrast, and mobile CTA behavior.
+10. Run type-check, lint if configured, production build, hydration/error review, image-path checks, and a focused diff confirming chatbot/API files were not modified.
+
+### Implementation checklist
+
+- [x] Inspect the existing homepage architecture, data, i18n, metadata, site config, assets, and design tokens.
+- [x] Add the universal four-step Patient Journey data and localized EN/TR copy.
+- [x] Add and place the dedicated About Luma section with localized copy.
+- [x] Refine the desktop hero, wordmark alignment, desktop navigation, and compact language switcher.
+- [x] Redesign Treatments as responsive image-led editorial panels while preserving treatment information and accessibility.
+- [x] Add localized testimonial portrait fields, prototype portrait assets, and `next/image` rendering with alt text.
+- [x] Add understated international-feature icons and three trust-metric icons; remove the fourth metric.
+- [x] Remove the oversized footer wordmark and rebalance footer spacing.
+- [x] Add the image-backed Final CTA with a readable overlay and preserved CTA behavior.
+- [x] Verify existing localized Open Graph/Twitter metadata and make only necessary fixes.
+- [x] Review all requested viewport sizes in EN/TR, including anchors, image crops, overflow, contrast, and sticky CTA behavior.
+- [x] Run type-check, lint if available, production build, hydration/error checks, and focused diff/security checks.
+- [x] Confirm `components/patient-assistant/**`, `app/api/chat/**`, and `lib/chat-client.ts` remain untouched.

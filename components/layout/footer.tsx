@@ -57,14 +57,8 @@ export function Footer() {
             ))}
           </ul>
         </div>
-        <p className="pb-6 text-xs text-muted-foreground">
+        <p className="pb-10 text-xs text-muted-foreground md:pb-12">
           {copy.footer.prototype}
-        </p>
-      </div>
-
-      <div aria-hidden="true" className="pointer-events-none select-none">
-        <p className="-mb-[0.18em] text-center font-serif text-[29vw] leading-[0.8] tracking-[-0.03em] text-foreground/[0.06] xl:text-[23rem]">
-          LUMA
         </p>
       </div>
     </footer>

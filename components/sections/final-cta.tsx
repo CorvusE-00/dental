@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { Check } from 'lucide-react'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { useLocale } from '@/lib/i18n'
@@ -11,9 +12,18 @@ export function FinalCta() {
       id="contact"
       data-hide-sticky-cta
       aria-labelledby="final-cta-title"
-      className="section-y bg-primary text-primary-foreground"
+      className="section-y relative isolate overflow-hidden bg-primary text-primary-foreground"
     >
-      <div className="container-page flex flex-col items-center gap-8 text-center">
+      <Image
+        src="/images/editorial/hero-consultation.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        aria-hidden="true"
+        className="object-cover opacity-45"
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-primary/80" />
+      <div className="container-page relative z-10 flex flex-col items-center gap-8 text-center">
         <p className="eyebrow text-primary-foreground/70">{copy.sections.finalCta.eyebrow}</p>
         <h2
           id="final-cta-title"

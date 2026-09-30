@@ -5,7 +5,7 @@ import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { Wordmark } from '@/components/layout/wordmark'
-import { primaryNav } from '@/lib/data'
+import { mobileNav, primaryNav } from '@/lib/data'
 import { cn } from '@/lib/utils'
 import { LocaleSwitcher, useLocale } from '@/lib/i18n'
 
@@ -97,7 +97,7 @@ export function Header() {
           </div>
           <nav aria-label={copy.menu} className="flex-1 overflow-y-auto px-5 py-6">
             <ul className="flex flex-col">
-              {primaryNav.map((item, index) => (
+              {mobileNav.map((item, index) => (
                 <li key={item.id} className="border-b border-border">
                   <a
                     href={item.href}
@@ -108,7 +108,7 @@ export function Header() {
                     }}
                     className="flex min-h-16 items-center font-serif text-3xl tracking-[-0.01em]"
                   >
-                    {copy.nav[index]}
+                    {copy.mobileNav[index]}
                   </a>
                 </li>
               ))}

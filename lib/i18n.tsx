@@ -11,6 +11,7 @@ type FaqCopy = { question: string; answer: string }
 
 export type SiteCopy = {
   nav: string[]
+  mobileNav: string[]
   menu: string
   openMenu: string
   close: string
@@ -30,6 +31,7 @@ export type SiteCopy = {
   trust: { ariaLabel: string; prototypeNotice: string; items: string[]; mobileItems: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
   sections: {
     treatments: { eyebrow: string; title: string; supporting: string }
+    about: { eyebrow: string; title: string; description: string; imageAlt: string }
     local: { eyebrow: string; title: string; description: string; imageAlt: string }
     international: { eyebrow: string; title: string; description: string; imageAlt: string }
     journey: { eyebrow: string; title: string; description: string; localLabel: string; internationalLabel: string; imageAlt: string }
@@ -45,6 +47,7 @@ export type SiteCopy = {
   internationalFeatures: Record<string, FeatureCopy>
   localJourney: Record<string, JourneyCopy>
   internationalJourney: Record<string, JourneyCopy>
+  journey: Record<string, JourneyCopy>
   faq: Record<string, FaqCopy>
   doctors: Record<string, { role?: string; languages?: string }>
   testimonials: Record<string, { quote: string; treatment: string }>
@@ -116,7 +119,8 @@ export type SiteCopy = {
 }
 
 const english: SiteCopy = {
-  nav: ['Treatments', 'Local Care', 'International Care', 'Results', 'Our Doctors', 'FAQ'],
+  nav: ['Treatments', 'Results', 'Our Doctors', 'FAQ'],
+  mobileNav: ['Treatments', 'Local Care', 'International Care', 'Results', 'Our Doctors', 'FAQ'],
   menu: 'Menu',
   openMenu: 'Open menu',
   close: 'Close',
@@ -137,6 +141,12 @@ const english: SiteCopy = {
   trust: { ariaLabel: 'Luma at a glance', prototypeNotice: 'Illustrative prototype figures. Replace with verified clinic facts before launch.', items: ['Clinician-led planning', 'Clear next steps', 'Support from first conversation to aftercare'], mobileItems: ['Clinician-led care', 'Clear next steps', 'Support after treatment'], metrics: { patients: 'Patients treated', experience: 'Clinical experience', rating: 'Patient rating', care: 'Care planned in Istanbul' }, mobileMetrics: { patients: 'Patients', experience: 'Experience', rating: 'Rating', care: 'Istanbul care' }, values: { patients: '8,000+', experience: '14+ years', rating: '4.9 / 5', care: 'Local + global' } },
   sections: {
     treatments: { eyebrow: 'Treatments', title: 'Care for everyday needs and bigger changes.', supporting: 'Also available:' },
+    about: {
+      eyebrow: 'About Luma',
+      title: 'Dental care designed around the person, not the procedure.',
+      description: 'Luma brings thoughtful clinical planning, clear communication and considered cosmetic, restorative and everyday dentistry together for people in Istanbul and patients travelling from abroad.',
+      imageAlt: 'A calm, light-filled dental clinic room prepared for a patient.',
+    },
     local: {
       eyebrow: 'For local patients',
       title: 'Care that fits your life in Istanbul.',
@@ -152,7 +162,7 @@ const english: SiteCopy = {
     journey: {
       eyebrow: 'Patient journey',
       title: 'A clear next step, wherever you start.',
-      description: 'Choose the path that feels closest to you. Both begin with a conversation and a clear explanation of what happens next.',
+      description: 'From the first conversation to aftercare, each stage has a clear purpose and a useful next step.',
       localLabel: 'Already in Istanbul',
       internationalLabel: 'Travelling from abroad',
       imageAlt: 'A clinician holding a tooth model while explaining a treatment detail.',
@@ -208,6 +218,12 @@ const english: SiteCopy = {
     'international-dates': { title: 'Coordinate your dates', description: 'Plan appointments and practical details around your time in Istanbul.' },
     'international-treatment': { title: 'Complete your in-clinic assessment', description: 'A full clinical assessment confirms your plan before any treatment begins.' },
     'international-aftercare': { title: 'Aftercare at home', description: 'Continue with clear guidance and follow-up once you have returned home.' },
+  },
+  journey: {
+    'tell-us': { title: 'Tell us what you need', description: 'Share your concerns, goals and any useful photos or existing records.' },
+    'review-options': { title: 'Review your options', description: 'The team explains possible routes, timing and what information is still needed.' },
+    'confirm-plan': { title: 'Confirm your plan', description: 'Complete the appropriate clinical assessment and confirm your plan before treatment.' },
+    'treatment-aftercare': { title: 'Treatment & aftercare', description: 'Proceed with treatment and receive clear follow-up and aftercare guidance.' },
   },
   faq: {
     'first-consultation': { question: 'What happens at the first consultation?', answer: 'We listen to what you want to change, review your dental health and explain the next useful step. Final recommendations depend on an appropriate clinical assessment.' },
@@ -271,15 +287,22 @@ const english: SiteCopy = {
 
 const turkish: SiteCopy = {
   ...english,
-  nav: ['Tedaviler', 'Yerel Bakım', 'Uluslararası Bakım', 'Sonuçlar', 'Doktorlarımız', 'SSS'],
+  nav: ['Tedaviler', 'Sonuçlar', 'Doktorlarımız', 'SSS'],
+  mobileNav: ['Tedaviler', 'Yerel Bakım', 'Uluslararası Bakım', 'Sonuçlar', 'Doktorlarımız', 'SSS'],
   menu: 'Menü', openMenu: 'Menüyü aç', close: 'Kapat', skipToContent: 'İçeriğe geç',
   hero: { eyebrow: "İstanbul'da özel diş bakımı", title: 'Daha sağlıklı, daha özgüvenli bir gülüş.', emphasis: 'Size göre planlandı.', description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için modern estetik, restoratif ve implant diş hekimliği. Değiştirmek istediklerinizi konuşarak başlayın.", mobileDescription: "İstanbul'da yaşayanlar ve yurt dışından gelenler için modern, kişiye özel diş bakımı.", localLink: "İstanbul'da mısınız? Yerel bakımı keşfedin", internationalLink: "Buraya mı geliyorsunuz? Planlamanın nasıl işlediğini görün", localShortLink: "İstanbul'dayım", internationalShortLink: 'Buraya geliyorum', imageAlt: 'Aydınlık ve modern bir klinikte bakım planını konuşan diş hekimi ve hasta.' },
   trust: { ariaLabel: 'Luma hakkında kısaca', prototypeNotice: 'Örnek prototip verileri. Yayından önce doğrulanmış klinik bilgileri kullanın.', items: ['Klinisyen liderliğinde planlama', 'Net sonraki adımlar', 'İlk görüşmeden bakım sonrasına destek'], mobileItems: ['Klinisyen liderliğinde bakım', 'Net sonraki adımlar', 'Tedavi sonrası destek'], metrics: { patients: 'Tedavi gören hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da planlanan bakım" }, mobileMetrics: { patients: 'Hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da bakım" }, values: { patients: '8.000+', experience: '14+ yıl', rating: '4,9 / 5', care: 'Yerel + global' } },
   sections: {
     treatments: { eyebrow: 'Tedaviler', title: 'Günlük ihtiyaçlar ve daha kapsamlı değişiklikler için bakım.', supporting: 'Ayrıca:' },
+    about: {
+      eyebrow: 'Luma hakkında',
+      title: 'Prosedüre değil, kişiye göre tasarlanan diş bakımı.',
+      description: 'Luma; İstanbul’da yaşayanlar ve yurt dışından gelen hastalar için özenli klinik planlamayı, açık iletişimi ve estetik, restoratif ve günlük diş bakımını bir araya getirir.',
+      imageAlt: 'Hasta için hazırlanmış sakin ve aydınlık bir diş kliniği odası.',
+    },
     local: { eyebrow: 'Yerel hastalar için', title: "İstanbul'daki hayatınıza uyan bakım.", description: 'Sağlığınız, hedefleriniz ve yapmak istediğiniz değişiklikler hakkında yüz yüze bir görüşmeyle başlayın.', imageAlt: 'Sakin bir klinik odasında hasta ile konuşan klinisyen.' },
     international: { eyebrow: 'Uluslararası hastalar için', title: 'Tedavi için İstanbul’a mı geliyorsunuz?', description: 'Aynı özenli planlama yurt dışından başlayan hastalar için de sunulur; ziyaretiniz ve ülkenize dönüş sonrası bakım için pratik destek sağlanır.', imageAlt: 'Tedavi planlamasını anlatmak için kullanılan panoramik diş taraması.' },
-    journey: { eyebrow: 'Hasta yolculuğu', title: 'Nereden başlarsanız başlayın, net bir sonraki adım.', description: 'Size en yakın yolu seçin. Her iki yol da bir görüşme ve sırada ne olduğunu açıkça anlatan bir planla başlar.', localLabel: "İstanbul'da yaşıyorum", internationalLabel: 'Yurt dışından geliyorum', imageAlt: 'Tedavi detayını anlatırken diş modeli tutan klinisyen.' },
+    journey: { eyebrow: 'Hasta yolculuğu', title: 'Nereden başlarsanız başlayın, net bir sonraki adım.', description: 'İlk görüşmeden bakım sonrasına kadar her aşamanın açık bir amacı ve faydalı bir sonraki adımı vardır.', localLabel: "İstanbul'da yaşıyorum", internationalLabel: 'Yurt dışından geliyorum', imageAlt: 'Tedavi detayını anlatırken diş modeli tutan klinisyen.' },
     results: { eyebrow: 'Örnek sonuçlar', title: 'Detaylı planlanmış doğal görünümlü sonuçlar.', description: 'Karşılaştırmak için sürükleyin veya ok tuşlarını kullanın. Her gülüş, hazır bir şablon yerine hastanın özelliklerine göre tasarlanır.', disclaimer: 'Görseller örnek amaçlıdır ve bu prototip için oluşturulmuştur. Sonuçlar diş sağlığınıza, anatomik yapınıza ve seçilen tedaviye göre değişir.' },
     doctors: { eyebrow: 'Doktorlarımız', title: 'Planınızın arkasındaki ekip.', description: 'Her tedavi planı bir klinisyen tarafından incelenir ve her hasta kendi dilini konuşan bir koordinatör tarafından desteklenir.' },
     testimonials: { eyebrow: 'Hasta deneyimleri', title: 'Bakım süreci anlaşılır olmalı.', disclaimer: 'Hasta yorumları kurgusaldır ve bu prototip için yazılmıştır.' },
@@ -318,6 +341,12 @@ const turkish: SiteCopy = {
     'international-dates': { title: 'Tarihlerinizi planlayın', description: "Randevuları ve pratik ayrıntıları İstanbul'da geçireceğiniz zamana göre düzenleyin." },
     'international-treatment': { title: 'Klinikte değerlendirmenizi tamamlayın', description: 'Herhangi bir tedavi başlamadan önce tam klinik değerlendirme planınızı doğrular.' },
     'international-aftercare': { title: 'Evinizde bakım sonrası destek', description: 'Ülkenize döndükten sonra anlaşılır yönlendirme ve takip desteğiyle devam edin.' },
+  },
+  journey: {
+    'tell-us': { title: 'İhtiyacınızı anlatın', description: 'Endişelerinizi, hedeflerinizi ve varsa faydalı fotoğraf veya kayıtları paylaşın.' },
+    'review-options': { title: 'Seçeneklerinizi değerlendirin', description: 'Ekip olası yolları, süreyi ve hâlâ ihtiyaç duyulan bilgileri açıklar.' },
+    'confirm-plan': { title: 'Planınızı netleştirin', description: 'Uygun klinik değerlendirmeyi tamamlayın ve tedavi başlamadan önce planınızı onaylayın.' },
+    'treatment-aftercare': { title: 'Tedavi ve bakım sonrası destek', description: 'Tedavinize başlayın ve anlaşılır takip ile bakım sonrası yönlendirme alın.' },
   },
   faq: {
     'first-consultation': { question: 'İlk görüşmede ne olur?', answer: 'Değiştirmek istediklerinizi dinler, diş sağlığınızı değerlendirir ve sonraki faydalı adımı açıklarız. Nihai öneriler uygun bir klinik değerlendirmeye bağlıdır.' },
@@ -406,14 +435,14 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-border bg-background/70 p-1 text-xs font-medium" aria-label="Language">
+    <div className={`flex items-center rounded-full border border-border bg-background/70 font-medium ${compact ? 'gap-0.5 p-0.5 text-[0.6875rem]' : 'gap-1 p-1 text-xs'}`} aria-label="Language">
       {(['en', 'tr'] as Locale[]).map((item) => (
         <button
           key={item}
           type="button"
           onClick={() => switchLocale(item)}
           aria-pressed={locale === item}
-          className={`min-h-8 rounded-full px-2.5 uppercase tracking-[0.12em] transition-colors ${locale === item ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'} ${compact ? 'px-2' : ''}`}
+          className={`rounded-full uppercase tracking-[0.12em] transition-colors ${compact ? 'min-h-7 px-2' : 'min-h-8 px-2.5'} ${locale === item ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           {item}
         </button>

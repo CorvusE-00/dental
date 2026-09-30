@@ -7,15 +7,16 @@ import { useLocale } from '@/lib/i18n'
 
 export function Hero() {
   const { copy } = useLocale()
+
   return (
     <section id="top" aria-labelledby="hero-title" className="pt-[calc(var(--header-height)+0.5rem)] md:pt-[calc(var(--header-height)+4rem)]">
       <div className="container-page">
-        <div className="grid gap-1 lg:grid-cols-12 lg:items-end lg:gap-12">
-          <div className="order-1 flex flex-col gap-3 lg:order-none lg:col-span-7 lg:gap-6">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-10">
+          <div className="order-1 flex flex-col gap-3 lg:col-span-7 lg:row-start-1 lg:gap-6">
             <p className="eyebrow">{copy.hero.eyebrow}</p>
             <h1
               id="hero-title"
-              className="font-serif text-[2.625rem] leading-[0.98] font-normal tracking-[-0.02em] text-balance sm:text-7xl lg:text-[5.5rem]"
+              className="font-serif text-[2.625rem] leading-[0.98] font-normal tracking-[-0.02em] text-balance sm:text-7xl lg:text-[4rem] xl:text-[5.5rem]"
             >
               {copy.hero.title}
               <br />
@@ -23,18 +24,7 @@ export function Hero() {
             </h1>
           </div>
 
-          <div data-hide-sticky-cta className="order-2 relative mt-2 aspect-[2/1] overflow-hidden rounded-2xl bg-muted sm:mt-8 sm:aspect-[16/10] md:mt-12 lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:order-none lg:mt-4 lg:aspect-[21/9]">
-            <Image
-              src="/images/editorial/hero-consultation.jpg"
-              alt={copy.hero.imageAlt}
-              fill
-              priority
-              sizes="(min-width: 1280px) 1184px, 100vw"
-              className="object-cover object-[center_30%] sm:object-[center_36%] lg:object-[center_28%]"
-            />
-          </div>
-
-          <div data-hide-sticky-cta className="order-3 flex flex-col gap-3 lg:order-none lg:col-span-5 lg:gap-7 lg:pb-3">
+          <div data-hide-sticky-cta className="order-3 flex flex-col gap-3 lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:gap-7 lg:pb-3">
             <p className="max-w-md text-[0.9375rem] leading-[1.45] text-pretty text-muted-foreground md:text-lg">
               <span className="sm:hidden">{copy.hero.mobileDescription}</span>
               <span className="hidden sm:inline">{copy.hero.description}</span>
@@ -69,16 +59,23 @@ export function Hero() {
                 <a href="#local-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
                   {copy.hero.localLink}
                 </a>
-                <a
-                  href="#international-care"
-                  className="underline decoration-border underline-offset-4 hover:text-foreground"
-                >
+                <a href="#international-care" className="underline decoration-border underline-offset-4 hover:text-foreground">
                   {copy.hero.internationalLink}
                 </a>
               </div>
             </div>
           </div>
 
+          <div data-hide-sticky-cta className="order-2 relative aspect-[2/1] overflow-hidden rounded-2xl bg-muted sm:aspect-[16/10] lg:col-span-12 lg:col-start-1 lg:row-start-2 lg:aspect-[21/9]">
+            <Image
+              src="/images/editorial/hero-consultation.jpg"
+              alt={copy.hero.imageAlt}
+              fill
+              priority
+              sizes="(min-width: 1280px) 1184px, 100vw"
+              className="object-cover object-[center_30%] sm:object-[center_36%] lg:object-[center_28%]"
+            />
+          </div>
         </div>
       </div>
     </section>

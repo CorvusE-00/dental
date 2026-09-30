@@ -2,11 +2,16 @@ export type NavItem = { id: string; label: string; href: `#${string}` }
 
 export const primaryNav: NavItem[] = [
   { id: 'treatments', label: 'Treatments', href: '#treatments' },
-  { id: 'local-care', label: 'Local Care', href: '#local-care' },
-  { id: 'international-care', label: 'International Care', href: '#international-care' },
   { id: 'results', label: 'Results', href: '#results' },
   { id: 'doctors', label: 'Our Doctors', href: '#doctors' },
   { id: 'faq', label: 'FAQ', href: '#faq' },
+]
+
+export const mobileNav: NavItem[] = [
+  ...primaryNav.slice(0, 1),
+  { id: 'local-care', label: 'Local Care', href: '#local-care' },
+  { id: 'international-care', label: 'International Care', href: '#international-care' },
+  ...primaryNav.slice(1),
 ]
 
 export const trustIndicators = [
@@ -21,7 +26,6 @@ export const trustMetrics: Metric[] = [
   { id: 'patients', value: '8,000+', label: 'Patients treated' },
   { id: 'experience', value: '14+ years', label: 'Clinical experience' },
   { id: 'rating', value: '4.9 / 5', label: 'Patient rating' },
-  { id: 'care', value: 'Local + global', label: 'Care planned in Istanbul' },
 ]
 
 export type TreatmentId =
@@ -229,61 +233,26 @@ export const internationalFeatures: Feature[] = [
 
 export type JourneyStep = { id: string; title: string; description: string }
 
-export const localPatientJourney: JourneyStep[] = [
+export const patientJourney: JourneyStep[] = [
   {
-    id: 'local-start',
+    id: 'tell-us',
     title: 'Tell us what you need',
-    description: 'Share what has changed, what concerns you and what you would like to understand.',
+    description: 'Share your concerns, goals and any useful photos or existing records.',
   },
   {
-    id: 'local-assessment',
-    title: 'Meet the team for an assessment',
-    description: 'Discuss your health and goals in person at the clinic in Istanbul.',
-  },
-  {
-    id: 'local-options',
+    id: 'review-options',
     title: 'Review your options',
-    description: 'Receive a clear explanation of suitable routes, timing and the next decision.',
+    description: 'The team explains possible routes, timing and what information is still needed.',
   },
   {
-    id: 'local-treatment',
-    title: 'Begin when you are ready',
-    description: 'Move forward with a plan that fits your priorities and your schedule.',
+    id: 'confirm-plan',
+    title: 'Confirm your plan',
+    description: 'Complete the appropriate clinical assessment and confirm your plan before treatment.',
   },
   {
-    id: 'local-aftercare',
-    title: 'Continue with local follow-up',
-    description: 'Keep receiving guidance and aftercare close to home.',
-  },
-]
-
-export const internationalPatientJourney: JourneyStep[] = [
-  {
-    id: 'international-share',
-    title: 'Share what you have',
-    description: 'Send a few photos or recent records and tell us what you would like to change.',
-  },
-  {
-    id: 'international-plan',
-    title: 'Review your initial options',
-    description:
-      'Discuss possible routes, timings and the information still needed before you travel.',
-  },
-  {
-    id: 'international-dates',
-    title: 'Coordinate your dates',
-    description: 'Plan appointments and practical details around your time in Istanbul.',
-  },
-  {
-    id: 'international-treatment',
-    title: 'Complete your in-clinic assessment',
-    description:
-      'A full clinical assessment confirms your plan before any treatment begins.',
-  },
-  {
-    id: 'international-aftercare',
-    title: 'Aftercare at home',
-    description: 'Continue with clear guidance and follow-up once you have returned home.',
+    id: 'treatment-aftercare',
+    title: 'Treatment & aftercare',
+    description: 'Proceed with treatment and receive clear follow-up and aftercare guidance.',
   },
 ]
 
@@ -342,6 +311,8 @@ export type Testimonial = {
   name: string
   origin: string
   treatment: string
+  image: string
+  imageAlt: string
 }
 
 export const testimonials: Testimonial[] = [
@@ -352,6 +323,8 @@ export const testimonials: Testimonial[] = [
     name: 'Sarah W.',
     origin: 'Manchester, UK',
     treatment: 'Dental implants',
+    image: '/images/testimonials/sarah.jpg',
+    imageAlt: 'Portrait of Sarah, a fictional Luma patient.',
   },
   {
     id: 'jonas',
@@ -360,6 +333,8 @@ export const testimonials: Testimonial[] = [
     name: 'Jonas K.',
     origin: 'Munich, Germany',
     treatment: 'Veneers',
+    image: '/images/testimonials/jonas.png',
+    imageAlt: 'Portrait of Jonas, a fictional Luma patient.',
   },
   {
     id: 'claire',
@@ -368,6 +343,8 @@ export const testimonials: Testimonial[] = [
     name: 'Claire D.',
     origin: 'Dublin, Ireland',
     treatment: 'Full smile makeover',
+    image: '/images/testimonials/claire.jpg',
+    imageAlt: 'Portrait of Claire, a fictional Luma patient.',
   },
 ]
 

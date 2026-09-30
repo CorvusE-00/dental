@@ -10,6 +10,7 @@ import { PatientAssistant } from '@/components/patient-assistant/patient-assista
 import { LocaleProvider, type Locale, useLocale } from '@/lib/i18n'
 import { Hero } from '@/components/sections/hero'
 import { TrustStrip } from '@/components/sections/trust-strip'
+import { AboutLuma } from '@/components/sections/about-luma'
 import { Results } from '@/components/sections/results'
 import { Treatments } from '@/components/sections/treatments'
 import { WhyLuma } from '@/components/sections/why-luma'
@@ -67,6 +68,7 @@ function LocalizedPageContent() {
           <Hero />
           <TrustStrip compact className="py-4 md:hidden" />
           <TrustStrip className="hidden md:block" />
+          <AboutLuma />
           <Results />
           <Treatments />
           <WhyLuma />
