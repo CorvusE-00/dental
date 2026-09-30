@@ -435,7 +435,7 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className={`flex items-center rounded-full border border-foreground/15 bg-background/70 font-medium ${compact ? 'gap-0 p-0.5 text-[0.625rem]' : 'gap-1 border-border p-1 text-xs'}`} aria-label="Language">
+    <div className={`flex items-center rounded-full border border-foreground/10 bg-background/55 font-medium ${compact ? 'gap-0 p-0.5 text-[0.625rem]' : 'gap-1 border-border bg-background/70 p-1 text-xs'}`} aria-label="Language">
       {(['en', 'tr'] as Locale[]).map((item) => (
         <button
           key={item}

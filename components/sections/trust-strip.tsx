@@ -15,7 +15,7 @@ const metricIcons: Record<string, LucideIcon> = {
 export function TrustStrip({ compact = false, className }: { compact?: boolean; className?: string }) {
   const { copy } = useLocale()
   return (
-    <section aria-label={copy.trust.ariaLabel} className={cn(compact ? 'py-2 md:py-20' : 'py-10 md:py-16', className)}>
+    <section aria-label={copy.trust.ariaLabel} className={cn(compact ? 'py-2 md:py-20' : 'py-6 md:py-8', className)}>
       <div className="container-page">
         <dl className={cn('grid', compact ? 'grid-cols-3 gap-x-3' : 'grid-cols-3 gap-x-6 md:gap-x-10')}>
           {trustMetrics.map((metric) => {

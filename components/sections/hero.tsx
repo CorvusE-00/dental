@@ -9,7 +9,7 @@ export function Hero() {
   const { copy } = useLocale()
 
   return (
-    <section id="top" aria-labelledby="hero-title" className="pt-[calc(var(--header-height)+0.5rem)] md:pt-[calc(var(--header-height)+4rem)]">
+    <section id="top" aria-labelledby="hero-title" className="pt-[calc(var(--header-height)+0.5rem)] md:pt-[calc(var(--header-height)+2.5rem)]">
       <div className="container-page">
         <div className="grid gap-7 sm:gap-8 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-0">
           <div className="contents lg:col-span-7 lg:row-span-2 lg:flex lg:flex-col lg:justify-center lg:gap-8">
@@ -60,7 +60,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div data-hide-sticky-cta className="order-2 relative aspect-[16/10] min-h-0 overflow-hidden rounded-2xl bg-muted sm:aspect-[16/10] lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:aspect-[4/5] lg:min-h-[34rem]">
+          <div data-hide-sticky-cta className="order-2 relative aspect-[16/10] min-h-0 overflow-hidden rounded-2xl bg-muted sm:aspect-[16/10] lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:aspect-[4/5]">
             <Image
               src="/images/editorial/hero-consultation.jpg"
               alt={copy.hero.imageAlt}

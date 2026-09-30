@@ -21,7 +21,7 @@ export function AboutLuma() {
 
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted lg:col-span-7 lg:aspect-[16/10]">
           <Image
-            src="/images/clinic.png"
+            src="/images/editorial/about-clinic.jpg"
             alt={copy.sections.about.imageAlt}
             fill
             sizes="(min-width: 1024px) 58vw, 100vw"
