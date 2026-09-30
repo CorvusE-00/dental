@@ -5,11 +5,11 @@ export function Wordmark({ onClick }: { onClick?: () => void }) {
     <a
       href="#top"
       onClick={onClick}
-      className="flex min-h-11 items-center gap-2 rounded-md"
+      className="flex min-h-11 items-baseline gap-2 rounded-md leading-none"
       aria-label={`${SITE.name}, back to top`}
     >
-      <span className="translate-y-px font-serif text-[1.75rem] leading-none tracking-[-0.01em]">{SITE.wordmark}</span>
-      <span className="translate-y-px text-[0.6875rem] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+      <span className="font-serif text-[1.75rem] leading-[0.82] tracking-[-0.01em]">{SITE.wordmark}</span>
+      <span className="text-[0.6875rem] leading-none font-medium tracking-[0.18em] text-muted-foreground uppercase">
         Dental Istanbul
       </span>
     </a>

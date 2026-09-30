@@ -435,14 +435,14 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <div className={`flex items-center rounded-full border border-border bg-background/70 font-medium ${compact ? 'gap-0.5 p-0.5 text-[0.6875rem]' : 'gap-1 p-1 text-xs'}`} aria-label="Language">
+    <div className={`flex items-center rounded-full border border-foreground/15 bg-background/70 font-medium ${compact ? 'gap-0 p-0.5 text-[0.625rem]' : 'gap-1 border-border p-1 text-xs'}`} aria-label="Language">
       {(['en', 'tr'] as Locale[]).map((item) => (
         <button
           key={item}
           type="button"
           onClick={() => switchLocale(item)}
           aria-pressed={locale === item}
-          className={`rounded-full uppercase tracking-[0.12em] transition-colors ${compact ? 'min-h-7 px-2' : 'min-h-8 px-2.5'} ${locale === item ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+          className={`rounded-full uppercase tracking-[0.12em] transition-colors ${compact ? 'min-h-8 px-2.5' : 'min-h-8 px-2.5'} ${locale === item ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           {item}
         </button>

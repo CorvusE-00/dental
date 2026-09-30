@@ -1,318 +1,109 @@
-## 13. Luma Patient Assistant frontend shell plan
+# Luma Frontend Corrective Pass
+
+## Scope
 
-### Status and objective
-
-This is the next proposed implementation pass. It adds the first frontend-only version of a floating `Luma Patient Assistant` so clinics can review how a guided patient conversation could fit into the existing premium website. It is an interaction shell and demonstration of the future flow, not an AI product or a production patient communication channel.
-
-The assistant should help visitors choose among three needs:
-
-- Starting a treatment plan.
-- Booking or discussing a consultation.
-- Asking a question about treatment, travel, or the clinic.
-
-All behavior in this pass remains local and deterministic. The assistant must not send, store, or transmit patient information.
-
-### Product boundaries
-
-Keep the existing `PrimaryCta`, `TreatmentPlanProvider`, `TreatmentPlanModal`, treatment-plan form, and mobile sticky CTA working exactly as they do now. The assistant must not replace the Treatment Plan workflow, open it automatically, or change its submission behavior.
-
-Do not add an AI model, n8n workflow, API route, database, Google Sheets, Calendar, WhatsApp integration, external chatbot platform, authentication, analytics, file uploads, medical diagnosis, RAG, backend transport, or new dependency. Do not add a second lead form inside the assistant.
-
-The assistant should be presented as a patient-facing helper. Do not prominently advertise `AI`; use the name `Luma Patient Assistant` and clear patient language.
-
-### Architecture
-
-Create a dedicated feature directory:
-
-`components/patient-assistant/`
-
-Prefer small, focused components. The suggested structure is:
-
-- `patient-assistant-provider.tsx` — local state, open/close/reset actions, and a lightweight future-facing context API.
-- `patient-assistant.tsx` — feature composition and responsive panel visibility.
-- `assistant-launcher.tsx` — fixed floating entry point and accessible label.
-- `assistant-panel.tsx` — desktop floating panel and mobile conversational surface.
-- `message-bubble.tsx` — patient and assistant message presentation.
-- `quick-replies.tsx` — welcome and mock-flow actions.
-- `assistant-composer.tsx` — local message entry and send behavior.
-
-Filenames may be adjusted if the existing architecture suggests a clearer equivalent, but the feature must remain isolated and modular rather than becoming a large page component.
-
-The provider should support a future contextual API without wiring it into page sections yet. Keep the context small and extensible, with a shape capable of supporting a future call such as:
-
-`openAssistant({ intent, source, patientType, treatment })`
-
-Possible future values are:
-
-- `intent`: `treatment-plan`, `consultation`, or `question`.
-- `source`: `floating-launcher`, `hero`, `treatment-card`, `international-care`, or `final-cta`.
-- `patientType`: `local` or `international`.
-- `treatment`: an existing `TreatmentId`.
-
-Do not implement contextual page-section calls in this pass.
-
-### Provider composition and page integration
-
-Mount the assistant globally inside the existing provider architecture so it can eventually be opened from anywhere on the site. A composition such as the following is acceptable if it matches the current implementation:
-
-`LocaleProvider → TreatmentPlanProvider → PatientAssistantProvider → page content`
-
-Do not disturb the existing Treatment Plan provider or move unrelated page state into the new provider.
-
-### Launcher
-
-Use a fixed floating launcher in the bottom-right on desktop and mobile. It should:
-
-- Use existing Luma color tokens, typography, spacing, and border radii.
-- Use an appropriate existing Lucide icon rather than a stereotypical chatbot or AI graphic.
-- Have a clear accessible name and visible keyboard focus.
-- Meet a reasonable touch target size.
-- Respect mobile safe-area insets.
-- Leave deliberate clearance from the mobile sticky Treatment Plan CTA and from the footer.
-- Use only subtle Motion behavior consistent with the site and respect reduced-motion preferences.
-
-Avoid gradients, glow effects, excessive animation, notification badges without a real state, and visual treatment that makes the assistant feel like a generic SaaS widget.
-
-### Panel and responsive behavior
-
-On desktop, show a polished floating conversation panel near the launcher. It should be substantial enough for a real conversation while preserving the page as the primary experience and without covering most of the viewport.
-
-On mobile, use a near-full-screen or full-height conversational surface with safe-area padding. The panel must contain its own message scrolling, keep the composer reachable, avoid unintended body scroll, and behave reasonably when the virtual keyboard opens. The assistant must not cover the mobile sticky CTA or make the page impossible to close.
-
-Include:
-
-- Panel title: `Luma Patient Assistant`.
-- Close control.
-- Start/reset conversation control.
-- A labelled message area with clear patient and assistant roles.
-- Quick replies in the welcome and mock-flow states.
-- A composer with a text input or textarea and a send button.
-
-### Initial experience and local mock flow
-
-When opened for the first time, show:
-
-> Hi, I’m Luma’s virtual patient assistant. How can I help today?
-
-Show three primary quick actions:
-
-- `Start a treatment plan`.
-- `Book a consultation`.
-- `Ask a question`.
-
-Keep the flow small, polished, and deterministic. For example, selecting `Start a treatment plan` can append a patient message and a local assistant response:
-
-> I’d be happy to help. Are you currently based in Türkiye, or are you planning to travel to Istanbul?
-
-Offer:
-
-- `I live in Türkiye`.
-- `I’m travelling from abroad`.
-
-A selected reply may append one additional realistic assistant message. The consultation and question paths can use similarly short mocked responses. Do not create a complex state machine or imply that a clinician has reviewed the conversation.
-
-Typed messages may append locally and receive a short mocked response. Make the future transport boundary obvious in code so a backend adapter can replace the mock later without changing the panel components. Do not fake network requests.
-
-Reset must return the assistant to its welcome state and clear the local conversation for the current page session.
-
-### Internationalisation
-
-Use the existing `lib/i18n.tsx` architecture. Do not hardcode visible assistant strings throughout components. Add English and Turkish translations for the title, introduction, quick actions, mock replies, controls, composer labels, empty state, and any status text introduced by this feature.
-
-Do not refactor the broader i18n implementation. Verify long Turkish labels and messages at mobile widths.
-
-### Accessibility and interaction behavior
-
-Preserve the current accessibility standard. Specifically verify:
-
-- Keyboard access to the launcher, quick replies, composer, close button, and reset control.
-- A visible focus indicator on every interactive control.
-- An accessible launcher name and panel label.
-- Native semantics for buttons, inputs, and the message list wherever possible.
-- Sensible message-area semantics without unnecessary ARIA.
-- Focus moves into the panel when opened and returns to the launcher when closed.
-- Escape closes the panel when appropriate.
-- Focus does not escape a mobile conversational surface unintentionally.
-- Reduced-motion users do not receive animated opening or message transitions.
-- Touch targets remain comfortable and do not overlap the existing sticky CTA.
-
-### Visual direction
-
-Use the existing Luma system so the assistant looks as if it was designed with the website:
-
-- Ivory, deep ink, sage, and restrained champagne tokens.
-- Existing Geist and Instrument Serif typography.
-- Existing Button and UI primitives where appropriate.
-- Quiet borders, soft surfaces, selective rounding, and generous but efficient spacing.
-- Calm Motion behavior and the existing reduced-motion conventions.
-
-Do not redesign the site or introduce a second visual identity. The panel should feel clinical, human, and considered rather than promotional or technical.
-
-### Implementation sequence
-
-1. Inspect `components/site-page.tsx`, `components/shared/treatment-plan-provider.tsx`, `components/shared/treatment-plan-modal.tsx`, `components/shared/primary-cta.tsx`, `components/layout/mobile-sticky-cta.tsx`, `components/ui/*`, `lib/i18n.tsx`, and `app/globals.css` before editing.
-2. Define the small assistant state and future-facing context types.
-3. Add English and Turkish assistant copy to the existing i18n model.
-4. Build the provider and modular launcher, panel, message, quick-reply, and composer components.
-5. Mount the provider and assistant globally without modifying the Treatment Plan workflow.
-6. Implement the deterministic welcome and mock conversation flows with local-only state.
-7. Add focus management, Escape handling, reset behavior, safe-area spacing, scroll containment, and reduced-motion support.
-8. Review desktop and mobile layouts, including the relationship between the assistant launcher and mobile sticky CTA.
-9. Run the production build and TypeScript checks, then verify English and Turkish rendering and the unchanged Treatment Plan flow.
-10. Review the implementation against the no-backend and no-data-transmission boundaries before handoff.
-
-### Assistant implementation checklist
-
-- [x] Inspect the existing architecture and confirm the assistant can be mounted without changing Treatment Plan behavior.
-- [x] Add the isolated patient-assistant feature directory and focused components.
-- [x] Add the local provider with a small extensible context API.
-- [x] Add English and Turkish assistant copy through the existing i18n system.
-- [x] Add the responsive launcher with safe-area, focus, reduced-motion, and sticky-CTA clearance behavior.
-- [x] Add desktop and mobile panel layouts with contained scrolling and a reachable composer.
-- [x] Add the welcome state, three quick actions, reset/close controls, and deterministic mock responses.
-- [x] Add local typed-message handling without fake network requests.
-- [x] Verify focus management, keyboard navigation, Escape behavior, touch targets, and reduced motion.
-- [x] Verify the existing Treatment Plan CTA, modal, form, mobile sticky CTA, menu, and page sections remain unchanged.
-- [x] Run build and TypeScript checks and review English/Turkish desktop and mobile rendering.
-- [x] Confirm no AI model, backend, external service, database, analytics, authentication, file upload, or medical diagnosis was introduced.
-
-## 14. Patient Assistant mobile launcher positioning correction
-
-### Scope
-
-Make one focused responsive correction to the existing Patient Assistant launcher. Keep the assistant design, conversation flow, panel, Treatment Plan workflow, copy, and desktop behavior unchanged.
-
-The launcher currently uses a fixed mobile offset that assumes the mobile sticky Treatment Plan CTA is always visible. Reuse the existing `[data-hide-sticky-cta]` visibility model so the launcher can distinguish these states:
-
-- When the sticky CTA is hidden, place the launcher near the mobile viewport edge with normal spacing and `env(safe-area-inset-bottom)`.
-- When the sticky CTA is visible, raise the launcher enough to clear the CTA with deliberate spacing.
-- When the assistant or Treatment Plan modal is open, avoid overlapping floating controls and preserve the current open/close behavior.
-- Preserve the desktop launcher position and panel behavior.
-
-Prefer extracting a small shared visibility hook from `MobileStickyCta` rather than duplicating its IntersectionObserver logic or adding a broad context refactor. Keep the launcher touch target and reduced-motion behavior unchanged or better.
-
-### Implementation checklist
-
-- [x] Extract or share the existing sticky CTA visibility calculation without changing its current behavior.
-- [x] Drive the mobile launcher offset from actual sticky CTA visibility and preserve desktop positioning.
-- [x] Verify the initial hero, a sticky-CTA-visible section, assistant open/close, Treatment Plan modal, safe-area, and desktop states.
-- [x] Run the production build and TypeScript checks, review the focused diff, and confirm no unrelated changes.
-
-### Definition of ready for the assistant shell
-
-The assistant pass is ready when the launcher is quiet, accessible, responsive, and visually native to Luma; when the panel works as a contained desktop and mobile conversation surface; when English and Turkish copy is complete; when the welcome, quick-reply, typed-message, reset, close, focus-return, Escape, safe-area, keyboard, and reduced-motion behaviors are verified; when the existing Treatment Plan flow remains unchanged; and when the implementation is clearly local-only and ready for a later backend adapter without including one now.
-
-The implementation handoff should report files created and modified, the component and provider architecture, current local state behavior, what is intentionally mocked, accessibility decisions, build/type-check results, and any follow-up risks. Do not begin backend integration as part of this pass.
-
-## 15. Luma Patient Assistant server transport
-
-### Scope
-
-Add the first real transport path for typed Patient Assistant messages while preserving the existing assistant shell, responsive positioning, accessibility, i18n, Treatment Plan workflow, and quick-reply mock flows. This is transport testing only; it must not become an AI integration.
-
-The browser must call only `POST /api/chat`. The Next.js App Router route will validate the small request contract, forward an allowlisted payload to the server-configured n8n webhook, defensively normalize `{ reply: string }`, and return controlled errors. The n8n URL must never be exposed to the browser or committed to the repository.
-
-### Boundaries and contracts
-
-Use the server-only environment variable `N8N_CHAT_WEBHOOK_URL` and add an empty declaration to `.env.example`. Do not use `NEXT_PUBLIC_` and do not commit a real webhook URL.
-
-Accept only:
-
-```ts
-{ message: string; locale: 'en' | 'tr'; sessionId: string }
-```
-
-Trim and validate every field, reject empty or overlong messages, require JSON, and forward only those three fields. Normalize a valid n8n response to `{ reply: string }`; treat missing, empty, malformed, non-JSON, non-2xx, timeout, network, and missing-environment responses as controlled backend failures without exposing internal details.
-
-Keep the transport boundary narrow with a small route and optional typed client helper. Use built-in `fetch` with a reasonable timeout and no new dependency. Do not add an LLM, AI SDK, database, CRM, analytics, authentication, file upload transport, medical reasoning, RAG, streaming, or persistent patient data.
-
-### Assistant behavior
-
-Change only the typed free-text path. Append the patient message immediately, keep it visible during the request, disable duplicate submission while pending, show a quiet localized assistant typing state, call `/api/chat`, append the returned reply, and recover the composer after success or failure. Do not add artificial delays. Existing welcome, treatment-plan, consultation, and location quick replies remain local and mocked.
-
-Create one in-memory session ID for the current assistant conversation using `crypto.randomUUID()`. Reuse it across typed messages and replace it when the user explicitly resets the conversation. Do not store patient data in cookies or persistent storage.
-
-Add only the localized strings needed for the loading state and friendly connection failure. The user-facing failure copy is:
-
-- English: `I’m having trouble connecting right now. Please try again in a moment.`
-- Turkish: `Şu anda bağlantı kurmakta zorlanıyorum. Lütfen biraz sonra tekrar deneyin.`
-
-### Implementation checklist
-
-- [x] Inspect the current Patient Assistant, App Router route-handler conventions, environment files, and existing provider boundaries.
-- [x] Add the server-only `N8N_CHAT_WEBHOOK_URL` declaration to `.env.example` without adding a real URL.
-- [x] Add the narrow `POST /api/chat` route with request validation, timeout, allowlisted forwarding, defensive response normalization, and controlled errors.
-- [x] Add the minimal typed client/transport types if they improve separation from visual components.
-- [x] Add provider-level session ID creation and reset behavior.
-- [x] Replace only typed-message mock responses with `/api/chat`, including pending state and duplicate-submit protection.
-- [x] Add restrained localized loading and connection-error states with reduced-motion support.
-- [x] Verify quick replies, Treatment Plan behavior, launcher positioning, desktop/mobile layout, and EN/TR rendering remain unchanged.
-- [x] Test success, validation, timeout/network, malformed-response, and missing-environment paths without exposing internal details.
-- [x] Run TypeScript, production build, focused diff, and final security-boundary checks.
-
-## 16. Luma clinic knowledge server enrichment
-
-### Scope
-
-Add the version-controlled prototype clinic knowledge baseline at `knowledge/luma-clinic.md` and load it only inside the server-side `/api/chat` route. Enrich the existing n8n request with the markdown contents while preserving the browser request contract, frontend assistant behavior, session handling, i18n, accessibility, Treatment Plan behavior, quick replies, and current `{ reply: string }` response handling.
-
-Do not add an AI model, change the Patient Assistant UI, expose the knowledge through a public route, move it into frontend code or `public`, add dependencies, or begin model/backend feature integration beyond this transport payload enrichment.
-
-### Implementation sequence
-
-1. Read the repository instructions and the current route and transport boundaries.
-2. Add the attached clinic knowledge baseline verbatim at `knowledge/luma-clinic.md`.
-3. Add a small server-only file loader using the built-in Node filesystem API and a repository-root path.
-4. Load the knowledge for each valid chat request and forward it alongside the existing message, locale, and session ID fields.
-5. Return the existing controlled `chat_unavailable` error if the file cannot be read; never expose paths, stack traces, or knowledge contents to the browser.
-6. Verify typed chat, the unchanged browser contract, n8n receipt and response normalization, missing-file behavior, build, type-check, and the absence of client-side knowledge exposure.
-
-### Implementation checklist
-
-- [x] Read `AGENTS.md`, the Next.js route-handler guidance, the current `/api/chat` route, and the existing Patient Assistant transport.
-- [x] Create `knowledge/luma-clinic.md` with the attached content exactly and keep it outside public and client code.
-- [x] Add a minimal server-only knowledge loader using the built-in filesystem API.
-- [x] Enrich the outbound n8n payload with `clinicKnowledge` while preserving the browser request contract.
-- [x] Preserve the existing `{ reply: string }` browser response and controlled error behavior.
-- [x] Verify missing or unreadable knowledge fails safely without exposing internal details.
-- [x] Verify typed chat, n8n transport, browser non-exposure, and the existing frontend/Treatment Plan behavior.
-- [x] Run TypeScript checks, the production build, and focused security/diff checks.
-
-## 17. Luma homepage visual and editorial refinement
-
-### Scope
-
-Refine the existing homepage presentation while preserving the Luma visual language, App Router architecture, English/Turkish localization, accessibility, reduced-motion behavior, Treatment Plan flow, mobile sticky CTA, Patient Assistant behavior, and server chat transport.
-
-This pass combines the requested editorial homepage changes with the header, desktop hero, and trust-metric refinements. It removes duplicated patient-journey messaging, adds a dedicated About Luma section, gives treatments a stronger image-led presentation, adds understated patient portraits and feature icons, and improves the final CTA composition. It does not redesign the full site or introduce a parallel design system.
-
-The following paths are explicitly out of scope and must remain untouched: `components/patient-assistant/**`, `app/api/chat/**`, and `lib/chat-client.ts`. Do not change chatbot behavior, prompts, data flow, Treatment Plan behavior, environment variables, backend integration, or dependencies.
-
-### Implementation sequence
-
-1. Inspect the current data, i18n, metadata, site configuration, section composition, image assets, and existing design tokens.
-2. Update the localized data model for one universal four-step journey, the About Luma section, testimonials with portrait metadata, the three trust metrics, and any header/treatment copy changes required by the layout.
-3. Add the dedicated About Luma section in the requested homepage order without renaming Why Luma.
-4. Redesign the desktop-first hero composition, optically center the wordmark, simplify desktop navigation, and reduce the compact language switcher while preserving locale behavior.
-5. Rework the treatment section into image-led editorial panels with readable desktop, tablet, and mobile layouts.
-6. Add prototype patient portrait assets under `public/images/testimonials/`, use them with `next/image`, and add the requested Lucide icons for international features and the remaining trust metrics.
-7. Consolidate Patient Journey into one universal sequence and remove the oversized decorative footer wordmark.
-8. Add an image-backed Final CTA using an existing suitable image and a restrained overlay; verify existing localized metadata and social images before changing metadata code.
-9. Review the homepage at 1440, 1280, 1024, 768, 390, and 360 pixels in both English and Turkish for overflow, crops, anchors, contrast, and mobile CTA behavior.
-10. Run type-check, lint if configured, production build, hydration/error review, image-path checks, and a focused diff confirming chatbot/API files were not modified.
-
-### Implementation checklist
-
-- [x] Inspect the existing homepage architecture, data, i18n, metadata, site config, assets, and design tokens.
-- [x] Add the universal four-step Patient Journey data and localized EN/TR copy.
-- [x] Add and place the dedicated About Luma section with localized copy.
-- [x] Refine the desktop hero, wordmark alignment, desktop navigation, and compact language switcher.
-- [x] Redesign Treatments as responsive image-led editorial panels while preserving treatment information and accessibility.
-- [x] Add localized testimonial portrait fields, prototype portrait assets, and `next/image` rendering with alt text.
-- [x] Add understated international-feature icons and three trust-metric icons; remove the fourth metric.
-- [x] Remove the oversized footer wordmark and rebalance footer spacing.
-- [x] Add the image-backed Final CTA with a readable overlay and preserved CTA behavior.
-- [x] Verify existing localized Open Graph/Twitter metadata and make only necessary fixes.
-- [x] Review all requested viewport sizes in EN/TR, including anchors, image crops, overflow, contrast, and sticky CTA behavior.
-- [x] Run type-check, lint if available, production build, hydration/error checks, and focused diff/security checks.
-- [x] Confirm `components/patient-assistant/**`, `app/api/chat/**`, and `lib/chat-client.ts` remain untouched.
+Apply a focused corrective pass to the latest homepage frontend changes.
+
+This pass covers only:
+
+- Fixing the React hydration mismatch warning.
+- Redesigning the three trust metrics as cohesive editorial blocks.
+- Rebuilding the desktop hero as an asymmetric two-column composition.
+- Simplifying secondary hero content on desktop.
+- Refining the header wordmark alignment.
+- Quieting the compact EN/TR language switcher.
+
+Preserve existing content, CTA behavior, locale behavior, responsive behavior, accessibility, reduced-motion support, and treatment-plan behavior.
+
+Do not redesign unrelated sections.
+
+## Protected areas
+
+Do not modify:
+
+- `components/patient-assistant/**`
+- `app/api/chat/**`
+- `lib/chat-client.ts`
+
+Do not change chatbot logic, API behavior, Results, Treatments, Patient Journey, Testimonials, Footer, or Final CTA unless required to fix a direct regression from this pass.
+
+## Implementation sequence
+
+1. Inspect the current implementation, especially `components/sections/trust-strip.tsx`, `components/sections/hero.tsx`, `components/layout/header.tsx`, `components/layout/wordmark.tsx`, `lib/i18n.tsx`, and recent Lucide icon rendering.
+2. Trace the hydration warning to its actual source. Check semantic DOM structure, server/client render branches, unstable values, locale-dependent markup, and SVG attributes. Do not suppress the warning.
+3. Refactor trust metrics to valid predictable markup using `<dl>` with direct metric wrappers containing `<dt>` and `<dd>`.
+4. Rebuild the trust strip as three equal, left-aligned editorial metric blocks:
+   - `8,000+` — Patients treated — `UsersRound`
+   - `14+ years` — Clinical experience — `Clock3` or `CalendarRange`
+   - `4.9 / 5` — Patient rating — `Star`
+5. Keep a subtle top border, controlled whitespace, large serif values, neutral labels, 18–20px icons, muted strokes around 1.4–1.5, no icon circles, no badges, no tiles, and a compact height.
+6. Keep the illustrative prototype note while visually de-emphasizing it. Remove any fourth metric.
+7. Rebuild the desktop hero at `lg` and above as an asymmetric two-column editorial composition:
+   - Left: eyebrow, headline, italic emphasis, description, primary CTA, and three short trust statements.
+   - Right: substantial clinic consultation image using approximately `aspect-[4/5]` or `aspect-[3/4]`.
+   - Target approximately 55–60% text and 40–45% image, with roughly 6.5–7 and 5–5.5 columns at xl.
+8. Keep tablet transitional stacking and mobile stacking. Preserve all existing content and CTA behavior.
+9. Remove the separate Local Care and International Care text links from the desktop hero. They may remain as compact mobile entry points if still useful. Keep their destination sections intact.
+10. Refine the wordmark without arbitrary `translate-y` offsets. Use controlled flex, line-height, or baseline alignment so the full wordmark block is vertically centered without increasing header height.
+11. Refine the compact EN/TR selector with a thin border, smaller typography, a clear active locale, a smaller footprint, and a practical clickable area. Preserve locale behavior.
+12. Review the final diff and confirm all protected areas are untouched.
+
+## Checklist
+
+### Hydration
+
+- [x] Inspect the current hydration mismatch source.
+- [x] Correct invalid or fragile trust metric DOM structure.
+- [x] Check server/client conditionals, generated values, locale markup, and SVG attributes.
+- [x] Confirm no `suppressHydrationWarning` was added.
+- [x] Verify development mode has no hydration or SVG mismatch warnings.
+
+### Trust metrics
+
+- [x] Render exactly three metrics with no fourth metric.
+- [x] Use valid `<dl>`, `<dt>`, and `<dd>` semantics.
+- [x] Make each icon and metric read as one left-aligned unit.
+- [x] Use `UsersRound`, `Clock3` or `CalendarRange`, and `Star`.
+- [x] Remove `BadgeCheck` from clinical experience.
+- [x] Keep the compact premium editorial treatment and de-emphasized prototype note.
+
+### Hero
+
+- [x] Implement the asymmetric desktop two-column composition at `lg` and above.
+- [x] Give the right-side image substantial vertical presence.
+- [x] Avoid panoramic full-width imagery and disconnected vertical gaps.
+- [x] Preserve tablet and mobile responsive behavior.
+- [x] Keep the description, CTA, and three short trust statements.
+- [x] Remove desktop Local Care and International Care text links while preserving mobile usefulness and destination sections.
+
+### Header
+
+- [x] Remove wordmark translation hacks and align the wordmark through layout and typography.
+- [x] Keep `Luma` dominant and `DENTAL ISTANBUL` secondary.
+- [x] Keep the header height unchanged.
+- [x] Make the compact language switcher quieter while preserving clickability and locale behavior.
+
+### Validation
+
+- [x] Run `pnpm build`.
+- [x] Use the build for TypeScript validation.
+- [x] Launch the development version if available.
+- [x] Check the browser console for hydration warnings.
+- [x] Review desktop at 1440px, 1280px, and 1024px.
+- [x] Review mobile at 390px and 360px.
+- [x] Confirm metrics are balanced and icons are integrated.
+- [x] Confirm the hero reads as a desktop composition at large widths.
+- [x] Confirm the wordmark is optically centered.
+- [x] Confirm the language switcher does not compete with the CTA.
+- [x] Confirm chatbot and API files were untouched.
+
+## Handoff report
+
+Report:
+
+- Exact cause of the hydration mismatch.
+- Files changed.
+- Hero changes.
+- Trust metric changes.
+- Build and validation result.
+- Confirmation that chatbot/API files were untouched.
