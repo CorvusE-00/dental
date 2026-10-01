@@ -31,7 +31,7 @@ export type SiteCopy = {
   trust: { ariaLabel: string; prototypeNotice: string; items: string[]; mobileItems: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
   sections: {
     treatments: { eyebrow: string; title: string; supporting: string }
-    about: { eyebrow: string; title: string; description: string; imageAlt: string; detailAlt: string; statement: string }
+    about: { eyebrow: string; title: string; description: string; imageAlt: string }
     local: { eyebrow: string; title: string; description: string; imageAlt: string }
     international: { eyebrow: string; title: string; description: string; imageAlt: string }
     journey: { eyebrow: string; title: string; description: string; localLabel: string; internationalLabel: string; imageAlt: string }
@@ -145,9 +145,7 @@ const english: SiteCopy = {
       eyebrow: 'About Luma',
       title: 'Dental care designed around the person, not the procedure.',
       description: 'Luma brings thoughtful clinical planning, clear communication and considered cosmetic, restorative and everyday dentistry together for people in Istanbul and patients travelling from abroad.',
-      imageAlt: 'A calm, light-filled dental clinic room prepared for a patient.',
-      detailAlt: 'A closer view of the dental treatment room beyond the consultation space.',
-      statement: 'Calm planning, clear communication, and care considered around the person.',
+      imageAlt: 'A modern dental treatment room with a chair, clinical equipment and warm daylight.',
     },
     local: {
       eyebrow: 'For local patients',
@@ -300,9 +298,7 @@ const turkish: SiteCopy = {
       eyebrow: 'Luma hakkında',
       title: 'Prosedüre değil, kişiye göre tasarlanan diş bakımı.',
       description: 'Luma; İstanbul’da yaşayanlar ve yurt dışından gelen hastalar için özenli klinik planlamayı, açık iletişimi ve estetik, restoratif ve günlük diş bakımını bir araya getirir.',
-      imageAlt: 'Hasta için hazırlanmış sakin ve aydınlık bir diş kliniği odası.',
-      detailAlt: 'Görüşme alanının ötesinde görünen diş tedavi odasının daha yakından görünümü.',
-      statement: 'Sakin planlama, açık iletişim ve kişiye göre düşünülen bakım.',
+      imageAlt: 'Sıcak gün ışığı alan, modern ekipmanlarla donatılmış diş tedavi odası.',
     },
     local: { eyebrow: 'Yerel hastalar için', title: "İstanbul'daki hayatınıza uyan bakım.", description: 'Sağlığınız, hedefleriniz ve yapmak istediğiniz değişiklikler hakkında yüz yüze bir görüşmeyle başlayın.', imageAlt: 'Sakin bir klinik odasında hasta ile konuşan klinisyen.' },
     international: { eyebrow: 'Uluslararası hastalar için', title: 'Tedavi için İstanbul’a mı geliyorsunuz?', description: 'Aynı özenli planlama yurt dışından başlayan hastalar için de sunulur; ziyaretiniz ve ülkenize dönüş sonrası bakım için pratik destek sağlanır.', imageAlt: 'Tedavi planlamasını anlatmak için kullanılan panoramik diş taraması.' },

@@ -1,15 +1,14 @@
-# Luma About Section Editorial Recomposition
+# Luma About Section Simplification
 
 ## Scope
 
-Apply one focused redesign to the About Luma section only.
+Apply one focused simplification to the About Luma section only.
 
 Work may include:
 - `components/sections/about-luma.tsx`
-- Minimal localized copy or data required by that section.
-- Image assets used by the About section.
+- Minimal About-related localization or image asset data.
 
-Do not redesign unrelated sections.
+Do not redesign any other section.
 
 ## Protected areas
 
@@ -22,74 +21,90 @@ Do not redesign the Header, Hero, Trust metrics, Treatments, Results, Local Care
 
 ## Implementation tasks
 
-1. Inspect the current About Luma implementation, localized copy, and existing editorial image assets before editing.
+1. Inspect the current main-branch About implementation and existing editorial image assets before editing.
 
-2. Remove the numbered feature-list treatment completely:
-   - Remove the 01 / 02 / 03 presentation.
-   - Do not replace it with checklists, bullets, icon cards, or another repeated feature list.
-   - Keep the section focused on brand impression rather than feature explanation.
+2. Remove the failed About experiments:
+   - Remove the small inset or overlapping second image.
+   - Remove the duplicate crop of `about-clinic.jpg`.
+   - Remove the italic brand statement.
+   - Remove any 01 / 02 / 03 list, checkmark list, feature icons, and related unused `statement` or `detailAlt` copy fields.
+   - Leave no supporting list or extra slogan.
 
-3. Rebuild the left column as a brand statement:
-   - Keep the eyebrow, main heading, and supporting paragraph.
-   - Add one refined localized editorial statement below the paragraph.
-   - Adapt the statement for the Luma brand in English and Turkish.
-   - Keep it concise, calm, and specific rather than promotional or generic.
-   - Use elegant typography and spacing so it reads as a brand signature.
+3. Build the final asymmetric desktop layout:
+   - Image left at approximately 55–58% width.
+   - Text right at approximately 42–45% width.
+   - Keep the eyebrow, existing localized headline, and existing localized description only.
+   - Keep text left-aligned.
+   - Vertically center the text group against the image or bias it slightly upward.
+   - Use controlled heading line length and readable body-copy width.
 
-4. Recompose the right-side imagery as a restrained editorial composition:
-   - Prefer one main clinic/interior/consultation image plus one smaller secondary detail or inset image.
-   - The inset may overlap or sit beneath the main image, but must remain clean and intentional.
-   - Use a credible dental interior, consultation environment, material/detail crop, or treatment-room detail.
-   - Reuse the existing image if it works with a stronger crop and a suitable secondary asset.
-   - Replace or add assets only when needed for a premium, realistic, calm, warm but clinical, architecturally strong result.
-   - Avoid obvious AI perfection, awkward wide crops, generic staging, Hero-style repetition, messy collage, heavy shadows, excessive frames, and gimmicky motion.
-   - Use `next/image`, deliberate aspect ratios, `object-cover`, correct `sizes`, and responsive crops.
+4. Choose the strongest About image:
+   - Inspect `/images/editorial/about-clinic.jpg`, `routine-care.jpg`, and `local-care.jpg`.
+   - Keep or replace the current About image based on credible dental editorial quality.
+   - Prefer unmistakably dental, realistic photographic texture, natural daylight, warm neutral tones, a modern clinic, and calm architectural character.
+   - Avoid AI-looking luxury interiors, generic hotel or spa feeling, tiny dental context, Hero-style doctor/patient repetition, low resolution, and obvious stock posing.
+   - If no existing asset works, replace `public/images/editorial/about-clinic.jpg` with one dedicated high-quality image. Do not create unnecessary variants.
 
-5. Refine the two-column layout without changing the section’s place in the page:
-   - Adjust grid proportions, spacing, content width, image ratios, and alignment only as needed.
-   - Make the block feel editorial and visually distinctive rather than text beside an image.
-   - Keep the composition restrained across desktop and mobile.
+5. Present one image only:
+   - Use a substantial desktop aspect ratio around 4:3 or 5:4.
+   - Use `next/image`, `fill`, `object-cover`, correct `sizes`, and deliberate object positioning.
+   - Keep the full photographic composition understandable.
+   - Use consistent restrained rounded corners.
+   - Do not add inset images, overlap, collage, floating frames, captions, or gradient overlays.
 
-6. Preserve the Luma visual language:
+6. Refine spacing and composition:
+   - Keep the sage/secondary background.
+   - Use balanced top and bottom padding without a large empty area.
+   - Keep the section height close to the image height.
+   - Create page rhythm through the image-left/text-right asymmetry.
+   - Improve typography and whitespace rather than adding content.
+
+7. Set responsive behavior:
+   - Desktop: image left and text right.
+   - Tablet and mobile: stack cleanly with text first and image second.
+   - Keep the DOM order accessible and do not use CSS tricks that create an inaccessible reading order.
+   - On mobile, reduce excess padding, use a natural wide image crop, keep the headline controlled, and prevent horizontal overflow.
+
+8. Preserve the Luma visual language:
    - Warm ivory and soft sage palette.
    - Dark green typography.
    - Serif-led elegance.
    - Restrained editorial healthcare feel.
-   - No SaaS cards, big icons, checklists, numbered feature rows, heavy borders, loud shadows, or animation-heavy solutions.
+   - No lists, icons, badges, cards, decorative numbers, extra slogans, heavy shadows, or animation gimmicks.
 
-7. Review at 1440px, 1280px, 1024px, 768px, and 390px. Confirm the section feels premium, the brand statement has the right emphasis, the inset image does not break the layout, crops remain intentional, mobile spacing is clean, and there is no text overflow or awkward overlap.
+9. Review at 1440px, 1280px, 1024px, 768px, 390px, and 360px. Confirm the image-left/text-right desktop rhythm, text-first mobile order, credible image crop, balanced spacing, and no overflow.
 
 ## Checklist
 
 ### Inspection
 
-- [x] Inspect the current About Luma component and localized copy.
-- [x] Inspect existing About image assets at desktop and mobile proportions.
+- [x] Inspect the current About component and localized copy.
+- [x] Inspect `about-clinic.jpg`, `routine-care.jpg`, and `local-care.jpg`.
 - [x] Confirm protected and unrelated areas before editing.
 
-### Brand statement
+### Simplification
 
-- [x] Remove the 01 / 02 / 03 numbered feature-list treatment.
-- [x] Add one concise localized editorial statement below the paragraph.
-- [x] Confirm the statement reads as a brand signature rather than a feature list or marketing slogan.
-- [x] Confirm English and Turkish versions are natural and balanced.
+- [x] Remove the inset and overlapping second image.
+- [x] Remove the duplicate image crop.
+- [x] Remove the italic statement.
+- [x] Remove all numbered rows, checkmarks, feature icons, and unused related copy fields.
+- [x] Confirm the section contains only eyebrow, headline, description, and one image.
 
-### Image composition
+### Image choice and presentation
 
-- [x] Keep the existing About image as the main image after review.
-- [x] Use a deliberate secondary detail/inset crop from the same editorial asset.
-- [x] Build a restrained main-plus-inset composition without messy overlap.
-- [x] Confirm image art direction is premium, realistic, calm, warm, clinical, and architectural.
-- [x] Confirm there is no Hero-style repetition, stretching, awkward crop, or compression artifact.
-- [x] Confirm `next/image`, `object-cover`, aspect ratios, and `sizes` are correct.
+- [x] Decide that the existing assets did not meet the final About art direction.
+- [x] Replace `about-clinic.jpg` with one dedicated high-quality dental editorial image.
+- [x] Use one substantial image with deliberate crop and object position.
+- [x] Confirm the image is unmistakably dental, realistic, premium, calm, and architectural.
+- [x] Confirm `next/image`, `fill`, `object-cover`, aspect ratio, and `sizes` are correct.
+- [x] Confirm there is no stretch, awkward crop, low resolution, or Hero repetition.
 
-### Layout and visual character
+### Layout and spacing
 
-- [x] Refine the left-column hierarchy and spacing.
-- [x] Refine the two-column proportions and alignment.
-- [x] Confirm the section feels like an editorial brand block.
-- [x] Preserve the Luma palette, typography, restraint, and healthcare character.
-- [x] Confirm no unnecessary cards, icons, borders, shadows, or motion were added.
+- [x] Implement desktop image-left/text-right composition.
+- [x] Keep the text left-aligned with controlled heading and body-copy widths.
+- [x] Balance vertical alignment and section padding.
+- [x] Confirm no unnecessary content or decorative treatment remains.
 
 ### Responsive review
 
@@ -98,8 +113,9 @@ Do not redesign the Header, Hero, Trust metrics, Treatments, Results, Local Care
 - [x] Review 1024px.
 - [x] Review 768px.
 - [x] Review 390px.
-- [x] Confirm the inset image stays clean and intentional on mobile.
-- [x] Confirm no text overflow, awkward overlap, or excessive whitespace.
+- [x] Review 360px.
+- [x] Confirm mobile and tablet use text first, image second.
+- [x] Confirm no overflow, awkward crops, excessive whitespace, or broken spacing.
 
 ### Validation
 
@@ -110,10 +126,9 @@ Do not redesign the Header, Hero, Trust metrics, Treatments, Results, Local Care
 ## Handoff report
 
 Report:
-1. Exactly how the numbered list was removed and replaced.
-2. The editorial supporting element added.
-3. Whether a single image or main-plus-inset composition was used.
-4. Images and assets used.
-5. Files changed.
-6. Build result.
-7. Confirmation that chatbot and API files were untouched.
+1. Files changed.
+2. Which image was used and why.
+3. Confirmation that the inset, statement, lists, checkmarks, numbers, and icons were removed.
+4. Responsive layout result.
+5. Build result.
+6. Confirmation that chatbot and API files were untouched.
