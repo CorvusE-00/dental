@@ -31,7 +31,7 @@ export type SiteCopy = {
   trust: { ariaLabel: string; prototypeNotice: string; items: string[]; mobileItems: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
   sections: {
     treatments: { eyebrow: string; title: string; supporting: string }
-    about: { eyebrow: string; title: string; description: string; imageAlt: string }
+    about: { eyebrow: string; title: string; description: string; imageAlt: string; detailAlt: string; statement: string }
     local: { eyebrow: string; title: string; description: string; imageAlt: string }
     international: { eyebrow: string; title: string; description: string; imageAlt: string }
     journey: { eyebrow: string; title: string; description: string; localLabel: string; internationalLabel: string; imageAlt: string }
@@ -146,6 +146,8 @@ const english: SiteCopy = {
       title: 'Dental care designed around the person, not the procedure.',
       description: 'Luma brings thoughtful clinical planning, clear communication and considered cosmetic, restorative and everyday dentistry together for people in Istanbul and patients travelling from abroad.',
       imageAlt: 'A calm, light-filled dental clinic room prepared for a patient.',
+      detailAlt: 'A closer view of the dental treatment room beyond the consultation space.',
+      statement: 'Calm planning, clear communication, and care considered around the person.',
     },
     local: {
       eyebrow: 'For local patients',
@@ -299,6 +301,8 @@ const turkish: SiteCopy = {
       title: 'Prosedüre değil, kişiye göre tasarlanan diş bakımı.',
       description: 'Luma; İstanbul’da yaşayanlar ve yurt dışından gelen hastalar için özenli klinik planlamayı, açık iletişimi ve estetik, restoratif ve günlük diş bakımını bir araya getirir.',
       imageAlt: 'Hasta için hazırlanmış sakin ve aydınlık bir diş kliniği odası.',
+      detailAlt: 'Görüşme alanının ötesinde görünen diş tedavi odasının daha yakından görünümü.',
+      statement: 'Sakin planlama, açık iletişim ve kişiye göre düşünülen bakım.',
     },
     local: { eyebrow: 'Yerel hastalar için', title: "İstanbul'daki hayatınıza uyan bakım.", description: 'Sağlığınız, hedefleriniz ve yapmak istediğiniz değişiklikler hakkında yüz yüze bir görüşmeyle başlayın.', imageAlt: 'Sakin bir klinik odasında hasta ile konuşan klinisyen.' },
     international: { eyebrow: 'Uluslararası hastalar için', title: 'Tedavi için İstanbul’a mı geliyorsunuz?', description: 'Aynı özenli planlama yurt dışından başlayan hastalar için de sunulur; ziyaretiniz ve ülkenize dönüş sonrası bakım için pratik destek sağlanır.', imageAlt: 'Tedavi planlamasını anlatmak için kullanılan panoramik diş taraması.' },
@@ -442,7 +446,7 @@ export function LocaleSwitcher({ compact = false }: { compact?: boolean }) {
           type="button"
           onClick={() => switchLocale(item)}
           aria-pressed={locale === item}
-          className={`rounded-full uppercase tracking-[0.12em] transition-colors ${compact ? 'min-h-8 px-2.5' : 'min-h-8 px-2.5'} ${locale === item ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+          className={`rounded-full uppercase tracking-[0.12em] transition-colors ${compact ? 'min-h-7 px-1.5' : 'min-h-8 px-2.5'} ${locale === item ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}
         >
           {item}
         </button>

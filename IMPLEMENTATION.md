@@ -1,146 +1,119 @@
-# Luma Homepage Final Top Refinement
+# Luma About Section Editorial Recomposition
 
 ## Scope
 
-Apply a focused frontend visual refinement to the top of the homepage only.
+Apply one focused redesign to the About Luma section only.
 
-This pass covers:
+Work may include:
+- `components/sections/about-luma.tsx`
+- Minimal localized copy or data required by that section.
+- Image assets used by the About section.
 
-- Header wordmark alignment.
-- Hero vertical rhythm and height.
-- Trust metric visibility and spacing.
-- Hero and trust strip composition.
-- About Luma image quality.
-- Small compact language-switcher polish.
-- Responsive verification at the requested viewport sizes.
-
-Preserve existing content, CTA behavior, localization behavior, accessibility, responsive behavior, reduced-motion support, treatment-plan behavior, and the current desktop two-column hero direction.
-
-Do not redesign the rest of the website.
+Do not redesign unrelated sections.
 
 ## Protected areas
 
 Do not modify:
-
 - `components/patient-assistant/**`
 - `app/api/chat/**`
 - `lib/chat-client.ts`
 
-Do not change chatbot behavior, chatbot prompts, API behavior, treatment-plan modal behavior, localization logic, backend integrations, or unrelated working code.
+Do not redesign the Header, Hero, Trust metrics, Treatments, Results, Local Care, International Care, Patient Journey, Doctors, Testimonials, FAQ, Footer, or Final CTA.
 
-Do not redesign Results, Treatments, Local Care, International Care, Patient Journey, Doctors, Patient Experiences, FAQ, Final CTA, or Footer.
+## Implementation tasks
 
-## Hydration boundary
+1. Inspect the current About Luma implementation, localized copy, and existing editorial image assets before editing.
 
-The previous hydration warning was not reproducible in a clean Chrome profile with extensions disabled and is consistent with browser-extension DOM/SVG mutation.
+2. Remove the numbered feature-list treatment completely:
+   - Remove the 01 / 02 / 03 presentation.
+   - Do not replace it with checklists, bullets, icon cards, or another repeated feature list.
+   - Keep the section focused on brand impression rather than feature explanation.
 
-Leave application hydration logic alone in this pass.
+3. Rebuild the left column as a brand statement:
+   - Keep the eyebrow, main heading, and supporting paragraph.
+   - Add one refined localized editorial statement below the paragraph.
+   - Adapt the statement for the Luma brand in English and Turkish.
+   - Keep it concise, calm, and specific rather than promotional or generic.
+   - Use elegant typography and spacing so it reads as a brand signature.
 
-Do not:
+4. Recompose the right-side imagery as a restrained editorial composition:
+   - Prefer one main clinic/interior/consultation image plus one smaller secondary detail or inset image.
+   - The inset may overlap or sit beneath the main image, but must remain clean and intentional.
+   - Use a credible dental interior, consultation environment, material/detail crop, or treatment-room detail.
+   - Reuse the existing image if it works with a stronger crop and a suitable secondary asset.
+   - Replace or add assets only when needed for a premium, realistic, calm, warm but clinical, architecturally strong result.
+   - Avoid obvious AI perfection, awkward wide crops, generic staging, Hero-style repetition, messy collage, heavy shadows, excessive frames, and gimmicky motion.
+   - Use `next/image`, deliberate aspect ratios, `object-cover`, correct `sizes`, and responsive crops.
 
-- Add `suppressHydrationWarning`.
-- Disable SSR.
-- Add `ssr: false` workarounds.
-- Remove Lucide icons.
-- Change locale rendering.
-- Make speculative hydration fixes.
+5. Refine the two-column layout without changing the section’s place in the page:
+   - Adjust grid proportions, spacing, content width, image ratios, and alignment only as needed.
+   - Make the block feel editorial and visually distinctive rather than text beside an image.
+   - Keep the composition restrained across desktop and mobile.
 
-The final report must state that the warning was not reproducible in a clean browser profile and is consistent with browser-extension DOM/SVG mutation.
+6. Preserve the Luma visual language:
+   - Warm ivory and soft sage palette.
+   - Dark green typography.
+   - Serif-led elegance.
+   - Restrained editorial healthcare feel.
+   - No SaaS cards, big icons, checklists, numbered feature rows, heavy borders, loud shadows, or animation-heavy solutions.
 
-## Implementation sequence
-
-1. Inspect the current main-branch implementation and the current top-of-page rendering before editing.
-2. Fix the wordmark structurally in `components/layout/header.tsx` and `components/layout/wordmark.tsx`:
-   - Keep the header height unchanged.
-   - Make the header row use `flex items-center`.
-   - Make the wordmark anchor participate in the full header height with `h-full flex items-center`.
-   - Use an inner brand wrapper with controlled normal line-height and centered alignment.
-   - Keep `Luma` as the dominant serif wordmark and `DENTAL ISTANBUL` as secondary text.
-   - Remove `items-baseline`, `translate-y`, top-margin hacks, relative top offsets, and extremely compressed line-heights such as `leading-[0.82]`.
-   - Judge the rendered alignment against navigation, language selector, and CTA at 1440px, 1280px, and 1024px.
-3. Refine `components/sections/hero.tsx` without redesigning its current composition:
-   - Keep the eyebrow, large headline, italic emphasis, description, CTA, three trust statements, and right-side consultation image.
-   - Reduce top padding, headline-to-description gap, CTA-to-trust gap, bottom dead space, and unnecessary section height.
-   - Keep the bottom of the left content visually close to the bottom of the right image.
-   - Preserve intentional editorial whitespace without leaving a large blank block beneath the trust statements.
-4. Refine `components/sections/trust-strip.tsx` and `components/site-page.tsx` so the strip behaves as compact continuation of the hero:
-   - Keep exactly three metrics: `8,000+`, `14+ years`, and `4.9 / 5`.
-   - Keep their labels: Patients treated, Clinical experience, Patient rating.
-   - Do not restore `Local + global`.
-   - Keep the current small icon plus label and large serif value hierarchy.
-   - Keep three equal, left-aligned desktop columns, subtle top borders, integrated Lucide icons, 18–20px icons, muted color, and 1.4–1.5 stroke width.
-   - Do not use icon circles, icon boxes, SaaS cards, or `justify-between` between icon and value.
-   - Reduce trust-strip top and bottom padding and unnecessary margins so values are visible immediately after the hero at common desktop heights.
-   - Keep the prototype notice below the metrics with a smaller font, softer muted color, and sensible top margin.
-   - Do not add a new background, card wrapper, large divider, or excessive border treatment.
-5. Inspect `public/images/editorial/` for a sufficiently high-quality About Luma image. If no suitable existing image is available, add `public/images/editorial/about-clinic.jpg` showing a premium modern clinic interior or calm consultation environment with natural daylight, neutral materials, clinical warmth, and no duplicated hero composition or obvious artifacts.
-6. Keep the About Luma layout unchanged unless a small crop or aspect adjustment materially improves the new image. Continue using `next/image`, `fill`, `object-cover`, correct `sizes`, and deliberate desktop/mobile crops.
-7. Apply only small polish to the compact EN/TR switcher in `lib/i18n.tsx` and `components/layout/header.tsx`: keep it quieter than the primary CTA, subtly bordered, clearly active, compact in width, vertically centered, and behaviorally unchanged.
-8. Review the final focused diff and confirm the protected areas and unrelated sections were not modified.
+7. Review at 1440px, 1280px, 1024px, 768px, and 390px. Confirm the section feels premium, the brand statement has the right emphasis, the inset image does not break the layout, crops remain intentional, mobile spacing is clean, and there is no text overflow or awkward overlap.
 
 ## Checklist
 
-### Header alignment
+### Inspection
 
-- [x] Inspect the current main-branch header and wordmark rendering.
-- [x] Keep the header height unchanged.
-- [x] Align header row, wordmark, navigation, language selector, and CTA through centered layout.
-- [x] Make the wordmark anchor full-height and centered.
-- [x] Remove baseline alignment, translation offsets, top offsets, and compressed line-height hacks.
-- [x] Confirm the rendered wordmark is visually centered at 1440px, 1280px, and 1024px.
+- [x] Inspect the current About Luma component and localized copy.
+- [x] Inspect existing About image assets at desktop and mobile proportions.
+- [x] Confirm protected and unrelated areas before editing.
 
-### Hero rhythm
+### Brand statement
 
-- [x] Keep the current asymmetric desktop hero composition and all required content.
-- [x] Reduce excessive top, internal, and bottom spacing.
-- [x] Bring the left content finish close to the bottom of the right image.
-- [x] Remove dead space beneath the trust statements without making the hero cramped.
+- [x] Remove the 01 / 02 / 03 numbered feature-list treatment.
+- [x] Add one concise localized editorial statement below the paragraph.
+- [x] Confirm the statement reads as a brand signature rather than a feature list or marketing slogan.
+- [x] Confirm English and Turkish versions are natural and balanced.
 
-### Trust metrics
+### Image composition
 
-- [x] Keep exactly three metrics and no `Local + global` metric.
-- [x] Keep the integrated icon, label, and large serif value hierarchy.
-- [x] Keep three equal desktop columns, subtle borders, muted icons, and left alignment.
-- [x] Keep the prototype notice with reduced visual prominence.
-- [x] Reduce trust-strip spacing so all metric values are visible immediately after the hero at 1440x900 and 1536x864.
-- [x] Keep hero and trust strip visually connected without a new background or card treatment.
+- [x] Keep the existing About image as the main image after review.
+- [x] Use a deliberate secondary detail/inset crop from the same editorial asset.
+- [x] Build a restrained main-plus-inset composition without messy overlap.
+- [x] Confirm image art direction is premium, realistic, calm, warm, clinical, and architectural.
+- [x] Confirm there is no Hero-style repetition, stretching, awkward crop, or compression artifact.
+- [x] Confirm `next/image`, `object-cover`, aspect ratios, and `sizes` are correct.
 
-### About Luma image
+### Layout and visual character
 
-- [x] Inspect existing assets under `public/images/editorial/`.
-- [x] Reuse a suitable premium clinic image or add `public/images/editorial/about-clinic.jpg`.
-- [x] Verify sufficient source quality, correct aspect ratio, deliberate desktop crop, and deliberate mobile crop.
-- [x] Confirm the image does not repeat the hero composition.
+- [x] Refine the left-column hierarchy and spacing.
+- [x] Refine the two-column proportions and alignment.
+- [x] Confirm the section feels like an editorial brand block.
+- [x] Preserve the Luma palette, typography, restraint, and healthcare character.
+- [x] Confirm no unnecessary cards, icons, borders, shadows, or motion were added.
 
-### Language switcher and responsive behavior
+### Responsive review
 
-- [x] Keep locale switching behavior unchanged.
-- [x] Keep the compact selector quiet, centered, readable, and practical to click.
-- [x] Review 1024px, 768px, 390px, and 360px.
-- [x] Confirm mobile metrics do not overflow.
-- [x] Confirm the mobile CTA remains usable.
-- [x] Confirm the wordmark does not collide with controls.
-- [x] Confirm the About image remains well cropped.
+- [x] Review 1440px.
+- [x] Review 1280px.
+- [x] Review 1024px.
+- [x] Review 768px.
+- [x] Review 390px.
+- [x] Confirm the inset image stays clean and intentional on mobile.
+- [x] Confirm no text overflow, awkward overlap, or excessive whitespace.
 
 ### Validation
 
 - [x] Run `pnpm build`.
-- [x] Inspect 1440px, 1280px, 1024px, 768px, 390px, and 360px.
-- [x] Confirm metric values are visible at 1440x900 and 1536x864.
-- [x] Confirm the hydration warning was not reproduced in a clean browser profile and no application hydration logic was changed.
-- [x] Confirm `components/patient-assistant/**`, `app/api/chat/**`, and `lib/chat-client.ts` were untouched.
-- [x] Confirm unrelated sections were not redesigned.
+- [x] Confirm `components/patient-assistant/**`, `app/api/chat/**`, and `lib/chat-client.ts` are untouched.
+- [x] Confirm unrelated homepage sections are untouched.
 
 ## Handoff report
 
 Report:
-
-1. Files changed.
-2. Exact structural wordmark alignment fix.
-3. Hero spacing changes.
-4. Trust-strip spacing changes.
-5. Whether metric values are visible at 1440x900 and 1536x864.
-6. About image reused or added.
-7. Build result.
-8. Confirmation that hydration logic was not modified.
-9. Confirmation that chatbot/API files were untouched.
+1. Exactly how the numbered list was removed and replaced.
+2. The editorial supporting element added.
+3. Whether a single image or main-plus-inset composition was used.
+4. Images and assets used.
+5. Files changed.
+6. Build result.
+7. Confirmation that chatbot and API files were untouched.
