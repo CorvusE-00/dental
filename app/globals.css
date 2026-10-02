@@ -101,6 +101,30 @@
   color: var(--muted-foreground);
 }
 
+@media (width >= 64rem) and (height <= 51.25rem) {
+  .hero-shell {
+    padding-top: calc(var(--header-height) + 1rem);
+  }
+
+  .hero-copy {
+    gap: 1.5rem;
+  }
+
+  .hero-copy > .order-1 {
+    gap: 1rem;
+  }
+
+  .hero-copy > [data-hide-sticky-cta] {
+    gap: 1.25rem;
+    padding-bottom: 0;
+  }
+
+  .hero-image {
+    aspect-ratio: auto;
+    height: min(32rem, calc(100vh - var(--header-height) - 8rem));
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
