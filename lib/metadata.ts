@@ -1,15 +1,29 @@
 import type { Metadata } from 'next'
 import type { Locale } from '@/lib/i18n'
-import { absoluteUrl, getLocaleConfig, siteConfig } from '@/lib/site-config'
+import { absoluteUrl, getLocaleConfig, getTreatmentIndexConfig, siteConfig } from '@/lib/site-config'
 
-const languageAlternates = {
+const homepageLanguageAlternates = {
   en: absoluteUrl('/'),
   tr: absoluteUrl('/tr'),
   'x-default': absoluteUrl('/'),
 }
 
-export function getLocalizedMetadata(locale: Locale): Metadata {
-  const content = getLocaleConfig(locale)
+const treatmentIndexLanguageAlternates = {
+  en: absoluteUrl('/treatments'),
+  tr: absoluteUrl('/tr/treatments'),
+  'x-default': absoluteUrl('/treatments'),
+}
+
+type MetadataContent = {
+  title: string
+  description: string
+  path: string
+  locale: string
+  image: string
+  imageAlt: string
+}
+
+function getPageMetadata(content: MetadataContent, languages: Record<string, string>): Metadata {
   const url = absoluteUrl(content.path)
   const image = absoluteUrl(content.image)
 
@@ -19,7 +33,7 @@ export function getLocalizedMetadata(locale: Locale): Metadata {
     description: content.description,
     alternates: {
       canonical: url,
-      languages: languageAlternates,
+      languages,
     },
     robots: siteConfig.indexable
       ? { index: true, follow: true }
@@ -55,4 +69,12 @@ export function getLocalizedMetadata(locale: Locale): Metadata {
       ],
     },
   }
+}
+
+export function getLocalizedMetadata(locale: Locale): Metadata {
+  return getPageMetadata(getLocaleConfig(locale), homepageLanguageAlternates)
+}
+
+export function getTreatmentIndexMetadata(locale: Locale): Metadata {
+  return getPageMetadata(getTreatmentIndexConfig(locale), treatmentIndexLanguageAlternates)
 }

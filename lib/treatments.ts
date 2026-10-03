@@ -12,6 +12,10 @@ export const routableTreatmentSlugs = [
 export type RoutableTreatmentSlug = (typeof routableTreatmentSlugs)[number]
 export type TreatmentId = RoutableTreatmentSlug | 'not-sure'
 
+export function getTreatmentsIndexHref(locale: TreatmentLocale) {
+  return locale === 'tr' ? '/tr/treatments' : '/treatments'
+}
+
 export type TreatmentProcessStep = {
   title: string
   description: string
@@ -529,20 +533,31 @@ export function getLocalizedTreatment(slug: string, locale: TreatmentLocale) {
 }
 
 export function getFeaturedTreatments(locale: TreatmentLocale): HomepageTreatment[] {
+  return getHomepageTreatments(locale, (definition) => definition.featuredOnHomepage)
+}
+
+export function getAllTreatments(locale: TreatmentLocale): HomepageTreatment[] {
+  return getHomepageTreatments(locale)
+}
+
+function getHomepageTreatments(
+  locale: TreatmentLocale,
+  filter?: (definition: TreatmentDefinition) => boolean,
+): HomepageTreatment[] {
   return treatmentCatalog
-    .filter((definition) => definition.featuredOnHomepage)
+    .filter((definition) => filter?.(definition) ?? true)
     .sort((a, b) => a.order - b.order)
     .flatMap((definition) => {
-    const content = definition?.content[locale]
-    if (!definition || !content) return []
+      const content = definition.content[locale]
+      if (!content) return []
 
-    return [{
-      id: definition.slug,
-      name: content.name,
-      summary: content.summary,
-      details: content.cardDetails,
-      image: definition.image,
-      imageAlt: content.imageAlt,
-    }]
+      return [{
+        id: definition.slug,
+        name: content.name,
+        summary: content.summary,
+        details: content.cardDetails,
+        image: definition.image,
+        imageAlt: content.imageAlt,
+      }]
     })
 }

@@ -111,13 +111,13 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Add the English Treatments index route.
-- [ ] Add the Turkish Treatments index route.
-- [ ] Render all supported treatment entries from the shared catalogue.
-- [ ] Add concise localized heading and supporting copy.
+- [x] Add the English Treatments index route.
+- [x] Add the Turkish Treatments index route.
+- [x] Render all supported treatment entries from the shared catalogue.
+- [x] Add concise localized heading and supporting copy.
 - [ ] Link every index card to the matching localized detail route.
-- [ ] Verify the homepage all-treatments link targets `/treatments` and `/tr/treatments` by locale.
-- [ ] Add localized page metadata and preserve canonical behavior.
+- [x] Verify the homepage all-treatments link targets `/treatments` and `/tr/treatments` by locale.
+- [x] Add localized page metadata and preserve canonical behavior.
 - [ ] Verify invalid locale handling and responsive layout.
 
 **Acceptance criteria:** Both index routes load, list the supported treatments, preserve the existing visual system, and provide working localized links and metadata.

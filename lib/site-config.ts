@@ -33,6 +33,24 @@ export const siteConfig = {
       imageAlt: 'Luma Dental Istanbul — size göre planlanan özenli diş bakımı.',
     },
   },
+  treatmentIndex: {
+    en: {
+      title: 'Treatments | Luma Dental Istanbul',
+      description: 'Explore dental treatments in Istanbul, with care and next steps planned around your needs after assessment.',
+      path: '/treatments',
+      locale: 'en_TR',
+      image: '/images/social/luma-og-en.png',
+      imageAlt: 'Luma Dental Istanbul — treatments planned around you.',
+    },
+    tr: {
+      title: 'Tedaviler | Luma Dental Istanbul',
+      description: 'İstanbul’da ihtiyaçlarınıza göre planlanan diş tedavilerini ve sonraki adımları değerlendirme sonrasında keşfedin.',
+      path: '/tr/treatments',
+      locale: 'tr_TR',
+      image: '/images/social/luma-og-tr.png',
+      imageAlt: 'Luma Dental Istanbul — size göre planlanan tedaviler.',
+    },
+  },
 } as const
 
 export function absoluteUrl(path: string) {
@@ -41,4 +59,8 @@ export function absoluteUrl(path: string) {
 
 export function getLocaleConfig(locale: Locale) {
   return siteConfig.locales[locale]
+}
+
+export function getTreatmentIndexConfig(locale: Locale) {
+  return siteConfig.treatmentIndex[locale]
 }

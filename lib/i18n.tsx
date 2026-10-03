@@ -31,6 +31,7 @@ export type SiteCopy = {
   trust: { ariaLabel: string; items: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
   sections: {
     treatments: { eyebrow: string; title: string; viewAll: string; learnMore: string }
+    treatmentsIndex: { eyebrow: string; title: string; description: string; ctaTitle: string; ctaDescription: string }
     about: { eyebrow: string; title: string; description: string; imageAlt: string }
     local: { eyebrow: string; title: string; description: string; imageAlt: string }
     international: { eyebrow: string; title: string; description: string; imageAlt: string }
@@ -139,6 +140,13 @@ const english: SiteCopy = {
   trust: { ariaLabel: 'Luma at a glance', items: ['Clinician-led planning', 'Clear next steps', 'Support from first conversation to aftercare'], metrics: { patients: 'Patients treated', experience: 'Clinical experience', rating: 'Patient rating', care: 'Care planned in Istanbul' }, mobileMetrics: { patients: 'Patients', experience: 'Experience', rating: 'Rating', care: 'Istanbul care' }, values: { patients: '8,000+', experience: '14+ years', rating: '4.9 / 5', care: 'Local + global' } },
   sections: {
     treatments: { eyebrow: 'Treatments', title: 'Care for everyday needs and bigger changes.', viewAll: 'View all treatments', learnMore: 'Learn more' },
+    treatmentsIndex: {
+      eyebrow: 'Treatments',
+      title: 'Treatments',
+      description: 'Care planned around your needs. Use this catalogue as a starting point; final recommendations follow an appropriate assessment.',
+      ctaTitle: 'Not sure which treatment fits your needs?',
+      ctaDescription: 'Start with a conversation about what you would like to change and we will help you understand the next step.',
+    },
     about: {
       eyebrow: 'About Luma',
       title: 'Dental care designed around the person, not the procedure.',
@@ -285,6 +293,13 @@ const turkish: SiteCopy = {
   trust: { ariaLabel: 'Luma hakkında kısaca', items: ['Klinisyen liderliğinde planlama', 'Net sonraki adımlar', 'İlk görüşmeden bakım sonrasına destek'], metrics: { patients: 'Tedavi gören hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da planlanan bakım" }, mobileMetrics: { patients: 'Hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da bakım" }, values: { patients: '8.000+', experience: '14+ yıl', rating: '4,9 / 5', care: 'Yerel + global' } },
   sections: {
     treatments: { eyebrow: 'Tedaviler', title: 'Günlük ihtiyaçlar ve daha kapsamlı değişiklikler için bakım.', viewAll: 'Tüm tedavileri görüntüle', learnMore: 'Daha fazla bilgi' },
+    treatmentsIndex: {
+      eyebrow: 'Tedaviler',
+      title: 'Tedaviler',
+      description: 'İhtiyaçlarınıza göre planlanan bakım. Bu katalog bir başlangıç noktasıdır; nihai öneriler uygun bir değerlendirme sonrasında belirlenir.',
+      ctaTitle: 'Hangi tedavinin size uygun olduğundan emin değil misiniz?',
+      ctaDescription: 'Değiştirmek istediklerinizi konuşarak başlayın; sonraki adımı anlamanıza yardımcı olalım.',
+    },
     about: {
       eyebrow: 'Luma hakkında',
       title: 'Prosedüre değil, kişiye göre tasarlanan diş bakımı.',
