@@ -63,6 +63,20 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
             </div>
           </section>
 
+          <section className="border-y border-border bg-card py-8 md:py-10" aria-labelledby="treatment-glance-title">
+            <div className="container-page flex flex-col gap-6">
+              <h2 id="treatment-glance-title" className="eyebrow">
+                {labels.atAGlance}
+              </h2>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <QuickFact label={labels.startingPrice} value={content.quickFacts.startingPrice} emphasis />
+                <QuickFact label={labels.typicalAppointments} value={content.quickFacts.appointmentCount} />
+                <QuickFact label={labels.typicalTimeline} value={content.quickFacts.typicalTimeline} />
+                {content.quickFacts.anaesthesia ? <QuickFact label={labels.anaesthesia} value={content.quickFacts.anaesthesia} /> : null}
+              </div>
+            </div>
+          </section>
+
           <section className="bg-card py-16 md:py-24" aria-labelledby="treatment-overview-title">
             <div className="container-page grid gap-12 lg:grid-cols-2 lg:gap-20">
               <DetailTextSection id="treatment-overview-title" title={labels.whatItIs}>
@@ -116,8 +130,10 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
               <div className="flex max-w-2xl flex-col gap-5 lg:col-span-7">
                 <p className="eyebrow">{labels.pricing}</p>
                 <h2 id="treatment-pricing-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
-                  {content.pricing}
+                  {content.quickFacts.startingPrice}
                 </h2>
+                <p className="max-w-2xl text-base leading-relaxed text-muted-foreground">{content.pricing}</p>
+                <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">{content.priceNote}</p>
               </div>
               <div className="lg:col-span-5 lg:justify-self-end">
                 <PrimaryCta size="lg" />
@@ -184,6 +200,15 @@ function DetailTextSection({ id, title, children }: { id: string; title: string;
     <div className="flex max-w-2xl flex-col gap-5">
       <DetailHeading id={id} title={title} />
       <p className="text-base leading-relaxed text-muted-foreground md:text-lg">{children}</p>
+    </div>
+  )
+}
+
+function QuickFact({ label, value, emphasis = false }: { label: string; value: string; emphasis?: boolean }) {
+  return (
+    <div className="flex flex-col gap-2 border-t border-border pt-4">
+      <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
+      <p className={emphasis ? 'font-serif text-3xl leading-tight text-primary' : 'text-base leading-relaxed text-primary'}>{value}</p>
     </div>
   )
 }

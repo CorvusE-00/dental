@@ -45,6 +45,11 @@ export type SiteCopy = {
   treatmentDetail: {
     eyebrow: string
     backToTreatments: string
+    atAGlance: string
+    startingPrice: string
+    typicalAppointments: string
+    typicalTimeline: string
+    anaesthesia: string
     whatItIs: string
     suitability: string
     process: string
@@ -207,6 +212,11 @@ const english: SiteCopy = {
   treatmentDetail: {
     eyebrow: 'Treatment guide',
     backToTreatments: 'Back to treatments',
+    atAGlance: 'At a glance',
+    startingPrice: 'Starting price',
+    typicalAppointments: 'Typical appointments',
+    typicalTimeline: 'Typical timeline',
+    anaesthesia: 'Anaesthesia',
     whatItIs: 'What this treatment involves',
     suitability: 'Who this may be suitable for',
     process: 'How the process works',
@@ -342,6 +352,11 @@ const turkish: SiteCopy = {
   treatmentDetail: {
     eyebrow: 'Tedavi rehberi',
     backToTreatments: 'Tedavilere dön',
+    atAGlance: 'Kısaca',
+    startingPrice: 'Başlangıç fiyatı',
+    typicalAppointments: 'Tipik randevu',
+    typicalTimeline: 'Tipik süreç',
+    anaesthesia: 'Anestezi',
     whatItIs: 'Bu tedavi neleri içerir?',
     suitability: 'Kimler için uygun olabilir?',
     process: 'Süreç nasıl ilerler?',

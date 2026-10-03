@@ -20,7 +20,7 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 - Stable treatment slugs are `routine-care`, `dental-implants`, `veneers`, `crowns`, `smile-makeover`, and `all-on-4`.
 - `not-sure` remains a form-only treatment interest option and does not become a detail page.
 - The shared treatment model will be the source for homepage cards, the index, detail pages, metadata, FAQs, process information, duration, and optional estimate information.
-- Verified clinic facts are required for prices, timelines, outcomes, credentials, and other claims. Until verified, use careful language such as “Pricing depends on your plan” and “Request an estimate”.
+- Verified clinic facts are required before launch or presentation as real clinic claims. During this fictional prototype phase, clearly labelled prototype or example starting prices and indicative timeline ranges are allowed, but they must never be presented as verified Luma clinic facts. Final pricing, suitability, timing, and treatment recommendations still depend on appropriate assessment. Do not add guarantees, fake discounts, urgency, outcome claims, or invented credentials.
 - Performance work starts with a baseline and proceeds only from measured findings.
 - Each later phase depends on the data, route, or component work it consumes; performance optimization depends on the baseline; final QA depends on all implementation phases.
 
@@ -122,27 +122,46 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Acceptance criteria:** Both index routes load, list the supported treatments, preserve the existing visual system, and provide working localized links and metadata.
 
-## Phase 5 — Treatment detail routes
+## Phase 5 — Treatment detail content refinement
 
-**Objective:** Provide localized, extensible detail pages for every supported treatment without inventing medical or commercial claims.
+**Objective:** Make every localized treatment detail page materially more informative, treatment-specific, and useful for a prospective patient while keeping the existing routes, layout, and Treatment Plan flow.
 
-**Files likely involved:** `app/treatments/[slug]/page.tsx`, `app/[locale]/treatments/[slug]/page.tsx`, shared treatment detail components and subcomponents, `lib/data.ts`, `lib/i18n.tsx`, `lib/metadata.ts`, route helpers, and the existing Treatment Plan trigger.
+**Files likely involved:** `lib/treatments.ts`, `lib/i18n.tsx`, `components/pages/treatment-detail-page.tsx`, completeness helpers, and only the directly related treatment detail presentation files if the quick-facts hierarchy requires a small adjustment.
 
-**Implementation notes:** Add English and Turkish detail routes backed by the shared model. Generate supported params where appropriate and return `notFound()` for unsupported slugs. Include an introduction, what the treatment is, suitability, process, timeline or duration, factors that shape the plan, transparent pricing or estimate language, FAQs, aftercare, and a clear CTA. Use “Pricing depends on your plan” or “Request an estimate” when verified pricing is unavailable. Keep the existing Treatment Plan flow and do not add unsupported outcomes or guarantees.
+**Implementation notes:** Keep the existing English and Turkish detail routes, metadata, homepage links, index links, FAQ component, and overall editorial page composition. Refine the shared treatment data so each page explains what the treatment is, what happens clinically, who may consider it, how the process differs, how appointments and healing may affect timing, what shapes the plan, what aftercare involves, and what questions patients commonly ask. Add clearly labelled prototype starting prices in EUR with localized notes that they are examples and final pricing depends on examination, materials, and the treatment plan. Do not present placeholder prices as verified clinic prices or add discounts, urgency, package savings, guarantees, or unsupported medical claims. Keep all new content complete in both EN and TR before a detail route remains exposable.
 
-**Checklist:**
+**Information hierarchy:** Preserve the current page design while planning the content in this order: hero; quick facts / “At a glance”; what the treatment is; suitability; treatment-specific process; timing and plan factors; prototype starting price; aftercare; treatment-specific FAQ; final CTA.
 
-- [x] Add the English treatment detail route.
-- [x] Add the Turkish treatment detail route.
-- [x] Render every supported stable slug from the shared model.
-- [x] Return `notFound()` for unknown treatment slugs and invalid locales.
-- [x] Implement the required detail sections with localized content.
-- [x] Add safe pricing and estimate wording without invented values.
-- [x] Preserve existing Treatment Plan CTA behavior.
-- [x] Add localized canonical and social metadata.
-- [ ] Verify keyboard navigation, heading order, alt text, and responsive layout.
+**Checklist — treatment-specific content:**
 
-**Acceptance criteria:** Every supported treatment has a useful EN/TR detail page, unsupported slugs fail correctly, and the pages preserve existing CTA and accessibility behavior without unverified claims.
+- [x] Rewrite `whatItIs` for all six treatments with clear explanations of the treatment, what is done, the common problem addressed, relevant materials or restorations, and the key context a patient should understand.
+- [x] Rewrite the process steps for routine care, dental implants, veneers, crowns, smile makeover, and All-on-4 / All-on-6 so each reflects the actual treatment workflow and uses an appropriate 3–5 step range.
+- [x] Improve suitability wording for every treatment with practical patient context, factors that may affect suitability, and a clear reason assessment is required.
+- [x] Replace generic `planFactors` lists with treatment-specific decision factors.
+- [x] Rewrite aftercare content for each treatment without promising outcomes.
+- [x] Rewrite FAQs so each treatment answers genuinely useful pre-contact questions specific to that treatment.
+- [x] Replace overly vague timeline wording with useful, cautious prototype ranges and explanations of appointments, laboratory stages, and healing where relevant.
+- [x] Add treatment-specific prototype appointment guidance without presenting guarantees or unsupported exact schedules.
+
+**Checklist — quick facts and prototype pricing:**
+
+- [x] Extend `TreatmentLocalizedContent` with a small typed `quickFacts` block containing concise starting price, appointment count, and typical timeline values, plus optional anaesthesia guidance where appropriate.
+- [x] Add localized generic labels for Starting price, Typical appointments, Typical timeline, and Anaesthesia / their Turkish equivalents.
+- [x] Add localized `priceNote` content that clearly identifies each starting price as a prototype example and explains that final pricing depends on examination, materials, and treatment plan.
+- [x] Add the proposed EUR placeholder starting prices for routine care, dental implants, veneers, crowns, smile makeover, and All-on-4 / All-on-6 without discounts, urgency, or package claims.
+- [x] Render the quick-facts block near the top of each detail page and present the prototype starting price clearly but calmly.
+- [x] Keep concise quick-fact values separate from the longer explanatory `timeline` and `pricing` content.
+
+**Checklist — completeness and verification:**
+
+- [x] Update the typed completeness validation so both EN and TR require the new quick facts and price-note fields before a detail route can be exposed.
+- [x] Verify all six treatments have materially distinct EN/TR content across definitions, process, timing, plan factors, aftercare, FAQs, quick facts, and pricing notes.
+- [x] Verify the existing routes, metadata, homepage card links, index card links, FAQ keyboard behavior, and Treatment Plan CTA continue to work unchanged.
+- [ ] Verify the revised hierarchy remains readable and avoids horizontal overflow at the existing supported viewport targets where tooling allows; leave this item incomplete if exact viewport emulation is unavailable.
+
+**Content and pricing approval note:** The proposed EUR values are prototype placeholders for review and must be approved before they are shown to clinics or patients. The wording should make their unverified prototype status unmistakable.
+
+**Acceptance criteria:** All six EN/TR treatment pages provide distinct, clear, clinically understandable prototype content; quick facts and labelled placeholder pricing appear near the top; completeness validation blocks partial localized pages; existing route, link, metadata, FAQ, accessibility, and Treatment Plan behavior remain intact; and no later phase begins.
 
 ## Phase 6 — Local Care icons
 
