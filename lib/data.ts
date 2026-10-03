@@ -1,3 +1,7 @@
+import { getFeaturedTreatments, type HomepageTreatment, type TreatmentId } from '@/lib/treatments'
+
+export type { TreatmentId } from '@/lib/treatments'
+
 export type NavItem = { id: string; label: string; href: `#${string}` }
 
 export const primaryNav: NavItem[] = [
@@ -22,62 +26,9 @@ export const trustMetrics: Metric[] = [
   { id: 'rating', value: '4.9 / 5', label: 'Patient rating' },
 ]
 
-export type TreatmentId =
-  | 'routine-care'
-  | 'dental-implants'
-  | 'veneers'
-  | 'crowns'
-  | 'smile-makeover'
-  | 'all-on-4'
-  | 'not-sure'
+export type Treatment = HomepageTreatment
 
-export type Treatment = {
-  id: TreatmentId
-  name: string
-  summary: string
-  details: string[]
-  image: string
-  imageAlt: string
-}
-
-export const featuredTreatments: Treatment[] = [
-  {
-    id: 'routine-care',
-    name: 'Check-ups & Preventive Care',
-    summary:
-      'Examinations, hygiene, fillings and gum care planned around your everyday health and the concerns you want to address.',
-    details: ['In-person assessment', 'Prevention-first planning'],
-    image: '/images/editorial/routine-care.jpg',
-    imageAlt: 'A bright dental treatment room prepared for a routine appointment.',
-  },
-  {
-    id: 'dental-implants',
-    name: 'Dental Implants',
-    summary:
-      'Replace one or several missing teeth with titanium or zirconia implants, planned digitally around your bone and bite.',
-    details: ['Usually 2 visits', '3D CBCT planning'],
-    image: '/images/treatments/dental-implants.png',
-    imageAlt: 'A clinician holding a model of a single dental implant beside a digital scan.',
-  },
-  {
-    id: 'smile-makeover',
-    name: 'Smile Makeovers',
-    summary:
-      'A considered combination of treatments designed around your face, your features and the smile you want to see.',
-    details: ['Digital smile design', 'Mock-up before treatment'],
-    image: '/images/treatments/smile-makeover.png',
-    imageAlt: 'A patient reviewing a smile design preview with a dentist in a bright clinic.',
-  },
-  {
-    id: 'veneers',
-    name: 'Veneers',
-    summary:
-      'Thin porcelain or composite veneers to refine shape, shade and alignment with natural-looking translucency.',
-    details: ['Usually 1 visit', 'Shade matched in clinic'],
-    image: '/images/treatments/veneers.png',
-    imageAlt: 'A row of porcelain veneers arranged on a neutral surface beside a shade guide.',
-  },
-]
+export const featuredTreatments: Treatment[] = getFeaturedTreatments('en')
 
 export const supportingTreatments = [
   'Crowns and bridges',

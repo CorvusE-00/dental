@@ -70,13 +70,13 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Define the shared typed treatment model and stable supported slugs.
-- [ ] Move English and Turkish treatment content into the shared catalogue structure.
-- [ ] Add the fields needed by cards, index pages, detail pages, FAQs, process, duration, aftercare, and metadata.
-- [ ] Define and validate the minimum localized content-completeness requirements before exposing a detail route.
-- [ ] Keep `not-sure` as a form-only option.
-- [ ] Preserve current treatment interest form behavior and validation.
-- [ ] Add safe wording for unspecified pricing and estimates.
+- [x] Define the shared typed treatment model and stable supported slugs.
+- [x] Move English and Turkish treatment content into the shared catalogue structure.
+- [x] Add the fields needed by cards, index pages, detail pages, FAQs, process, duration, aftercare, and metadata.
+- [x] Define and validate the minimum localized content-completeness requirements before exposing a detail route.
+- [x] Keep `not-sure` as a form-only option.
+- [x] Preserve current treatment interest form behavior and validation.
+- [x] Add safe wording for unspecified pricing and estimates.
 
 **Acceptance criteria:** One typed source can supply every treatment surface in both locales, every routed treatment passes the required localized completeness check, incomplete treatments cannot receive a detail route, form behavior is unchanged, and no unsupported clinic facts are introduced.
 

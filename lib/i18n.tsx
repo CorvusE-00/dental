@@ -41,7 +41,6 @@ export type SiteCopy = {
     faq: { eyebrow: string; title: string; contactIntro: string }
     finalCta: { eyebrow: string; title: string; description: string }
   }
-  treatments: Record<string, { name: string; summary: string; details: string[] }>
   supportingTreatments: string[]
   localFeatures: Record<string, FeatureCopy>
   internationalFeatures: Record<string, FeatureCopy>
@@ -186,12 +185,6 @@ const english: SiteCopy = {
       description: 'Tell us whether you are looking for an in-person consultation in Istanbul or planning from abroad. We will help you understand the next step.',
     },
   },
-  treatments: {
-    'routine-care': { name: 'Check-ups & Preventive Care', summary: 'Examinations, hygiene, fillings and gum care planned around your everyday health and the concerns you want to address.', details: ['In-person assessment', 'Prevention-first planning'] },
-    'dental-implants': { name: 'Dental Implants', summary: 'Replace one or several missing teeth with titanium or zirconia implants, planned digitally around your bone and bite.', details: ['Usually 2 visits', '3D CBCT planning'] },
-    'smile-makeover': { name: 'Smile Makeovers', summary: 'A considered combination of treatments designed around your face, your features and the smile you want to see.', details: ['Digital smile design', 'Mock-up before treatment'] },
-    veneers: { name: 'Veneers', summary: 'Thin porcelain or composite veneers to refine shape, shade and alignment with natural-looking translucency.', details: ['Usually 1 visit', 'Shade matched in clinic'] },
-  },
   supportingTreatments: ['Crowns and bridges', 'Dentures', 'All-on-4 / All-on-6', 'Teeth whitening'],
   localFeatures: {
     'local-consultation': { title: 'Meet the team in Istanbul', description: 'Start with an in-person conversation about your health, your goals and the changes you would like to make.' },
@@ -308,12 +301,6 @@ const turkish: SiteCopy = {
     testimonials: { eyebrow: 'Hasta deneyimleri', title: 'Bakım süreci anlaşılır olmalı.', disclaimer: 'Hasta yorumları kurgusaldır ve bu prototip için yazılmıştır.' },
     faq: { eyebrow: 'SSS', title: 'Sorularınızı açıkça yanıtlıyoruz.', contactIntro: 'Aklınızda başka bir soru mu var? Bize yazın:' },
     finalCta: { eyebrow: 'Buradan başlayın', title: 'Değiştirmek istediklerinizi konuşarak başlayın.', description: "İstanbul'da yüz yüze bir görüşme mi aradığınızı, yoksa yurt dışından mı plan yaptığınızı belirtin. Bir sonraki adımı anlamanıza yardımcı olalım." },
-  },
-  treatments: {
-    'routine-care': { name: 'Kontrol ve Koruyucu Bakım', summary: 'Günlük sağlığınıza ve ele almak istediğiniz konulara göre planlanan muayene, diş taşı temizliği, dolgu ve diş eti bakımı.', details: ['Yüz yüze değerlendirme', 'Koruma odaklı planlama'] },
-    'dental-implants': { name: 'Diş İmplantları', summary: 'Eksik bir veya birden fazla dişi, kemik ve kapanışınıza göre dijital olarak planlanan implantlarla tamamlayın.', details: ['Genellikle 2 ziyaret', '3D CBCT planlaması'] },
-    'smile-makeover': { name: 'Gülüş Tasarımı', summary: 'Yüzünüze, özelliklerinize ve görmek istediğiniz gülüşe göre düşünülen tedavilerin bir arada planlanması.', details: ['Dijital gülüş tasarımı', 'Tedavi öncesi taslak'] },
-    veneers: { name: 'Porselen Laminalar', summary: 'Şekli, rengi ve hizayı doğal bir ışık geçirgenliğiyle iyileştiren ince porselen veya kompozit laminalar.', details: ['Genellikle 1 ziyaret', 'Klinikte renk eşleştirme'] },
   },
   supportingTreatments: ['Kuron ve köprüler', 'Protezler', 'All-on-4 / All-on-6', 'Diş beyazlatma'],
   localFeatures: {

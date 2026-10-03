@@ -3,10 +3,14 @@
 import Image from 'next/image'
 import type { Treatment } from '@/lib/data'
 import { useLocale } from '@/lib/i18n'
+import { getLocalizedTreatment } from '@/lib/treatments'
 
 export function TreatmentCard({ treatment, index }: { treatment: Treatment; index: number }) {
-  const { copy } = useLocale()
-  const localized = copy.treatments[treatment.id] ?? treatment
+  const { locale } = useLocale()
+  const localizedContent = getLocalizedTreatment(treatment.id, locale)
+  const localized = localizedContent
+    ? { name: localizedContent.name, summary: localizedContent.summary, details: localizedContent.cardDetails }
+    : treatment
 
   return (
     <article className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-primary text-primary-foreground">
