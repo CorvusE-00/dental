@@ -14,12 +14,6 @@ export const mobileNav: NavItem[] = [
   ...primaryNav.slice(1),
 ]
 
-export const trustIndicators = [
-  'Clinician-led planning',
-  'Clear next steps',
-  'Support from first conversation to aftercare',
-] as const
-
 export type Metric = { id: string; value: string; label: string }
 
 export const trustMetrics: Metric[] = [

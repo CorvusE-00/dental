@@ -36,7 +36,6 @@ export function TrustStrip({ compact = false, className }: { compact?: boolean; 
             )
           })}
         </dl>
-        <p className={cn('text-[0.6875rem] text-muted-foreground/70', compact ? 'hidden' : 'mt-6')}>{copy.trust.prototypeNotice}</p>
       </div>
     </section>
   )

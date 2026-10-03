@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { Check } from 'lucide-react'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { useLocale } from '@/lib/i18n'
 
@@ -40,22 +39,6 @@ export function Hero() {
                     {copy.hero.internationalShortLink}
                   </a>
                 </div>
-                <ul className="flex flex-wrap gap-x-3 gap-y-1.5 text-[0.75rem] leading-[1.4] text-muted-foreground sm:hidden">
-                  {copy.trust.mobileItems.map((item) => (
-                    <li key={item} className="flex items-center gap-1.5">
-                      <Check aria-hidden="true" className="size-3.5 shrink-0 text-foreground/60" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <ul className="hidden flex-col gap-1.5 text-[0.8125rem] leading-5 text-foreground/80 sm:flex sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:text-sm sm:leading-normal">
-                  {copy.trust.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <Check aria-hidden="true" className="size-3.5 text-foreground/60" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </div>

@@ -1,75 +1,281 @@
-# About Luma Image Refinement
+# Luma Frontend Refinement Phase
 
 ## Scope
 
-Improve the About Luma image only. Keep the current section layout exactly as implemented:
+This plan covers the active frontend refinement phase for Luma Dental Istanbul:
 
-- Desktop: image left, text right.
-- Mobile: text first, image second.
-- One image only.
+- Hero and TrustStrip cleanup
+- Shared treatment data, homepage treatment cards, treatment index, and treatment detail routes
+- Local Care feature icons
+- Patient Journey timeline redesign
+- Measurement-led image, network, JavaScript, and animation performance work
+- SEO, navigation, localization, responsive, accessibility, and release validation
 
-Potentially modified files:
+## Protected areas
 
-- `public/images/editorial/about-clinic.jpg`
-- `components/sections/about-luma.tsx` only if a small `object-position` adjustment is needed.
+The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and response handling, session handling, i18n behavior, accessibility behavior, Treatment Plan flow, and existing metadata foundations must keep working throughout the phase. No AI model, backend integration, RAG, vector storage, embeddings, CRM, calendar, lead capture, WhatsApp integration, or unrelated redesign is in scope.
 
-## Do not change
+## Working decisions and dependencies
 
-- About section layout.
-- About typography, spacing, or copy.
-- Any other homepage section.
-- Header, Hero, Trust metrics, Treatments, Results, Local Care, International Care, Patient Journey, Doctors, Testimonials, FAQ, Footer, or Final CTA.
-- Inset images, overlays, collage, captions, icons, lists, or decorative elements.
+- Stable treatment slugs are `routine-care`, `dental-implants`, `veneers`, `crowns`, `smile-makeover`, and `all-on-4`.
+- `not-sure` remains a form-only treatment interest option and does not become a detail page.
+- The shared treatment model will be the source for homepage cards, the index, detail pages, metadata, FAQs, process information, duration, and optional estimate information.
+- Verified clinic facts are required for prices, timelines, outcomes, credentials, and other claims. Until verified, use careful language such as “Pricing depends on your plan” and “Request an estimate”.
+- Performance work starts with a baseline and proceeds only from measured findings.
+- Each later phase depends on the data, route, or component work it consumes; performance optimization depends on the baseline; final QA depends on all implementation phases.
 
-## Implementation tasks
+## Phase 0 — Baseline and safeguards
 
-1. Inspect the current About image and compare it with the existing editorial assets.
+**Objective:** Establish a measurable baseline and protect existing behavior before changing the frontend.
 
-2. Choose the strongest available image for About Luma:
-   - Believable real photographic texture.
-   - Unmistakably dental.
-   - Visible treatment chair and clinical context.
-   - Modern, premium clinic with warm natural daylight.
-   - Calm, clean architectural atmosphere.
-   - No doctor/patient consultation scene.
-   - No hotel or spa feeling.
-   - No obvious AI artifacts or CGI/render appearance.
+**Files likely involved:** `AGENTS.md`, `package.json`, `app/**`, `components/**`, `lib/**`, `public/images/**`, `IMPLEMENTATION.md`.
 
-3. If an existing asset does not meet this direction, replace `public/images/editorial/about-clinic.jpg` with one stronger dental clinic photograph.
+**Implementation notes:** Re-read the repository and Next.js guidance before coding. Confirm the current build and TypeScript commands. Run controlled desktop and mobile checks. Record Lighthouse Performance, LCP, CLS, TBT, transfer bytes, request count, largest resources, render-blocking resources, long tasks, image dimensions/formats/sizes, `next/image` usage, `sizes` and `priority`, client boundaries, and Motion usage. Keep measurement details in terminal or execution notes; do not append baseline measurements or audit findings as historical logs inside `IMPLEMENTATION.md`. This file remains only the active plan and checklist unless a separate temporary report file is explicitly needed. Do not change implementation during baseline capture.
 
-4. Preserve the current About component structure and image treatment:
-   - Keep one image only.
-   - Keep `next/image`, `fill`, `object-cover`, the existing aspect ratios, rounded corners, and responsive `sizes`.
-   - Change `object-position` only if the new image needs a small crop correction.
+**Checklist:**
 
-5. Review the image at 1440px, 1280px, 768px, and 390px. Confirm both responsive compositions remain unchanged and the crop keeps the dental context clear.
+- [x] Re-read repository instructions and the relevant installed Next.js guide.
+- [x] Record a clean build and TypeScript baseline.
+- [ ] Capture desktop and mobile Lighthouse and browser performance baselines.
+- [x] Inventory public images and their page usage.
+- [x] Record protected Patient Assistant, chat, Treatment Plan, locale, and metadata behavior.
 
-6. Run `pnpm build`.
+**Acceptance criteria:** Baseline measurements and protected behavior are documented before implementation. No production code changes are made in this phase.
 
-7. Confirm no other section or unrelated file was modified.
+## Phase 1 — Hero and TrustStrip cleanup
 
-## Checklist
+**Objective:** Reduce above-the-fold clutter while preserving the existing hierarchy, metrics, layout, language behavior, and CTA behavior.
 
-- [x] Inspect the current About image and existing editorial assets.
-- [x] Select or create one believable high-end dental clinic image.
-- [x] Replace `about-clinic.jpg` only if the current or existing assets are not suitable.
-- [x] Preserve the current About layout, typography, spacing, and copy.
-- [x] Preserve one image, with no overlays, collage, inset, caption, icons, or lists.
-- [x] Adjust `object-position` only if necessary for the new crop. The existing position is suitable, so no change was needed.
-- [x] Review 1440px.
-- [x] Review 1280px.
-- [x] Review 768px.
-- [x] Review 390px.
-- [x] Confirm the desktop image-left/text-right layout is unchanged.
-- [x] Confirm the mobile text-first/image-second layout is unchanged.
-- [x] Run `pnpm build` successfully.
-- [x] Confirm no other section was modified. Only the plan and `about-clinic.jpg` are modified; `about-luma.tsx` is unchanged.
+**Files likely involved:** `components/sections/hero.tsx`, `components/sections/trust-strip.tsx`, `components/site-page.tsx`, `lib/data.ts`, `lib/i18n.tsx`.
 
-## Handoff report
+**Implementation notes:** Remove the three Hero reassurance lines (“Clinician-led planning”, “Clear next steps”, and “Support from first conversation to aftercare”) from the visible homepage Hero. Remove the visible homepage prototype notice (“Illustrative prototype figures. Replace with verified clinic facts before launch.”). Keep the three large trust metrics. Remove or simplify now-unused copy fields only after a repository-wide reference check. Preserve the current responsive composition, CTA, locale routes, and accessible structure.
 
-Report:
+**Checklist:**
 
-1. Image used.
-2. Whether `object-position` changed.
-3. Build result.
-4. Confirmation that no other section was modified.
+- [x] Remove the Hero reassurance list from English and Turkish rendered copy.
+- [x] Remove the visible homepage prototype notice from the TrustStrip.
+- [x] Keep the three large trust metrics in both locales.
+- [x] Remove only data and copy fields proven unused after the ref search.
+- [ ] Verify Hero, TrustStrip, CTA, locale switching, and accessibility behavior.
+
+**Acceptance criteria:** The Hero is clearer, the three metrics remain visible, no prototype notice is rendered on the homepage, and no unrelated layout or behavior changes.
+
+## Phase 2 — Treatment data architecture
+
+**Objective:** Create one typed, extensible catalogue that supports treatment cards, the index, detail pages, metadata, English, and Turkish.
+
+**Files likely involved:** `lib/data.ts`, `lib/i18n.tsx`, new shared treatment data/schema modules if needed, `components/shared/treatment-card.tsx`, treatment form components, and tests or validation utilities if present.
+
+**Implementation notes:** Refactor the current treatment shape into a shared model with stable slug, localized name and summary, image and alt text, card/index/detail content, process, timeline or duration, plan factors, FAQs, aftercare, optional pricing or estimate information, and metadata fields. Keep content separate from rendering. Before a supported slug can receive a detail route, require complete localized content for both locales: localized name, summary, detail introduction, suitability wording, process steps, duration or timeline wording, plan factors, pricing or estimate wording, FAQs, aftercare, metadata title and description, and image plus alt text. A treatment detail route must not be exposed when any required localized content is incomplete. Keep the current form options and `not-sure` behavior. Do not invent prices, outcomes, credentials, or medical claims.
+
+**Checklist:**
+
+- [ ] Define the shared typed treatment model and stable supported slugs.
+- [ ] Move English and Turkish treatment content into the shared catalogue structure.
+- [ ] Add the fields needed by cards, index pages, detail pages, FAQs, process, duration, aftercare, and metadata.
+- [ ] Define and validate the minimum localized content-completeness requirements before exposing a detail route.
+- [ ] Keep `not-sure` as a form-only option.
+- [ ] Preserve current treatment interest form behavior and validation.
+- [ ] Add safe wording for unspecified pricing and estimates.
+
+**Acceptance criteria:** One typed source can supply every treatment surface in both locales, every routed treatment passes the required localized completeness check, incomplete treatments cannot receive a detail route, form behavior is unchanged, and no unsupported clinic facts are introduced.
+
+## Phase 3 — Homepage Treatments redesign
+
+**Objective:** Make the homepage Treatments section easier to scan and connect each featured treatment to its detail page.
+
+**Files likely involved:** `components/sections/treatments.tsx`, `components/shared/treatment-card.tsx`, `lib/data.ts`, `lib/i18n.tsx`, existing reveal or motion components, and localized route helpers.
+
+**Implementation notes:** Remove the “Also available…” supporting sentence. Use a curated set of featured treatment cards from the shared catalogue. Use a clean, readable text area rather than long text over an image. Remove detail tag pills. Show a clear treatment name and short description with a restrained affordance. Make the full card a semantic link to the localized detail route. Add a visible “View all treatments” or equivalent localized link to `/treatments` and `/tr/treatments`. Preserve the visual language and make the layout work on mobile, tablet, and desktop with keyboard focus and reduced-motion support.
+
+**Checklist:**
+
+- [ ] Remove the supporting “Also available…” sentence.
+- [ ] Render curated featured cards from the shared treatment catalogue.
+- [ ] Replace long image-overlay copy with a readable card text area.
+- [ ] Remove detail tag pills.
+- [ ] Add treatment name, short description, and restrained link affordance.
+- [ ] Make each full card a semantic localized detail link.
+- [ ] Add a visible localized “View all treatments” link to the correct treatment index route.
+- [ ] Verify responsive layout, focus states, alt text, and reduced motion.
+
+**Acceptance criteria:** Homepage treatment cards are readable at all target widths, each card has one clear destination, and the section uses the shared treatment model without changing unrelated homepage sections.
+
+## Phase 4 — Treatments index route
+
+**Objective:** Add a complete localized treatment index that gives patients a clear overview before entering an individual treatment page.
+
+**Files likely involved:** `app/treatments/page.tsx`, `app/[locale]/treatments/page.tsx`, shared treatment index components, `lib/data.ts`, `lib/i18n.tsx`, `lib/metadata.ts`, and route helpers.
+
+**Implementation notes:** Add `/treatments` and `/tr/treatments`. Render the full supported catalogue with concise summaries, consistent cards, a clear heading, an appropriate next step, and links to localized detail routes. The homepage Treatments “View all treatments” or equivalent localized link must resolve visibly and directly to `/treatments` in English and `/tr/treatments` in Turkish, while featured cards continue linking to individual detail pages. Use existing layout, typography, metadata, and CTA patterns. Invalid locales must continue to use existing `notFound()` behavior.
+
+**Checklist:**
+
+- [ ] Add the English Treatments index route.
+- [ ] Add the Turkish Treatments index route.
+- [ ] Render all supported treatment entries from the shared catalogue.
+- [ ] Add concise localized heading and supporting copy.
+- [ ] Link every index card to the matching localized detail route.
+- [ ] Verify the homepage all-treatments link targets `/treatments` and `/tr/treatments` by locale.
+- [ ] Add localized page metadata and preserve canonical behavior.
+- [ ] Verify invalid locale handling and responsive layout.
+
+**Acceptance criteria:** Both index routes load, list the supported treatments, preserve the existing visual system, and provide working localized links and metadata.
+
+## Phase 5 — Treatment detail routes
+
+**Objective:** Provide localized, extensible detail pages for every supported treatment without inventing medical or commercial claims.
+
+**Files likely involved:** `app/treatments/[slug]/page.tsx`, `app/[locale]/treatments/[slug]/page.tsx`, shared treatment detail components and subcomponents, `lib/data.ts`, `lib/i18n.tsx`, `lib/metadata.ts`, route helpers, and the existing Treatment Plan trigger.
+
+**Implementation notes:** Add English and Turkish detail routes backed by the shared model. Generate supported params where appropriate and return `notFound()` for unsupported slugs. Include an introduction, what the treatment is, suitability, process, timeline or duration, factors that shape the plan, transparent pricing or estimate language, FAQs, aftercare, and a clear CTA. Use “Pricing depends on your plan” or “Request an estimate” when verified pricing is unavailable. Keep the existing Treatment Plan flow and do not add unsupported outcomes or guarantees.
+
+**Checklist:**
+
+- [ ] Add the English treatment detail route.
+- [ ] Add the Turkish treatment detail route.
+- [ ] Render every supported stable slug from the shared model.
+- [ ] Return `notFound()` for unknown treatment slugs and invalid locales.
+- [ ] Implement the required detail sections with localized content.
+- [ ] Add safe pricing and estimate wording without invented values.
+- [ ] Preserve existing Treatment Plan CTA behavior.
+- [ ] Add localized canonical and social metadata.
+- [ ] Verify keyboard navigation, heading order, alt text, and responsive layout.
+
+**Acceptance criteria:** Every supported treatment has a useful EN/TR detail page, unsupported slugs fail correctly, and the pages preserve existing CTA and accessibility behavior without unverified claims.
+
+## Phase 6 — Local Care icons
+
+**Objective:** Give the four Local Care feature items the same restrained visual support already used by International Care.
+
+**Files likely involved:** `components/sections/why-luma.tsx`, `lib/data.ts`, `lib/i18n.tsx`.
+
+**Implementation notes:** Add a distinct Lucide icon mapping for each Local Care feature. Keep the existing visual scale, thin stroke, muted color, spacing, and semantic treatment used by the International Care icons. Icons should support the text and remain decorative where the copy already provides the meaning.
+
+**Checklist:**
+
+- [ ] Choose four distinct Lucide icons that match the Local Care feature meanings.
+- [ ] Pass the Local Care icon map through the existing shared care section API.
+- [ ] Match the current International Care icon size, stroke, color, and spacing.
+- [ ] Verify decorative accessibility behavior and localized rendering.
+
+**Acceptance criteria:** Local Care displays four consistent icons without changing its copy, layout structure, or the International Care presentation.
+
+## Phase 7 — Patient Journey redesign
+
+**Objective:** Replace the current text-and-image split with a clear full-width four-step journey timeline while preserving meaning and the existing CTA.
+
+**Files likely involved:** `components/sections/patient-journey.tsx`, `lib/data.ts`, `lib/i18n.tsx`, `app/globals.css`, and the existing primary CTA helper.
+
+**Implementation notes:** Preserve the four ordered journey steps and their semantics. Use a full-width horizontal timeline with four markers and a connecting rail on desktop, then a vertical timeline on mobile. Remove the large side image if the timeline reads better without it. Keep the current copy and CTA unless a structural adaptation is required. Use subtle motion only where it already fits, honor reduced motion, and avoid layout shifts.
+
+**Checklist:**
+
+- [ ] Preserve the four ordered journey steps and localized copy.
+- [ ] Implement the full-width desktop horizontal timeline.
+- [ ] Implement the mobile vertical timeline.
+- [ ] Remove the large side image if it is no longer needed by the final structure.
+- [ ] Preserve the Patient Journey CTA and existing destination.
+- [ ] Verify semantic ordered-list structure, focus behavior, and reduced motion.
+
+**Acceptance criteria:** The Patient Journey reads as one connected four-step process on desktop and mobile, remains accessible, and keeps the current CTA behavior.
+
+## Phase 8 — Performance audit
+
+**Objective:** Measure the current implementation and identify the highest-value performance work before optimization.
+
+**Files likely involved:** `public/images/**`, `app/**`, `components/**`, `lib/**`, `next.config.*`, and performance measurement output kept outside production code unless a repository convention requires otherwise.
+
+**Implementation notes:** Re-run the baseline after Phases 1–7. Inspect every public image’s dimensions, format, byte size, and usage, with special attention to above-the-fold images and LCP. Inspect `next/image` width, `sizes`, `priority`, lazy-loading, browser network waterfalls, render-blocking resources, JavaScript bundles, client component boundaries, Motion usage, and long tasks. Rank findings by measured impact and identify safe changes. Keep the measurements and audit findings in terminal or execution notes rather than appending them as historical logs inside `IMPLEMENTATION.md`; keep this file limited to the active plan and checklist unless a separate temporary report file is explicitly needed. Do not optimize by guesswork.
+
+**Checklist:**
+
+- [ ] Capture updated Lighthouse and browser performance measurements.
+- [ ] Compare updated values to the Phase 0 baseline.
+- [ ] Audit image dimensions, formats, byte sizes, and page usage.
+- [ ] Audit LCP image loading, `sizes`, `priority`, and lazy-loading decisions.
+- [ ] Audit network waterfalls, render-blocking resources, JavaScript, client boundaries, and Motion.
+- [ ] Record a prioritized optimization list with expected risk and benefit.
+
+**Acceptance criteria:** The performance audit identifies concrete, measured opportunities and confirms which changes are safe to make without visual or behavioral regression.
+
+## Phase 9 — Image and network optimization
+
+**Objective:** Reduce image and network cost using the measured findings while preserving the current visual quality and responsive composition.
+
+**Files likely involved:** `public/images/**`, image-using components, `next.config.*`, and image source documentation where existing assets are changed.
+
+**Implementation notes:** Optimize only assets and loading paths identified in Phase 8. Resize or convert eligible photographic assets, preserve transparency where required, and keep source documentation accurate. Tune LCP image priority, `sizes`, dimensions, and lazy-loading based on actual layouts. Remove unused assets only after repository-wide references are checked. Re-measure after each meaningful batch.
+
+**Checklist:**
+
+- [ ] Apply measured image size and format improvements to eligible assets.
+- [ ] Preserve transparency and visible quality where assets require it.
+- [ ] Correct measured `next/image` dimensions, `sizes`, priority, and lazy-loading.
+- [ ] Remove only assets confirmed unused after reference checks.
+- [ ] Update asset source documentation when applicable.
+- [ ] Re-run the performance measurements and compare with the baseline.
+
+**Acceptance criteria:** Network payload and image cost improve materially where the audit identified them, LCP does not regress, and no visible quality or responsive behavior regresses.
+
+## Phase 10 — JavaScript and animation optimization
+
+**Objective:** Reduce unnecessary client JavaScript and animation work without changing product behavior or interaction design.
+
+**Files likely involved:** audited client components in `app/**`, `components/**`, `lib/**`, existing Motion/reveal utilities, and `package.json` only if the audit proves a dependency change is necessary.
+
+**Implementation notes:** Use the Phase 8 findings to remove unnecessary client boundaries or animation work where safe. Prefer small, local changes. Preserve Patient Assistant, Treatment Plan, locale switching, forms, accessibility, and existing visual hierarchy. Honor reduced-motion preferences and avoid broad architectural rewrites or new dependencies.
+
+**Checklist:**
+
+- [ ] Apply only measured safe client-boundary improvements.
+- [ ] Remove or reduce measured unnecessary animation work.
+- [ ] Preserve existing Motion behavior where it contributes to the design.
+- [ ] Verify reduced-motion behavior after changes.
+- [ ] Verify Patient Assistant, Treatment Plan, forms, and locale switching remain unchanged.
+- [ ] Re-run build and performance measurements.
+
+**Acceptance criteria:** JavaScript or animation cost improves where measured, interaction behavior is preserved, and no new dependency or unrelated refactor is introduced.
+
+## Phase 11 — SEO, navigation, and localization integration
+
+**Objective:** Make the new treatment surfaces discoverable, internally linked, localized, and correctly represented in metadata.
+
+**Files likely involved:** `components/layout/header.tsx`, `components/layout/footer.tsx`, `lib/data.ts`, `lib/i18n.tsx`, `lib/metadata.ts`, `lib/site-config.ts`, `app/sitemap.ts`, `app/robots.ts`, `components/metadata/json-ld.tsx`, and the new treatment routes.
+
+**Implementation notes:** Point primary Treatments navigation to `/treatments` and `/tr/treatments`, then update footer and mobile navigation links as needed. Add treatment index and detail URLs to the sitemap. Extend canonical, alternate locale, title, description, and Open Graph handling through the existing metadata foundations. Keep the existing production `NEXT_PUBLIC_SITE_URL` expectation and social-image mapping. Validate internal links, 404 behavior, route-aware metadata, and that no English-only strings remain in Turkish pages. Add structured data only when it is justified by available verified content.
+
+**Checklist:**
+
+- [ ] Update primary, footer, and mobile Treatments navigation for both locales.
+- [ ] Add index and detail routes to the sitemap.
+- [ ] Add localized metadata, canonical URLs, hreflang alternates, and Open Graph mappings.
+- [ ] Preserve the existing `NEXT_PUBLIC_SITE_URL` and social-image configuration.
+- [ ] Verify internal links, 404 behavior, and route-aware metadata.
+- [ ] Check Turkish pages for hardcoded English content.
+- [ ] Add only justified structured data using verified facts.
+
+**Acceptance criteria:** Treatment pages are reachable through navigation and sitemap, metadata is correct for EN/TR, canonical and alternate URLs resolve correctly, and localization is complete.
+
+## Phase 12 — Responsive, accessibility, and performance QA
+
+**Objective:** Validate the complete refinement phase across required viewports and protect existing behavior before release.
+
+**Files likely involved:** all files changed by Phases 1–11, plus the existing protected Patient Assistant, chat, Treatment Plan, and metadata surfaces for verification only.
+
+**Implementation notes:** Test at 1440, 1280, 1024, 768, 390, and 360 widths. Check homepage cards, index and detail pages, Local Care icons, the Patient Journey timeline, header/footer/mobile navigation, and all internal links. Check overflow, image crops, keyboard navigation, focus states, heading order, semantic lists, alt text, reduced motion, locale switching, invalid routes, metadata, and the protected assistant/API/Treatment Plan flows. Run the production build, TypeScript checks, and final Lighthouse measurements. Compare against Phase 0 and Phase 8 baselines.
+
+**Checklist:**
+
+- [ ] Validate all required viewport widths and both locales.
+- [ ] Validate homepage Treatments, index, and detail pages.
+- [ ] Validate Local Care icons and Patient Journey timeline.
+- [ ] Validate navigation, links, invalid routes, and metadata.
+- [ ] Validate overflow, image crops, keyboard/focus behavior, heading order, lists, alt text, and reduced motion.
+- [ ] Validate Patient Assistant UI, `/api/chat`, n8n transport, session behavior, and Treatment Plan behavior.
+- [ ] Run the production build and TypeScript checks.
+- [ ] Run final Lighthouse and browser performance measurements.
+- [ ] Compare Performance, LCP, CLS, TBT, payload, and request metrics with baselines.
+- [ ] Confirm no protected behavior or unrelated section changed.
+
+**Acceptance criteria:** Required routes and locales work at all target widths, accessibility checks pass, the production build and TypeScript checks pass, Performance reaches at least 95 where the environment permits, CLS and TBT remain near zero, LCP is not worse than baseline, and protected behavior remains intact.

@@ -22,6 +22,3 @@ export const SIMULATED_SUBMIT_DELAY_MS = 1200
 
 export const PROTOTYPE_NOTICE =
   'Prototype demonstration only. Information and files entered here are not transmitted or stored.'
-
-export const PROTOTYPE_FACTS_NOTICE =
-  'Illustrative prototype figures. Replace with verified clinic facts before launch.'
