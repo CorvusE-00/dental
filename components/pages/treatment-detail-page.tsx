@@ -23,6 +23,11 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
   const { copy, locale } = useLocale()
   const content = treatment.content[locale]
   const labels = copy.treatmentDetail
+  const processGridClass = content.process.length === 5
+    ? 'lg:grid-cols-5 lg:gap-4'
+    : content.process.length === 4
+      ? 'lg:grid-cols-4 lg:gap-5'
+      : 'lg:grid-cols-3 lg:gap-6'
 
   return (
     <div id="top">
@@ -91,12 +96,12 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
           <section className="bg-background py-16 md:py-24" aria-labelledby="treatment-process-title">
             <div className="container-page flex flex-col gap-10 md:gap-14">
               <DetailHeading id="treatment-process-title" title={labels.process} />
-              <ol className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+              <ol className={`grid gap-8 md:grid-cols-2 ${processGridClass}`}>
                 {content.process.map((step, index) => (
-                  <li key={step.title} className="flex flex-col gap-4 border-t border-border pt-5">
+                  <li key={step.title} className="flex min-w-0 flex-col gap-4 border-t border-border pt-5">
                     <span className="font-serif text-3xl text-muted-foreground">{String(index + 1).padStart(2, '0')}</span>
                     <div className="flex flex-col gap-2">
-                      <h3 className="text-base font-medium text-primary">{step.title}</h3>
+                      <h3 className="min-h-12 text-base font-medium text-primary">{step.title}</h3>
                       <p className="text-sm leading-relaxed text-muted-foreground">{step.description}</p>
                     </div>
                   </li>
@@ -126,7 +131,7 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
           </section>
 
           <section className="bg-sage-soft py-16 md:py-24" aria-labelledby="treatment-pricing-title">
-            <div className="container-page grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">
+            <div className="container-page grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-16">
               <div className="flex max-w-2xl flex-col gap-5 lg:col-span-7">
                 <p className="eyebrow">{labels.pricing}</p>
                 <h2 id="treatment-pricing-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
@@ -167,7 +172,7 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
           </section>
 
           <section className="section-y bg-primary text-primary-foreground" aria-labelledby="treatment-final-cta-title">
-            <div className="container-page flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between md:gap-10">
+            <div className="container-page flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
               <div className="flex max-w-2xl flex-col gap-4">
                 <p className="eyebrow text-primary-foreground/70">{copy.sections.finalCta.eyebrow}</p>
                 <h2 id="treatment-final-cta-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] text-balance sm:text-5xl">

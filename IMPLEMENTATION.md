@@ -147,7 +147,7 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 - [x] Extend `TreatmentLocalizedContent` with a small typed `quickFacts` block containing concise starting price, appointment count, and typical timeline values, plus optional anaesthesia guidance where appropriate.
 - [x] Add localized generic labels for Starting price, Typical appointments, Typical timeline, and Anaesthesia / their Turkish equivalents.
-- [x] Add localized `priceNote` content that clearly identifies each starting price as a prototype example and explains that final pricing depends on examination, materials, and treatment plan.
+- [x] Add localized `priceNote` content that clearly identifies each starting price as a prototype example, paired with concise pricing copy that explains final estimates depend on examination, materials, and treatment scope.
 - [x] Add the proposed EUR placeholder starting prices for routine care, dental implants, veneers, crowns, smile makeover, and All-on-4 / All-on-6 without discounts, urgency, or package claims.
 - [x] Render the quick-facts block near the top of each detail page and present the prototype starting price clearly but calmly.
 - [x] Keep concise quick-fact values separate from the longer explanatory `timeline` and `pricing` content.
@@ -158,6 +158,14 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 - [x] Verify all six treatments have materially distinct EN/TR content across definitions, process, timing, plan factors, aftercare, FAQs, quick facts, and pricing notes.
 - [x] Verify the existing routes, metadata, homepage card links, index card links, FAQ keyboard behavior, and Treatment Plan CTA continue to work unchanged.
 - [ ] Verify the revised hierarchy remains readable and avoids horizontal overflow at the existing supported viewport targets where tooling allows; leave this item incomplete if exact viewport emulation is unavailable.
+
+**Checklist — Phase 5 visual polish:**
+
+- [x] Shorten quick-fact display values while preserving the longer timing explanations below.
+- [x] Remove repeated starting prices from the explanatory pricing copy and keep the prototype disclaimer visible.
+- [x] Use process-length-aware desktop columns so 3, 4, and 5 steps remain balanced on one row.
+- [x] Center the pricing CTA and final dark-section CTA on desktop while preserving stacked mobile layouts.
+- [ ] Validate the revised polish at 1440, 1280, 1024, 768, 390, and 360px where exact viewport tooling is available.
 
 **Content and pricing approval note:** The proposed EUR values are prototype placeholders for review and must be approved before they are shown to clinics or patients. The wording should make their unverified prototype status unmistakable.
 

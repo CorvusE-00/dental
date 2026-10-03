@@ -78,8 +78,8 @@ export type HomepageTreatment = {
   imageAlt: string
 }
 
-const enPriceNote = 'Prototype starting price for demonstration only. Final pricing depends on examination, treatment scope, materials and your individual plan.'
-const trPriceNote = 'Yalnızca prototip gösterimi için örnek başlangıç fiyatıdır. Nihai fiyat; muayene, tedavi kapsamı, kullanılan materyaller ve kişisel planınıza göre değişir.'
+const enPriceNote = 'Prototype starting price for demonstration only.'
+const trPriceNote = 'Yalnızca prototip gösterimi için örnek başlangıç fiyatıdır.'
 
 export const treatmentCatalog = [
   {
@@ -93,7 +93,7 @@ export const treatmentCatalog = [
         name: 'Check-ups & Preventive Care',
         summary: 'Examinations, hygiene, fillings and gum care planned around your everyday health and the concerns you want to address.',
         cardDetails: ['In-person assessment', 'Prevention-first planning'],
-        quickFacts: { startingPrice: 'From €50', appointmentCount: '1+ visits', typicalTimeline: 'Often one visit; extra visits if treatment is required.', anaesthesia: 'Only when needed for specific treatment' },
+        quickFacts: { startingPrice: 'From €50', appointmentCount: 'Usually one visit', typicalTimeline: 'Usually one visit', anaesthesia: 'Usually only if needed' },
         priceNote: enPriceNote,
         detailIntroduction: 'Start with a clear review of your dental health, the concerns you have noticed and the everyday care that may help.',
         whatItIs: 'Routine and preventive care is the regular dental care used to examine teeth and gums, remove professional plaque and calculus, treat fillings where needed, assess gum concerns, and plan maintenance before small issues grow.',
@@ -107,7 +107,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Routine care is often completed in one visit when no additional treatment is needed. A filling, gum treatment, further diagnostic work or a hygiene follow-up may add appointments, and the schedule is adjusted to what the examination finds.',
         planFactors: ['Current dental health', 'Gum condition', 'Plaque and calculus build-up', 'Active decay or symptoms', 'Preventive needs'],
-        pricing: 'From €50 for the prototype starting reference shown above. Request an assessment for an individual estimate.',
+        pricing: 'Final estimate depends on examination, materials and treatment scope.',
         faqs: [
           { question: 'What happens at a routine check-up?', answer: 'The clinician reviews your history, examines your teeth and gums, discusses any concerns and explains the next appropriate steps.' },
           { question: 'Is professional cleaning included?', answer: 'Professional cleaning may be included when it is appropriate, but the exact scope is confirmed after your needs are assessed.' },
@@ -125,7 +125,7 @@ export const treatmentCatalog = [
         name: 'Kontrol ve Koruyucu Bakım',
         summary: 'Günlük sağlığınıza ve ele almak istediğiniz konulara göre planlanan muayene, diş taşı temizliği, dolgu ve diş eti bakımı.',
         cardDetails: ['Yüz yüze değerlendirme', 'Koruma odaklı planlama'],
-        quickFacts: { startingPrice: '€50’den başlayan', appointmentCount: '1+ randevu', typicalTimeline: 'Çoğunlukla tek randevu; tedavi gerekirse ek randevular planlanabilir.', anaesthesia: 'Belirli tedaviler gerektiğinde kullanılır' },
+        quickFacts: { startingPrice: '€50’den başlayan', appointmentCount: 'Genellikle tek randevu', typicalTimeline: 'Genellikle tek randevu', anaesthesia: 'Genellikle gerektiğinde' },
         priceNote: trPriceNote,
         detailIntroduction: 'Diş sağlığınızı, fark ettiğiniz endişeleri ve günlük bakımınız için faydalı olabilecek adımları açık bir değerlendirmeyle ele alın.',
         whatItIs: 'Rutin ve koruyucu bakım; dişleri ve diş etlerini muayene etmeyi, profesyonel plak ve diş taşı temizliğini, gerektiğinde dolguları, diş eti değerlendirmesini ve küçük sorunların ilerlemesini önlemeye yönelik bakım planını kapsar.',
@@ -139,7 +139,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Başka bir tedavi gerekmiyorsa rutin bakım çoğunlukla tek randevuda tamamlanır. Dolgu, diş eti tedavisi, ek tanısal çalışma veya hijyen takibi randevu sayısını artırabilir; zamanlama muayenede görülenlere göre düzenlenir.',
         planFactors: ['Mevcut diş sağlığı', 'Diş eti durumu', 'Plak ve diş taşı birikimi', 'Aktif çürük veya belirtiler', 'Koruyucu bakım ihtiyaçları'],
-        pricing: 'Yukarıdaki prototip başlangıç referansı €50’den başlar. Kişisel tahmini ücret için değerlendirme isteyin.',
+        pricing: 'Nihai tahmini ücret; muayene, kullanılan materyaller ve tedavi kapsamına göre değişir.',
         faqs: [
           { question: 'Rutin kontrolde neler olur?', answer: 'Klinisyen geçmişinizi inceler, dişlerinizi ve diş etlerinizi muayene eder, endişelerinizi dinler ve uygun sonraki adımları açıklar.' },
           { question: 'Profesyonel temizlik dahil midir?', answer: 'Uygun olduğunda profesyonel temizlik planlanabilir; ancak kapsam ihtiyaçlarınız değerlendirildikten sonra netleşir.' },
@@ -166,7 +166,7 @@ export const treatmentCatalog = [
         name: 'Dental Implants',
         summary: 'A structured way to discuss replacing one or more missing teeth, with planning shaped around your bone, bite and wider health.',
         cardDetails: ['Timing after assessment', '3D CBCT planning'],
-        quickFacts: { startingPrice: 'From €500', appointmentCount: 'Multiple appointments', typicalTimeline: 'Commonly several months from placement to final restoration, depending on healing and the plan.', anaesthesia: 'Local anaesthesia is commonly used; the final approach depends on assessment' },
+        quickFacts: { startingPrice: 'From €500', appointmentCount: 'Multiple visits', typicalTimeline: 'Usually several months', anaesthesia: 'Usually local' },
         priceNote: enPriceNote,
         detailIntroduction: 'If you are considering replacing missing teeth, begin with an assessment that explains the available routes and the information still needed.',
         whatItIs: 'A dental implant is a titanium fixture, or a zirconia alternative where clinically appropriate, placed in the jawbone to replace a missing tooth root. After planning and healing as appropriate, a crown, bridge or other restoration is attached to replace the visible tooth.',
@@ -180,7 +180,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Implant placement may take one appointment, but the complete process commonly spans several months because the implant and surrounding tissues may need time to heal before the final crown or restoration. Grafting, multiple sites, lab stages or healing may extend the schedule.',
         planFactors: ['Bone quantity and quality', 'Gum health', 'Implant location and number', 'Bite and existing teeth', 'Smoking and medical history', 'Possible grafting needs'],
-        pricing: 'From €500 as a prototype starting reference for a basic implant/restoration scope. Final scope, materials and estimate require assessment.',
+        pricing: 'Final estimate depends on examination, materials and treatment scope.',
         faqs: [
           { question: 'Do I need enough bone for an implant?', answer: 'Bone quantity and quality are assessed as part of planning. If support is limited, the clinician explains which options may be relevant.' },
           { question: 'Could I need bone grafting?', answer: 'Grafting may be discussed when the planned implant position needs additional support; whether it is appropriate depends on imaging and examination.' },
@@ -199,7 +199,7 @@ export const treatmentCatalog = [
         name: 'Diş İmplantları',
         summary: 'Bir veya daha fazla eksik dişi değiştirmeyi, kemik, kapanış ve genel sağlığınıza göre planlanan yapılandırılmış bir değerlendirmeyle konuşun.',
         cardDetails: ['Değerlendirme sonrası zamanlama', '3D CBCT planlaması'],
-        quickFacts: { startingPrice: '€500’den başlayan', appointmentCount: 'Birden fazla randevu', typicalTimeline: 'İmplant yerleştirmeden son restorasyona kadar, iyileşme ve plana bağlı olarak çoğunlukla birkaç ay sürer.', anaesthesia: 'Genellikle lokal anestezi; nihai yaklaşım değerlendirmeye bağlıdır' },
+        quickFacts: { startingPrice: '€500’den başlayan', appointmentCount: 'Birden fazla randevu', typicalTimeline: 'Genellikle birkaç ay', anaesthesia: 'Genellikle lokal' },
         priceNote: trPriceNote,
         detailIntroduction: 'Eksik dişleri tamamlamayı düşünüyorsanız, seçenekleri ve hâlâ ihtiyaç duyulan bilgileri açıklayan bir değerlendirmeyle başlayın.',
         whatItIs: 'Diş implantı; eksik diş kökünü değiştirmek için çene kemiğine yerleştirilen titanyum bir implant gövdesini veya klinik olarak uygun olduğunda zirkonyum alternatifi içerir. Uygun planlama ve iyileşme sonrasında görünen dişi tamamlamak için kuron, köprü veya başka bir restorasyon takılır.',
@@ -213,7 +213,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'İmplantın yerleştirilmesi tek randevu sürebilir; ancak implantın ve çevre dokuların son kuron veya restorasyon öncesinde iyileşmesi gerekebildiği için toplam süreç çoğunlukla birkaç aya yayılır. Kemik ekleme, birden fazla bölge, laboratuvar aşamaları veya iyileşme süreci zamanlamayı uzatabilir.',
         planFactors: ['Kemik miktarı ve kalitesi', 'Diş eti sağlığı', 'İmplantın konumu ve sayısı', 'Kapanış ve mevcut dişler', 'Sigara ve sağlık geçmişi', 'Olası kemik ekleme ihtiyacı'],
-        pricing: 'Temel implant/restorasyon kapsamı için prototip başlangıç referansı €500’den başlar. Nihai kapsam, malzemeler ve tahmini ücret değerlendirme gerektirir.',
+        pricing: 'Nihai tahmini ücret; muayene, kullanılan materyaller ve tedavi kapsamına göre değişir.',
         faqs: [
           { question: 'İmplant için yeterli kemiğe sahip olmam gerekir mi?', answer: 'Planlamanın parçası olarak kemiğin miktarı ve kalitesi değerlendirilir. Destek sınırlıysa klinisyen ilgili seçenekleri açıklar.' },
           { question: 'Kemik ekleme gerekebilir mi?', answer: 'Planlanan implant konumu ek desteğe ihtiyaç duyduğunda kemik ekleme görüşülebilir; uygunluk görüntüleme ve muayeneye bağlıdır.' },
@@ -241,7 +241,7 @@ export const treatmentCatalog = [
         name: 'Veneers',
         summary: 'Thin porcelain or composite veneers can be discussed to refine shape, shade and alignment with a natural-looking result in mind.',
         cardDetails: ['Appointment plan after assessment', 'Shade matched in clinic'],
-        quickFacts: { startingPrice: 'From €180 / tooth', appointmentCount: '2–3 appointments', typicalTimeline: 'Commonly several days to around 1–2 weeks, depending on material and laboratory workflow.', anaesthesia: 'May be used if preparation is required' },
+        quickFacts: { startingPrice: 'From €180 / tooth', appointmentCount: '2–3 visits', typicalTimeline: 'Several days to 1–2 weeks', anaesthesia: 'If preparation is needed' },
         priceNote: enPriceNote,
         detailIntroduction: 'Start with a conversation about the features you would like to refine and the level of change that feels right for you.',
         whatItIs: 'Veneers are thin porcelain or composite shells bonded to the visible front surface of selected teeth. They can change shape, shade and proportion, improve minor alignment, or soften the appearance of worn or chipped teeth; preparation depends on the tooth and the agreed plan.',
@@ -255,7 +255,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Veneers commonly involve two to three appointments over several days to around one to two weeks. The workflow can take longer when more teeth are involved, a laboratory stage is needed, preparation is complex or design changes are requested.',
         planFactors: ['Enamel condition', 'Bite and bruxism considerations', 'Gum health and tooth alignment', 'Shade and shape goals', 'Number of teeth', 'Material and preparation choice'],
-        pricing: 'From €180 per tooth as a prototype starting reference. The final estimate depends on the number of teeth, preparation, material and treatment plan.',
+        pricing: 'Final estimate depends on examination, materials and treatment scope.',
         faqs: [
           { question: 'Will my natural teeth need preparation?', answer: 'Preparation depends on the tooth, material, bite and agreed design. The amount is discussed after the tooth and surrounding tissues are assessed.' },
           { question: 'Should I choose porcelain or composite?', answer: 'The materials differ in workflow, appearance, maintenance and suitability. The appropriate comparison depends on your teeth and goals.' },
@@ -274,7 +274,7 @@ export const treatmentCatalog = [
         name: 'Porselen Laminalar',
         summary: 'Doğal görünen bir sonuç hedefiyle şekli, rengi ve hizayı iyileştirmek için ince porselen veya kompozit laminaları değerlendirin.',
         cardDetails: ['Değerlendirme sonrası randevu planı', 'Klinikte renk eşleştirme'],
-        quickFacts: { startingPrice: 'Diş başına €180’den başlayan', appointmentCount: '2–3 randevu', typicalTimeline: 'Malzeme ve laboratuvar sürecine bağlı olarak çoğunlukla birkaç gün ile 1–2 hafta arası.', anaesthesia: 'Hazırlık gerekiyorsa kullanılabilir' },
+        quickFacts: { startingPrice: 'Diş başına €180’den başlayan', appointmentCount: '2–3 randevu', typicalTimeline: 'Birkaç gün ile 1–2 hafta', anaesthesia: 'Hazırlık gerekiyorsa' },
         priceNote: trPriceNote,
         detailIntroduction: 'İyileştirmek istediğiniz özellikleri ve sizin için doğru görünen değişimin seviyesini konuşarak başlayın.',
         whatItIs: 'Laminalar, seçilen dişlerin görünen ön yüzeyine yapıştırılan ince porselen veya kompozit kabuklardır. Şekli, rengi ve oranı değiştirmeye, hafif hizalama sorunlarını iyileştirmeye veya aşınmış ve kırılmış dişlerin görünümünü yumuşatmaya yardımcı olabilir; hazırlık dişe ve planınıza göre değişir.',
@@ -288,7 +288,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Laminalar çoğunlukla birkaç gün ile yaklaşık bir veya iki hafta içinde iki veya üç randevu gerektirir. Diş sayısı arttığında, laboratuvar aşaması gerektiğinde, hazırlık karmaşık olduğunda veya tasarım değişikliği istendiğinde süreç uzayabilir.',
         planFactors: ['Mine durumu', 'Kapanış ve diş sıkma değerlendirmesi', 'Diş eti sağlığı ve diş hizası', 'Renk ve şekil hedefleri', 'Diş sayısı', 'Malzeme ve hazırlık seçimi'],
-        pricing: 'Diş başına €180’den başlayan prototip başlangıç referansıdır. Nihai tahmini ücret diş sayısına, hazırlığa, malzemeye ve tedavi planına bağlıdır.',
+        pricing: 'Nihai tahmini ücret; muayene, kullanılan materyaller ve tedavi kapsamına göre değişir.',
         faqs: [
           { question: 'Doğal dişlerimde hazırlık gerekir mi?', answer: 'Hazırlık dişe, malzemeye, kapanışa ve üzerinde anlaşılan tasarıma bağlıdır. Miktar, diş ve çevre dokular değerlendirildikten sonra görüşülür.' },
           { question: 'Porselen mi kompozit mi seçmeliyim?', answer: 'Malzemeler süreç, görünüm, bakım ve uygunluk açısından farklıdır. Uygun karşılaştırma dişlerinize ve hedeflerinize bağlıdır.' },
@@ -317,7 +317,7 @@ export const treatmentCatalog = [
         name: 'Crowns',
         summary: 'Crowns can be discussed when a tooth needs added support, shape or coverage as part of a wider restorative plan.',
         cardDetails: ['Bite and shade planning', 'Timing after assessment'],
-        quickFacts: { startingPrice: 'From €180 / tooth', appointmentCount: '2–3 appointments', typicalTimeline: 'Often several days to around 1–2 weeks, depending on laboratory workflow and the tooth involved.', anaesthesia: 'Local anaesthesia is commonly used during preparation' },
+        quickFacts: { startingPrice: 'From €180 / tooth', appointmentCount: '2–3 visits', typicalTimeline: 'Several days to 1–2 weeks', anaesthesia: 'Usually local if needed' },
         priceNote: enPriceNote,
         detailIntroduction: 'Begin with an assessment of the tooth or teeth you are concerned about and a conversation about the result you want to maintain.',
         whatItIs: 'A crown is a custom restoration that covers most or all of the visible tooth structure to restore strength, shape and function. It may be considered for a heavily restored, fractured, root-canal-treated or worn tooth, and can use different materials depending on the tooth, bite and plan.',
@@ -331,7 +331,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Crowns commonly involve two to three appointments over several days to around one to two weeks. Laboratory workflow, the condition of the tooth, the need for a temporary crown and any root or gum treatment can extend the schedule.',
         planFactors: ['Remaining tooth structure', 'Root health', 'Gum health and bite', 'Existing restorations and adjacent teeth', 'Material and shade selection'],
-        pricing: 'From €180 per tooth as a prototype starting reference. The final estimate depends on the tooth, preparation, material and treatment plan.',
+        pricing: 'Final estimate depends on examination, materials and treatment scope.',
         faqs: [
           { question: 'Why might I need a crown instead of a filling?', answer: 'A crown may be discussed when a tooth needs more support or coverage than a filling can provide. The clinician confirms the appropriate option after assessment.' },
           { question: 'What crown materials are available?', answer: 'Material options vary by tooth, bite, appearance, strength and the treatment plan. The team explains the relevant choices for your case.' },
@@ -350,7 +350,7 @@ export const treatmentCatalog = [
         name: 'Kuronlar',
         summary: 'Daha geniş bir restoratif planın parçası olarak desteğe, şekle veya kaplamaya ihtiyaç duyan dişler için kuronları görüşün.',
         cardDetails: ['Kapanış ve renk planlaması', 'Değerlendirme sonrası zamanlama'],
-        quickFacts: { startingPrice: 'Diş başına €180’den başlayan', appointmentCount: '2–3 randevu', typicalTimeline: 'Laboratuvar sürecine ve ilgili dişe bağlı olarak çoğunlukla birkaç gün ile 1–2 hafta arası.', anaesthesia: 'Hazırlık sırasında genellikle lokal anestezi kullanılır' },
+        quickFacts: { startingPrice: 'Diş başına €180’den başlayan', appointmentCount: '2–3 randevu', typicalTimeline: 'Birkaç gün ile 1–2 hafta', anaesthesia: 'Gerekirse genellikle lokal' },
         priceNote: trPriceNote,
         detailIntroduction: 'Endişe duyduğunuz dişi veya dişleri değerlendirerek ve korumak istediğiniz sonucu konuşarak başlayın.',
         whatItIs: 'Kuron, görünen diş yapısının büyük bölümünü veya tamamını kaplayarak dişin gücünü, şeklini ve işlevini geri kazandıran kişiye özel bir restorasyondur. İleri restorasyon görmüş, kırılmış, kanal tedavisi uygulanmış veya aşınmış dişlerde düşünülebilir; malzeme dişe, kapanışa ve plana göre değişir.',
@@ -364,7 +364,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Kuronlar çoğunlukla birkaç gün ile yaklaşık bir veya iki hafta içinde iki veya üç randevu gerektirir. Laboratuvar süreci, dişin durumu, geçici kuron ihtiyacı ve kök veya diş eti tedavisi zamanlamayı uzatabilir.',
         planFactors: ['Kalan diş dokusu', 'Kök sağlığı', 'Diş eti sağlığı ve kapanış', 'Mevcut restorasyonlar ve komşu dişler', 'Malzeme ve renk seçimi'],
-        pricing: 'Diş başına €180’den başlayan prototip başlangıç referansıdır. Nihai tahmini ücret dişe, hazırlığa, malzemeye ve tedavi planına bağlıdır.',
+        pricing: 'Nihai tahmini ücret; muayene, kullanılan materyaller ve tedavi kapsamına göre değişir.',
         faqs: [
           { question: 'Dolgu yerine neden kuron gerekebilir?', answer: 'Diş bir dolgudan daha fazla desteğe veya kaplamaya ihtiyaç duyduğunda kuron gündeme gelebilir. Uygun seçenek muayeneden sonra belirlenir.' },
           { question: 'Hangi kuron malzemeleri kullanılabilir?', answer: 'Malzeme seçenekleri dişe, kapanışa, görünüme, dayanıklılık ihtiyacına ve tedavi planına göre değişir. Ekip durumunuza uygun seçenekleri açıklar.' },
@@ -392,7 +392,7 @@ export const treatmentCatalog = [
         name: 'Smile Makeovers',
         summary: 'A considered combination of treatments designed around your features, dental health and the smile you want to see.',
         cardDetails: ['Digital smile design', 'Preview before treatment'],
-        quickFacts: { startingPrice: 'From €2,500', appointmentCount: 'Varies by included treatments', typicalTimeline: 'From several appointments to several weeks or longer, depending on the treatment combination.', anaesthesia: 'Depends on included treatments' },
+        quickFacts: { startingPrice: 'From €2,500', appointmentCount: 'Varies by plan', typicalTimeline: 'Several visits to several weeks+', anaesthesia: 'Depends on included treatments' },
         priceNote: enPriceNote,
         detailIntroduction: 'A smile makeover starts with understanding what you want to change and which parts of your dental health should guide the plan.',
         whatItIs: 'A smile makeover is not one single procedure. It is a coordinated plan that may combine selected treatments such as whitening, bonding, veneers, crowns, gum-related aesthetic care, or replacement and restorative treatment where relevant to change several connected aspects of a smile.',
@@ -406,7 +406,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'A smile makeover may take several appointments over several weeks or longer. Timing depends on the combination of whitening, bonding, veneers, crowns, gum-related care or restorative treatment, as well as laboratory stages, healing and the order of care.',
         planFactors: ['Tooth and gum health', 'Bite and facial or smile proportions', 'Desired level of change', 'Selected procedures', 'Material choices', 'Treatment sequencing and maintenance'],
-        pricing: 'From €2,500 as a clearly labelled prototype starting reference. The final estimate depends on the treatments included, materials, preparation and individual plan.',
+        pricing: 'Final estimate depends on examination, materials and treatment scope.',
         faqs: [
           { question: 'Which treatments can be combined?', answer: 'Depending on your needs, a plan may combine whitening, bonding, veneers, crowns, gum-related care or restorative treatment after assessment.' },
           { question: 'Do I automatically need veneers?', answer: 'No. A smile plan may use other treatments or focus on one concern. The suitable route depends on your dental health and goals.' },
@@ -425,7 +425,7 @@ export const treatmentCatalog = [
         name: 'Gülüş Tasarımı',
         summary: 'Özelliklerinize, diş sağlığınıza ve görmek istediğiniz gülüşe göre düşünülen tedavilerin bir arada planlanması.',
         cardDetails: ['Dijital gülüş tasarımı', 'Tedavi öncesi önizleme'],
-        quickFacts: { startingPrice: '€2.500’den başlayan', appointmentCount: 'Dahil edilen tedavilere göre değişir', typicalTimeline: 'Tedavi kombinasyonuna göre birkaç randevudan birkaç hafta veya daha uzun bir sürece uzanabilir.', anaesthesia: 'Dahil edilen tedavilere göre değişir' },
+        quickFacts: { startingPrice: '€2.500’den başlayan', appointmentCount: 'Plana göre değişir', typicalTimeline: 'Birkaç randevudan birkaç hafta+', anaesthesia: 'Dahil edilen tedavilere göre' },
         priceNote: trPriceNote,
         detailIntroduction: 'Gülüş tasarımı, neyi değiştirmek istediğinizi ve diş sağlığınızın planı nasıl yönlendirmesi gerektiğini anlamakla başlar.',
         whatItIs: 'Gülüş tasarımı tek bir işlem değildir. Gülüşün birbiriyle bağlantılı birkaç özelliğini değiştirmek için beyazlatma, bonding, lamina, kuron, diş eti estetiği veya uygun olduğunda eksik dişlerin restorasyonu gibi seçilmiş tedavileri bir araya getiren koordineli bir plandır.',
@@ -439,7 +439,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'Gülüş tasarımı birkaç randevudan birkaç hafta veya daha uzun bir sürece yayılabilir. Zamanlama; beyazlatma, bonding, lamina, kuron, diş eti bakımı veya restoratif tedavinin kombinasyonuna, laboratuvar aşamalarına, iyileşmeye ve uygulama sırasına bağlıdır.',
         planFactors: ['Diş ve diş eti sağlığı', 'Kapanış ve yüz veya gülüş oranları', 'İstenen değişimin seviyesi', 'Seçilen işlemler', 'Malzeme seçimleri', 'Tedavi sırası ve bakım'],
-        pricing: '€2.500’den başlayan ve açıkça prototip olarak belirtilen başlangıç referansıdır. Nihai tahmini ücret dahil edilen tedavilere, malzemelere, hazırlığa ve kişisel plana bağlıdır.',
+        pricing: 'Nihai tahmini ücret; muayene, kullanılan materyaller ve tedavi kapsamına göre değişir.',
         faqs: [
           { question: 'Hangi tedaviler bir arada planlanabilir?', answer: 'İhtiyaçlarınıza göre değerlendirme sonrasında beyazlatma, bonding, lamina, kuron, diş eti bakımı veya restoratif tedavi bir arada planlanabilir.' },
           { question: 'Mutlaka lamina gerekir mi?', answer: 'Hayır. Gülüş planı başka tedavileri kullanabilir veya tek bir konuya odaklanabilir. Uygun yaklaşım diş sağlığınıza ve hedeflerinize bağlıdır.' },
@@ -467,7 +467,7 @@ export const treatmentCatalog = [
         name: 'All-on-4 / All-on-6',
         summary: 'Full-arch implant-supported options can be discussed when several teeth are missing or a wider restorative plan is being considered.',
         cardDetails: ['Full-arch assessment', 'Healing phases considered'],
-        quickFacts: { startingPrice: 'From €4,000 / arch', appointmentCount: 'Multiple appointments', typicalTimeline: 'Multiple surgical and restorative stages with healing; overall timing may span several months.', anaesthesia: 'Local anaesthesia and other options depend on clinical planning' },
+        quickFacts: { startingPrice: 'From €4,000 / arch', appointmentCount: 'Multiple visits', typicalTimeline: 'Usually several months', anaesthesia: 'Usually local' },
         priceNote: enPriceNote,
         detailIntroduction: 'Begin with a complete review of your dental health, existing teeth, bite and goals before discussing a full-arch route.',
         whatItIs: 'All-on-4 / All-on-6 is a fixed full-arch restoration supported by multiple implants placed in one jaw. The terms describe different implant-support strategies; the number, positions, prosthesis design and treatment sequence depend on anatomy, health and clinical planning.',
@@ -481,7 +481,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'The surgical and restorative stages may span several months because healing and review are part of the process. Timing can change with remaining teeth, bone and anatomy, provisional or final prosthesis stages, laboratory work, healing and any additional treatment needed first.',
         planFactors: ['Remaining teeth and gum health', 'Bone volume and anatomy', 'Implant number and position', 'Prosthesis design', 'Bite and material', 'Healing and maintenance requirements'],
-        pricing: 'From €4,000 per arch as a prototype starting reference. The final estimate depends on assessment, implant and prosthesis design, materials, healing and the treatment plan.',
+        pricing: 'Final estimate depends on examination, materials and treatment scope.',
         faqs: [
           { question: 'Is All-on-4 the same as dentures?', answer: 'No. All-on-4 describes an implant-supported full-arch restoration; the prosthesis, support strategy and maintenance plan are assessed for each case.' },
           { question: 'Why might four or six implants be considered?', answer: 'The number and positions depend on bone, anatomy, remaining teeth, prosthesis design and clinical planning rather than a standard choice for everyone.' },
@@ -500,7 +500,7 @@ export const treatmentCatalog = [
         name: 'All-on-4 / All-on-6',
         summary: 'Birden fazla diş eksikliği veya daha kapsamlı bir restoratif plan için tam çene implant destekli seçenekleri görüşün.',
         cardDetails: ['Tam çene değerlendirmesi', 'İyileşme aşamaları dikkate alınır'],
-        quickFacts: { startingPrice: 'Çene başına €4.000’den başlayan', appointmentCount: 'Birden fazla randevu', typicalTimeline: 'İyileşme içeren cerrahi ve restoratif aşamalarla toplam süreç birkaç aya yayılabilir.', anaesthesia: 'Lokal anestezi ve diğer seçenekler klinik planlamaya bağlıdır' },
+        quickFacts: { startingPrice: 'Çene başına €4.000’den başlayan', appointmentCount: 'Birden fazla randevu', typicalTimeline: 'Genellikle birkaç ay', anaesthesia: 'Genellikle lokal' },
         priceNote: trPriceNote,
         detailIntroduction: 'Tam çene yaklaşımını görüşmeden önce diş sağlığınızı, mevcut dişlerinizi, kapanışınızı ve hedeflerinizi kapsamlı şekilde değerlendirin.',
         whatItIs: 'All-on-4 / All-on-6, tek bir çeneye yerleştirilen birden fazla implantın desteklediği sabit tam çene restorasyonudur. Bu adlar farklı implant destek stratejilerini ifade eder; implant sayısı, konumları, protez tasarımı ve tedavi sırası anatomik yapıya, sağlığa ve klinik planlamaya göre belirlenir.',
@@ -514,7 +514,7 @@ export const treatmentCatalog = [
         ],
         timeline: 'İyileşme ve kontrol aşamaları sürecin parçası olduğu için cerrahi ve restoratif aşamalar birkaç aya yayılabilir. Mevcut dişler, kemik ve anatomi, geçici veya son protez aşamaları, laboratuvar çalışması, iyileşme ve önce gerekebilecek ek tedaviler zamanlamayı değiştirebilir.',
         planFactors: ['Kalan dişler ve diş eti sağlığı', 'Kemik hacmi ve anatomik yapı', 'İmplant sayısı ve konumu', 'Protez tasarımı', 'Kapanış ve malzeme', 'İyileşme ve bakım gereksinimleri'],
-        pricing: 'Çene başına €4.000’den başlayan prototip başlangıç referansıdır. Nihai tahmini ücret değerlendirmeye, implant ve protez tasarımına, malzemelere, iyileşmeye ve tedavi planına bağlıdır.',
+        pricing: 'Nihai tahmini ücret; muayene, kullanılan materyaller ve tedavi kapsamına göre değişir.',
         faqs: [
           { question: 'All-on-4 protez dişle aynı mıdır?', answer: 'Hayır. All-on-4 implant destekli tam çene restorasyonunu ifade eder; protez, destek stratejisi ve bakım planı her durum için değerlendirilir.' },
           { question: 'Neden dört veya altı implant düşünülebilir?', answer: 'Sayı ve konum; kemiğe, anatomiye, kalan dişlere, protez tasarımına ve klinik planlamaya bağlıdır; herkes için standart değildir.' },
