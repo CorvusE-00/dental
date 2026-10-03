@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { Reveal } from '@/components/shared/reveal'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { TreatmentCard } from '@/components/shared/treatment-card'
-import { getFeaturedTreatments, getTreatmentsIndexHref } from '@/lib/treatments'
+import { getFeaturedTreatments, getTreatmentHref, getTreatmentsIndexHref } from '@/lib/treatments'
 import { useLocale } from '@/lib/i18n'
 
 export function Treatments() {
@@ -32,7 +32,11 @@ export function Treatments() {
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {featuredTreatments.map((treatment, index) => (
             <Reveal key={treatment.id} delay={(index % 2) * 0.08}>
-              <TreatmentCard treatment={treatment} learnMoreLabel={copy.sections.treatments.learnMore} />
+              <TreatmentCard
+                treatment={treatment}
+                learnMoreLabel={copy.sections.treatments.learnMore}
+                href={getTreatmentHref(locale, treatment.id)}
+              />
             </Reveal>
           ))}
         </div>

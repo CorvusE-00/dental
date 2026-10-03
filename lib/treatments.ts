@@ -16,6 +16,10 @@ export function getTreatmentsIndexHref(locale: TreatmentLocale) {
   return locale === 'tr' ? '/tr/treatments' : '/treatments'
 }
 
+export function getTreatmentHref(locale: TreatmentLocale, slug: RoutableTreatmentSlug) {
+  return `${getTreatmentsIndexHref(locale)}/${slug}`
+}
+
 export type TreatmentProcessStep = {
   title: string
   description: string

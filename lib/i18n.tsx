@@ -42,6 +42,18 @@ export type SiteCopy = {
     faq: { eyebrow: string; title: string; contactIntro: string }
     finalCta: { eyebrow: string; title: string; description: string }
   }
+  treatmentDetail: {
+    eyebrow: string
+    backToTreatments: string
+    whatItIs: string
+    suitability: string
+    process: string
+    timing: string
+    planFactors: string
+    pricing: string
+    aftercare: string
+    faqs: string
+  }
   localFeatures: Record<string, FeatureCopy>
   internationalFeatures: Record<string, FeatureCopy>
   localJourney: Record<string, JourneyCopy>
@@ -192,6 +204,18 @@ const english: SiteCopy = {
       description: 'Tell us whether you are looking for an in-person consultation in Istanbul or planning from abroad. We will help you understand the next step.',
     },
   },
+  treatmentDetail: {
+    eyebrow: 'Treatment guide',
+    backToTreatments: 'Back to treatments',
+    whatItIs: 'What this treatment involves',
+    suitability: 'Who this may be suitable for',
+    process: 'How the process works',
+    timing: 'Timing and appointments',
+    planFactors: 'What shapes your plan',
+    pricing: 'Pricing and estimate',
+    aftercare: 'Aftercare',
+    faqs: 'Common questions',
+  },
   localFeatures: {
     'local-consultation': { title: 'Meet the team in Istanbul', description: 'Start with an in-person conversation about your health, your goals and the changes you would like to make.' },
     'clear-options': { title: 'Understand your options', description: 'We explain suitable routes, timings and next steps before you decide how you want to proceed.' },
@@ -314,6 +338,18 @@ const turkish: SiteCopy = {
     testimonials: { eyebrow: 'Hasta deneyimleri', title: 'Bakım süreci anlaşılır olmalı.', disclaimer: 'Hasta yorumları kurgusaldır ve bu prototip için yazılmıştır.' },
     faq: { eyebrow: 'SSS', title: 'Sorularınızı açıkça yanıtlıyoruz.', contactIntro: 'Aklınızda başka bir soru mu var? Bize yazın:' },
     finalCta: { eyebrow: 'Buradan başlayın', title: 'Değiştirmek istediklerinizi konuşarak başlayın.', description: "İstanbul'da yüz yüze bir görüşme mi aradığınızı, yoksa yurt dışından mı plan yaptığınızı belirtin. Bir sonraki adımı anlamanıza yardımcı olalım." },
+  },
+  treatmentDetail: {
+    eyebrow: 'Tedavi rehberi',
+    backToTreatments: 'Tedavilere dön',
+    whatItIs: 'Bu tedavi neleri içerir?',
+    suitability: 'Kimler için uygun olabilir?',
+    process: 'Süreç nasıl ilerler?',
+    timing: 'Zamanlama ve randevular',
+    planFactors: 'Planınızı şekillendiren unsurlar',
+    pricing: 'Fiyatlandırma ve tahmini ücret',
+    aftercare: 'Bakım sonrası',
+    faqs: 'Sık sorulan sorular',
   },
   localFeatures: {
     'local-consultation': { title: "İstanbul'da ekiple tanışın", description: 'Sağlığınız, hedefleriniz ve yapmak istediğiniz değişiklikler hakkında yüz yüze bir görüşmeyle başlayın.' },

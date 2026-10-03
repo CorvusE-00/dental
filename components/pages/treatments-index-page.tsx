@@ -7,7 +7,7 @@ import { Reveal } from '@/components/shared/reveal'
 import { TreatmentCard } from '@/components/shared/treatment-card'
 import { TreatmentPlanProvider } from '@/components/shared/treatment-plan-provider'
 import { LocaleProvider, type Locale, useLocale } from '@/lib/i18n'
-import { getAllTreatments } from '@/lib/treatments'
+import { getAllTreatments, getTreatmentHref } from '@/lib/treatments'
 
 export function TreatmentsIndexPage({ locale }: { locale: Locale }) {
   return (
@@ -50,7 +50,11 @@ function LocalizedTreatmentsIndex() {
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {treatments.map((treatment, index) => (
                 <Reveal key={treatment.id} delay={(index % 3) * 0.06}>
-                  <TreatmentCard treatment={treatment} learnMoreLabel={copy.sections.treatments.learnMore} />
+                  <TreatmentCard
+                    treatment={treatment}
+                    learnMoreLabel={copy.sections.treatments.learnMore}
+                    href={getTreatmentHref(locale, treatment.id)}
+                  />
                 </Reveal>
               ))}
             </div>

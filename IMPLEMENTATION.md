@@ -132,14 +132,14 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Add the English treatment detail route.
-- [ ] Add the Turkish treatment detail route.
-- [ ] Render every supported stable slug from the shared model.
-- [ ] Return `notFound()` for unknown treatment slugs and invalid locales.
-- [ ] Implement the required detail sections with localized content.
-- [ ] Add safe pricing and estimate wording without invented values.
-- [ ] Preserve existing Treatment Plan CTA behavior.
-- [ ] Add localized canonical and social metadata.
+- [x] Add the English treatment detail route.
+- [x] Add the Turkish treatment detail route.
+- [x] Render every supported stable slug from the shared model.
+- [x] Return `notFound()` for unknown treatment slugs and invalid locales.
+- [x] Implement the required detail sections with localized content.
+- [x] Add safe pricing and estimate wording without invented values.
+- [x] Preserve existing Treatment Plan CTA behavior.
+- [x] Add localized canonical and social metadata.
 - [ ] Verify keyboard navigation, heading order, alt text, and responsive layout.
 
 **Acceptance criteria:** Every supported treatment has a useful EN/TR detail page, unsupported slugs fail correctly, and the pages preserve existing CTA and accessibility behavior without unverified claims.
