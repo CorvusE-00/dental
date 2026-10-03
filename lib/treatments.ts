@@ -12,13 +12,6 @@ export const routableTreatmentSlugs = [
 export type RoutableTreatmentSlug = (typeof routableTreatmentSlugs)[number]
 export type TreatmentId = RoutableTreatmentSlug | 'not-sure'
 
-export const featuredTreatmentSlugs: readonly RoutableTreatmentSlug[] = [
-  'routine-care',
-  'dental-implants',
-  'smile-makeover',
-  'veneers',
-]
-
 export type TreatmentProcessStep = {
   title: string
   description: string
@@ -536,8 +529,10 @@ export function getLocalizedTreatment(slug: string, locale: TreatmentLocale) {
 }
 
 export function getFeaturedTreatments(locale: TreatmentLocale): HomepageTreatment[] {
-  return featuredTreatmentSlugs.flatMap((slug) => {
-    const definition = getTreatmentBySlug(slug)
+  return treatmentCatalog
+    .filter((definition) => definition.featuredOnHomepage)
+    .sort((a, b) => a.order - b.order)
+    .flatMap((definition) => {
     const content = definition?.content[locale]
     if (!definition || !content) return []
 
@@ -549,5 +544,5 @@ export function getFeaturedTreatments(locale: TreatmentLocale): HomepageTreatmen
       image: definition.image,
       imageAlt: content.imageAlt,
     }]
-  })
+    })
 }

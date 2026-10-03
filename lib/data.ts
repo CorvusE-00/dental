@@ -1,4 +1,4 @@
-import { getFeaturedTreatments, type HomepageTreatment, type TreatmentId } from '@/lib/treatments'
+import type { TreatmentId } from '@/lib/treatments'
 
 export type { TreatmentId } from '@/lib/treatments'
 
@@ -25,17 +25,6 @@ export const trustMetrics: Metric[] = [
   { id: 'experience', value: '14+ years', label: 'Clinical experience' },
   { id: 'rating', value: '4.9 / 5', label: 'Patient rating' },
 ]
-
-export type Treatment = HomepageTreatment
-
-export const featuredTreatments: Treatment[] = getFeaturedTreatments('en')
-
-export const supportingTreatments = [
-  'Crowns and bridges',
-  'Dentures',
-  'All-on-4 / All-on-6',
-  'Teeth whitening',
-] as const
 
 export type TreatmentOption = { value: TreatmentId; label: string }
 

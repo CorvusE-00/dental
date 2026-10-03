@@ -30,7 +30,7 @@ export type SiteCopy = {
   }
   trust: { ariaLabel: string; items: string[]; metrics: Record<string, string>; mobileMetrics: Record<string, string>; values: Record<string, string> }
   sections: {
-    treatments: { eyebrow: string; title: string; supporting: string }
+    treatments: { eyebrow: string; title: string; viewAll: string; learnMore: string }
     about: { eyebrow: string; title: string; description: string; imageAlt: string }
     local: { eyebrow: string; title: string; description: string; imageAlt: string }
     international: { eyebrow: string; title: string; description: string; imageAlt: string }
@@ -41,7 +41,6 @@ export type SiteCopy = {
     faq: { eyebrow: string; title: string; contactIntro: string }
     finalCta: { eyebrow: string; title: string; description: string }
   }
-  supportingTreatments: string[]
   localFeatures: Record<string, FeatureCopy>
   internationalFeatures: Record<string, FeatureCopy>
   localJourney: Record<string, JourneyCopy>
@@ -139,7 +138,7 @@ const english: SiteCopy = {
   },
   trust: { ariaLabel: 'Luma at a glance', items: ['Clinician-led planning', 'Clear next steps', 'Support from first conversation to aftercare'], metrics: { patients: 'Patients treated', experience: 'Clinical experience', rating: 'Patient rating', care: 'Care planned in Istanbul' }, mobileMetrics: { patients: 'Patients', experience: 'Experience', rating: 'Rating', care: 'Istanbul care' }, values: { patients: '8,000+', experience: '14+ years', rating: '4.9 / 5', care: 'Local + global' } },
   sections: {
-    treatments: { eyebrow: 'Treatments', title: 'Care for everyday needs and bigger changes.', supporting: 'Also available:' },
+    treatments: { eyebrow: 'Treatments', title: 'Care for everyday needs and bigger changes.', viewAll: 'View all treatments', learnMore: 'Learn more' },
     about: {
       eyebrow: 'About Luma',
       title: 'Dental care designed around the person, not the procedure.',
@@ -185,7 +184,6 @@ const english: SiteCopy = {
       description: 'Tell us whether you are looking for an in-person consultation in Istanbul or planning from abroad. We will help you understand the next step.',
     },
   },
-  supportingTreatments: ['Crowns and bridges', 'Dentures', 'All-on-4 / All-on-6', 'Teeth whitening'],
   localFeatures: {
     'local-consultation': { title: 'Meet the team in Istanbul', description: 'Start with an in-person conversation about your health, your goals and the changes you would like to make.' },
     'clear-options': { title: 'Understand your options', description: 'We explain suitable routes, timings and next steps before you decide how you want to proceed.' },
@@ -286,7 +284,7 @@ const turkish: SiteCopy = {
   hero: { eyebrow: "İstanbul'da özel diş bakımı", title: 'Daha sağlıklı, daha özgüvenli bir gülüş.', emphasis: 'Size göre planlandı.', description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için modern estetik, restoratif ve implant diş hekimliği. Değiştirmek istediklerinizi konuşarak başlayın.", mobileDescription: "İstanbul'da yaşayanlar ve yurt dışından gelenler için modern, kişiye özel diş bakımı.", localLink: "İstanbul'da mısınız? Yerel bakımı keşfedin", internationalLink: "Buraya mı geliyorsunuz? Planlamanın nasıl işlediğini görün", localShortLink: "İstanbul'dayım", internationalShortLink: 'Buraya geliyorum', imageAlt: 'Aydınlık ve modern bir klinikte bakım planını konuşan diş hekimi ve hasta.' },
   trust: { ariaLabel: 'Luma hakkında kısaca', items: ['Klinisyen liderliğinde planlama', 'Net sonraki adımlar', 'İlk görüşmeden bakım sonrasına destek'], metrics: { patients: 'Tedavi gören hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da planlanan bakım" }, mobileMetrics: { patients: 'Hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da bakım" }, values: { patients: '8.000+', experience: '14+ yıl', rating: '4,9 / 5', care: 'Yerel + global' } },
   sections: {
-    treatments: { eyebrow: 'Tedaviler', title: 'Günlük ihtiyaçlar ve daha kapsamlı değişiklikler için bakım.', supporting: 'Ayrıca:' },
+    treatments: { eyebrow: 'Tedaviler', title: 'Günlük ihtiyaçlar ve daha kapsamlı değişiklikler için bakım.', viewAll: 'Tüm tedavileri görüntüle', learnMore: 'Daha fazla bilgi' },
     about: {
       eyebrow: 'Luma hakkında',
       title: 'Prosedüre değil, kişiye göre tasarlanan diş bakımı.',
@@ -302,7 +300,6 @@ const turkish: SiteCopy = {
     faq: { eyebrow: 'SSS', title: 'Sorularınızı açıkça yanıtlıyoruz.', contactIntro: 'Aklınızda başka bir soru mu var? Bize yazın:' },
     finalCta: { eyebrow: 'Buradan başlayın', title: 'Değiştirmek istediklerinizi konuşarak başlayın.', description: "İstanbul'da yüz yüze bir görüşme mi aradığınızı, yoksa yurt dışından mı plan yaptığınızı belirtin. Bir sonraki adımı anlamanıza yardımcı olalım." },
   },
-  supportingTreatments: ['Kuron ve köprüler', 'Protezler', 'All-on-4 / All-on-6', 'Diş beyazlatma'],
   localFeatures: {
     'local-consultation': { title: "İstanbul'da ekiple tanışın", description: 'Sağlığınız, hedefleriniz ve yapmak istediğiniz değişiklikler hakkında yüz yüze bir görüşmeyle başlayın.' },
     'clear-options': { title: 'Seçeneklerinizi anlayın', description: 'Nasıl ilerlemek istediğinize karar vermeden önce uygun yolları, süreleri ve sonraki adımları açıklıyoruz.' },

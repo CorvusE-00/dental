@@ -90,11 +90,11 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Remove the supporting “Also available…” sentence.
-- [ ] Render curated featured cards from the shared treatment catalogue.
-- [ ] Replace long image-overlay copy with a readable card text area.
-- [ ] Remove detail tag pills.
-- [ ] Add treatment name, short description, and restrained link affordance.
+- [x] Remove the supporting “Also available…” sentence.
+- [x] Render curated featured cards from the shared treatment catalogue.
+- [x] Replace long image-overlay copy with a readable card text area.
+- [x] Remove detail tag pills.
+- [x] Add treatment name, short description, and restrained link affordance.
 - [ ] Make each full card a semantic localized detail link.
 - [ ] Add a visible localized “View all treatments” link to the correct treatment index route.
 - [ ] Verify responsive layout, focus states, alt text, and reduced motion.

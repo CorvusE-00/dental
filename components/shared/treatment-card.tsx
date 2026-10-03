@@ -1,51 +1,52 @@
 'use client'
 
 import Image from 'next/image'
-import type { Treatment } from '@/lib/data'
-import { useLocale } from '@/lib/i18n'
-import { getLocalizedTreatment } from '@/lib/treatments'
+import type { HomepageTreatment } from '@/lib/treatments'
 
-export function TreatmentCard({ treatment, index }: { treatment: Treatment; index: number }) {
-  const { locale } = useLocale()
-  const localizedContent = getLocalizedTreatment(treatment.id, locale)
-  const localized = localizedContent
-    ? { name: localizedContent.name, summary: localizedContent.summary, details: localizedContent.cardDetails }
-    : treatment
+type TreatmentCardProps = {
+  treatment: HomepageTreatment
+  learnMoreLabel: string
+  href?: string
+}
 
-  return (
-    <article className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-primary text-primary-foreground">
-      <div className="absolute inset-0 bg-muted">
+export function TreatmentCard({ treatment, learnMoreLabel, href }: TreatmentCardProps) {
+  const card = (
+    <>
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
           src={treatment.image}
           alt={treatment.imageAlt}
           fill
           sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
-        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/20 to-transparent" />
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5 sm:p-6">
-        <div className="flex items-baseline gap-3">
-          <span className="text-sm text-primary-foreground/65 tabular-nums">
-            {String(index + 1).padStart(2, '0')}
+      <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+        <h3 className="font-serif text-2xl leading-tight font-normal tracking-[-0.01em] text-primary sm:text-3xl">
+          {treatment.name}
+        </h3>
+        <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">{treatment.summary}</p>
+        <span className="mt-auto inline-flex items-center gap-2 pt-2 text-sm font-medium text-primary">
+          {learnMoreLabel}
+          <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none">
+            →
           </span>
-          <h3 className="font-serif text-2xl leading-tight font-normal tracking-[-0.01em] sm:text-3xl">
-            {localized.name}
-          </h3>
-        </div>
-        <p className="max-w-lg text-sm leading-relaxed text-primary-foreground/80">{localized.summary}</p>
-        <ul className="flex flex-wrap gap-2" aria-label={`${localized.name} details`}>
-          {localized.details.map((detail) => (
-            <li
-              key={detail}
-              className="rounded-md border border-primary-foreground/25 bg-primary-foreground/10 px-2.5 py-1 text-xs text-primary-foreground/85"
-            >
-              {detail}
-            </li>
-          ))}
-        </ul>
+        </span>
       </div>
-    </article>
+    </>
   )
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors duration-300 hover:border-primary/35 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none"
+      >
+        {card}
+      </a>
+    )
+  }
+
+  return <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">{card}</article>
 }
