@@ -8,7 +8,7 @@ export function Footer() {
   const { copy, locale } = useLocale()
   const columns = getFooterColumns(locale)
   return (
-    <footer data-hide-sticky-cta className="overflow-hidden border-t border-border bg-background">
+    <footer data-hide-sticky-cta data-avoid-floating-assistant className="overflow-hidden border-t border-border bg-background">
       <div className="container-page pt-18 md:pt-24">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
           <div className="flex flex-col gap-5 lg:col-span-4">

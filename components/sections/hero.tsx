@@ -8,7 +8,7 @@ export function Hero() {
   const { copy } = useLocale()
 
   return (
-    <section id="top" aria-labelledby="hero-title" className="hero-shell pt-[calc(var(--header-height)+0.5rem)] md:pt-[calc(var(--header-height)+2.5rem)]">
+    <section id="top" data-avoid-floating-assistant aria-labelledby="hero-title" className="hero-shell pt-[calc(var(--header-height)+0.5rem)] md:pt-[calc(var(--header-height)+2.5rem)]">
       <div className="container-page">
         <div className="hero-grid grid gap-7 sm:gap-8 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-0">
           <div className="contents hero-copy lg:col-span-7 lg:row-span-2 lg:flex lg:flex-col lg:justify-center lg:gap-8">

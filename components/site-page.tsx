@@ -59,7 +59,9 @@ function LocalizedPageContent() {
         <Header />
         <main id="main">
           <Hero />
-          <TrustStrip compact className="py-4 md:hidden" />
+          <div data-avoid-floating-assistant>
+            <TrustStrip compact className="py-4 md:hidden" />
+          </div>
           <TrustStrip className="hidden md:block" />
           <AboutLuma />
           <Results />

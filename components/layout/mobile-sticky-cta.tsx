@@ -15,6 +15,7 @@ export function MobileStickyCta() {
 
   return (
     <div
+      data-mobile-sticky-cta
       aria-hidden={hidden || undefined}
       inert={hidden}
       className={cn(

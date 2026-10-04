@@ -61,8 +61,8 @@ function LocalizedTreatmentsIndex() {
           </div>
         </section>
 
-        <section className="section-y bg-primary text-primary-foreground" aria-labelledby="treatments-cta-title">
-          <div className="container-page flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between md:gap-10">
+        <section data-avoid-floating-assistant className="section-y bg-primary text-primary-foreground" aria-labelledby="treatments-cta-title">
+          <div className="container-page flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
             <div className="flex max-w-2xl flex-col gap-4">
               <p className="eyebrow text-primary-foreground/70">{copy.sections.finalCta.eyebrow}</p>
               <h2 id="treatments-cta-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] text-balance sm:text-5xl">

@@ -41,7 +41,7 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
       <Header />
       <main id="main">
         <article>
-          <section className="bg-background pb-16 pt-[calc(var(--header-height)+3rem)] md:pb-24 md:pt-[calc(var(--header-height)+5rem)]">
+          <section data-avoid-floating-assistant className="bg-background pb-16 pt-[calc(var(--header-height)+3rem)] md:pb-24 md:pt-[calc(var(--header-height)+5rem)]">
             <div className="container-page grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
               <div className="flex flex-col items-start gap-6 lg:col-span-5">
                 <a
@@ -175,7 +175,7 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
             </div>
           </section>
 
-          <section className="section-y bg-primary text-primary-foreground" aria-labelledby="treatment-final-cta-title">
+          <section data-avoid-floating-assistant className="section-y bg-primary text-primary-foreground" aria-labelledby="treatment-final-cta-title">
             <div className="container-page flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between md:gap-10">
               <div className="flex max-w-2xl flex-col gap-4">
                 <p className="eyebrow text-primary-foreground/70">{copy.sections.finalCta.eyebrow}</p>

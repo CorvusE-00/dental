@@ -11,6 +11,7 @@ export function FinalCta() {
     <section
       id="contact"
       data-hide-sticky-cta
+      data-avoid-floating-assistant
       aria-labelledby="final-cta-title"
       className="section-y relative isolate overflow-hidden bg-primary text-primary-foreground"
     >
