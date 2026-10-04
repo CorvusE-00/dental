@@ -296,15 +296,36 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Validate all required viewport widths and both locales.
-- [ ] Validate homepage Treatments, index, and detail pages.
-- [ ] Validate Local Care icons and Patient Journey timeline.
-- [ ] Validate navigation, links, invalid routes, and metadata.
-- [ ] Validate overflow, image crops, keyboard/focus behavior, heading order, lists, alt text, and reduced motion.
+- [x] Validate all required viewport widths and both locales.
+- [x] Validate homepage Treatments, index, and detail pages.
+- [x] Validate Local Care icons and Patient Journey timeline.
+- [x] Validate navigation, links, invalid routes, and metadata.
+- [x] Validate overflow, image crops, keyboard/focus behavior, heading order, lists, alt text, and reduced motion.
 - [ ] Validate Patient Assistant UI, `/api/chat`, n8n transport, session behavior, and Treatment Plan behavior.
-- [ ] Run the production build and TypeScript checks.
+- [x] Run the production build and TypeScript checks.
 - [ ] Run final Lighthouse and browser performance measurements.
 - [ ] Compare Performance, LCP, CLS, TBT, payload, and request metrics with baselines.
-- [ ] Confirm no protected behavior or unrelated section changed.
+- [x] Confirm no protected behavior or unrelated section changed.
 
 **Acceptance criteria:** Required routes and locales work at all target widths, accessibility checks pass, the production build and TypeScript checks pass, Performance reaches at least 95 where the environment permits, CLS and TBT remain near zero, LCP is not worse than baseline, and protected behavior remains intact.
+
+## Phase 13 — Final treatment-detail and footer polish
+
+**Objective:** Reduce treatment-detail density and add restrained visual structure while preserving the approved treatment-page layout, clinical meaning, responsive behavior, and existing protected surfaces.
+
+**Files involved:** `components/pages/treatment-detail-page.tsx`, `lib/treatments.ts`, `lib/data.ts`, and `public/images/**` for the Crowns asset review only.
+
+**Implementation notes:** Keep the treatment-detail composition and copy intent intact while shortening repetitive explanatory text across all six supported treatments and both locales. Use small decorative Lucide icons beside section headings with `aria-hidden="true"`, reduce plan factors to five meaningful items per treatment, and use a count-aware desktop grid so the factors fit cleanly. Review the Crowns image inventory; retain the documented prototype placeholder when no dedicated crown asset is available. Remove the duplicate Contact link from the Patient Care footer column while keeping Contact in Explore. Do not modify the Patient Assistant, chat, Treatment Plan, metadata, sitemap, navigation, locale architecture, homepage structure, or other protected areas.
+
+**Checklist:**
+
+- [x] Review the available image inventory for a dedicated Crowns asset and document the existing prototype placeholder status when none is available.
+- [x] Shorten visible treatment-detail explanatory copy for all six treatments in English and Turkish while preserving clinical meaning and the existing process structure.
+- [x] Add restrained decorative icons to treatment-detail section headings with accessible hidden semantics.
+- [x] Reduce each treatment to five meaningful plan factors and use a count-aware desktop factor grid.
+- [x] Remove the duplicate Contact link from the Patient Care footer column.
+- [x] Validate all six treatment detail routes in both locales at 1440, 1280, 1024, 768, 390, and 360px.
+- [x] Verify no horizontal overflow, broken images, missing image alt text, duplicate H1 elements, or unexpected treatment-detail layout regressions.
+- [x] Run `pnpm exec tsc --noEmit` and `pnpm build`.
+
+**Acceptance criteria:** Treatment detail pages remain clinically clear and responsive with shorter visible copy, restrained icons, five-factor desktop planning rows, and no duplicate footer Contact link. Crowns uses a documented placeholder only if a dedicated asset is unavailable. Protected assistant, chat, Treatment Plan, metadata, navigation, locale, and homepage behavior remain unchanged.

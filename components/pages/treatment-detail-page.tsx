@@ -1,6 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import type { LucideIcon } from 'lucide-react'
+import { BadgeEuro, CalendarClock, CircleHelp, HeartHandshake, ListChecks, MessageCircleQuestion, SlidersHorizontal, UserCheck } from 'lucide-react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
@@ -28,6 +30,13 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
     : content.process.length === 4
       ? 'lg:grid-cols-4 lg:gap-5'
       : 'lg:grid-cols-3 lg:gap-6'
+  const planFactorsGridClass = content.planFactors.length === 5
+    ? 'xl:grid-cols-5'
+    : content.planFactors.length === 4
+      ? 'xl:grid-cols-4'
+      : content.planFactors.length === 3
+        ? 'xl:grid-cols-3'
+        : 'xl:grid-cols-2'
 
   return (
     <div id="top">
@@ -85,10 +94,10 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
 
           <section className="bg-card py-16 md:py-24" aria-labelledby="treatment-overview-title">
             <div className="container-page grid gap-12 lg:grid-cols-2 lg:gap-20">
-              <DetailTextSection id="treatment-overview-title" title={labels.whatItIs}>
+              <DetailTextSection id="treatment-overview-title" title={labels.whatItIs} icon={CircleHelp}>
                 {content.whatItIs}
               </DetailTextSection>
-              <DetailTextSection id="treatment-suitability-title" title={labels.suitability}>
+              <DetailTextSection id="treatment-suitability-title" title={labels.suitability} icon={UserCheck}>
                 {content.suitability}
               </DetailTextSection>
             </div>
@@ -96,7 +105,7 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
 
           <section className="bg-background py-16 md:py-24" aria-labelledby="treatment-process-title">
             <div className="container-page flex flex-col gap-10 md:gap-14">
-              <DetailHeading id="treatment-process-title" title={labels.process} />
+              <DetailHeading id="treatment-process-title" title={labels.process} icon={ListChecks} />
               <ol className={`grid gap-8 md:grid-cols-2 ${processGridClass}`}>
                 {content.process.map((step, index) => (
                   <li key={step.title} className="flex min-w-0 flex-col gap-4 border-t border-border pt-5">
@@ -113,14 +122,12 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
 
           <section className="bg-card py-16 md:py-24" aria-labelledby="treatment-planning-title">
             <div className="container-page grid gap-12 lg:grid-cols-2 lg:gap-20">
-              <DetailTextSection id="treatment-timing-title" title={labels.timing}>
+              <DetailTextSection id="treatment-timing-title" title={labels.timing} icon={CalendarClock}>
                 {content.timeline}
               </DetailTextSection>
               <div className="flex flex-col gap-5">
-                <h2 id="treatment-planning-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
-                  {labels.planFactors}
-                </h2>
-                <ul className="grid gap-3 text-base leading-relaxed text-muted-foreground sm:grid-cols-2">
+                <DetailHeading id="treatment-planning-title" title={labels.planFactors} icon={SlidersHorizontal} />
+                <ul className={`grid gap-3 text-sm leading-snug text-muted-foreground sm:grid-cols-2 ${planFactorsGridClass}`}>
                   {content.planFactors.map((factor) => (
                     <li key={factor} className="border-t border-border pt-3">
                       {factor}
@@ -134,7 +141,7 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
           <section className="bg-sage-soft py-16 md:py-24" aria-labelledby="treatment-pricing-title">
             <div className="container-page grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-16">
               <div className="flex max-w-2xl flex-col gap-5 lg:col-span-7">
-                <p className="eyebrow">{labels.pricing}</p>
+                <DetailEyebrow title={labels.pricing} icon={BadgeEuro} />
                 <h2 id="treatment-pricing-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
                   {content.quickFacts.startingPrice}
                 </h2>
@@ -149,13 +156,11 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
 
           <section className="bg-background py-16 md:py-24" aria-labelledby="treatment-aftercare-title">
             <div className="container-page grid gap-12 lg:grid-cols-2 lg:gap-20">
-              <DetailTextSection id="treatment-aftercare-title" title={labels.aftercare}>
+              <DetailTextSection id="treatment-aftercare-title" title={labels.aftercare} icon={HeartHandshake}>
                 {content.aftercare}
               </DetailTextSection>
               <div className="flex flex-col gap-5" aria-labelledby="treatment-faq-title">
-                <h2 id="treatment-faq-title" className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
-                  {labels.faqs}
-                </h2>
+                <DetailHeading id="treatment-faq-title" title={labels.faqs} icon={MessageCircleQuestion} />
                 <Accordion>
                   {content.faqs.map((faq, index) => (
                     <AccordionItem key={faq.question} value={`faq-${index}`} className="border-b border-foreground/15 first:border-t">
@@ -193,20 +198,30 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
   )
 }
 
-function DetailHeading({ id, title }: { id: string; title: string }) {
+function DetailHeading({ id, title, icon: Icon }: { id: string; title: string; icon?: LucideIcon }) {
   return (
-    <h2 id={id} className="font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
-      {title}
+    <h2 id={id} className="flex items-start gap-3 font-serif text-4xl leading-[1.05] font-normal tracking-[-0.015em] sm:text-5xl">
+      {Icon ? <Icon aria-hidden="true" className="mt-1 size-5 shrink-0 stroke-[1.5] text-muted-foreground sm:mt-2 sm:size-[1.375rem]" /> : null}
+      <span>{title}</span>
     </h2>
   )
 }
 
-function DetailTextSection({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
+function DetailTextSection({ id, title, icon, children }: { id: string; title: string; icon?: LucideIcon; children: React.ReactNode }) {
   return (
     <div className="flex max-w-2xl flex-col gap-5">
-      <DetailHeading id={id} title={title} />
+      <DetailHeading id={id} title={title} icon={icon} />
       <p className="text-base leading-relaxed text-muted-foreground md:text-lg">{children}</p>
     </div>
+  )
+}
+
+function DetailEyebrow({ title, icon: Icon }: { title: string; icon: LucideIcon }) {
+  return (
+    <p className="eyebrow inline-flex items-center gap-2">
+      <Icon aria-hidden="true" className="size-4 shrink-0 stroke-[1.5] text-muted-foreground" />
+      {title}
+    </p>
   )
 }
 

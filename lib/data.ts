@@ -347,7 +347,6 @@ export const footerColumns: FooterColumn[] = [
       { id: 'international-care', label: 'International Care' },
       { id: 'treatment-planning', label: 'Treatment Planning' },
       { id: 'aftercare', label: 'Aftercare' },
-      { id: 'contact', label: 'Contact' },
     ],
   },
 ]
