@@ -387,11 +387,11 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Objective:** Align the treatments index desktop CTA vertically and make the existing Patient Assistant launcher behave as a clean floating control around important mobile content without changing its design, session behavior, or dialog implementation.
 
-**Current findings:** The treatments index CTA row uses `md:items-end`, which aligns the button to the bottom of the left content block instead of centering it against that block. The launcher currently has only two mobile bottom states: `calc(1rem + env(safe-area-inset-bottom))` when the sticky CTA is not visible and `calc(5.5rem + env(safe-area-inset-bottom))` when it is visible. The existing observer only watches `[data-hide-sticky-cta]`, so it knows about sticky CTA visibility but not whether the launcher is sitting over a hero image, treatment catalogue, CTA, trust metrics, or footer links. Treatment index and detail pages also do not render `MobileStickyCta`, leaving the launcher with the normal low offset across those routes.
+**Current findings:** The treatments index CTA row is correctly centered with `md:items-center` and must remain unchanged. The current launcher incorrectly moves to a `5rem` mobile offset when `[data-avoid-floating-assistant]` is visible, which places it over the same hero, image, CTA, or footer content it should avoid. The shared observer already exposes independent sticky CTA and assistant avoidance state. Treatment index and detail pages do not render `MobileStickyCta`, so the launcher should remain at its normal mobile position through catalogue/detail content unless a marked avoidance region is visible.
 
-**Recommended shared positioning strategy:** Extend the existing observer system in `use-mobile-sticky-cta-visibility.ts` without changing its current sticky CTA outputs. Add small semantic avoidance markers for selected mobile regions, such as `[data-avoid-floating-assistant]`, and return a separate avoidance state for the launcher. Keep pathname-independent behavior: the launcher should use the existing elevated offset when the mobile sticky CTA is visible, a slightly more comfortable safe-area offset when an avoidance region is visible without the sticky CTA, and the normal bottom-right offset elsewhere. Use a narrowly scoped temporary hide/reposition marker only for a large treatment hero image if measurement shows that an offset still covers the image; do not hide the assistant across the treatment catalogue or an entire page. Preserve desktop `md:right-6 md:bottom-6` behavior.
+**Recommended shared positioning strategy:** Keep the existing IntersectionObserver and independent sticky CTA/assistant avoidance state in `use-mobile-sticky-cta-visibility.ts`. On mobile, a visible `[data-avoid-floating-assistant]` region hides the mounted closed launcher with the existing opacity, visibility, pointer, and tab-index pattern; it must not create a new elevated avoidance offset. With no avoidance region, use the normal safe-area bottom position, or the existing elevated position when the homepage sticky CTA is actually visible. Keep pathname-independent behavior, preserve assistant/session state, keep an already-open panel open, and preserve desktop `md:right-6 md:bottom-6` behavior.
 
-**Planned avoidance regions:** Mark the homepage hero/trust transition, treatment index catalogue and final CTA, treatment detail hero and final CTA, and footer only where the shared observer shows the launcher would obscure important content. The treatment catalogue should reposition the launcher rather than hide it. The existing sticky CTA markers remain responsible for sticky CTA visibility, while the new avoidance markers handle assistant positioning so the two concerns are not coupled accidentally.
+**Planned avoidance regions:** Keep avoidance markers on the homepage hero and compact mobile trust strip, treatment detail hero, treatment index final CTA, treatment detail final CTA, homepage final CTA, and footer. Do not mark treatment catalogue cards or the full catalogue. The existing sticky CTA markers remain responsible for sticky CTA visibility, while avoidance markers hide only the closed mobile launcher in the selected regions.
 
 **CTA alignment plan:** Change only the treatments index desktop row alignment from `md:items-end` to `md:items-center`. Preserve the current copy, button size, mobile stacked layout, spacing system, and section design.
 
@@ -399,17 +399,17 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [x] Confirm the current CTA alignment, launcher offsets, observer targets, and route-specific marker coverage before editing.
-- [x] Add the smallest shared avoidance-marker state to the existing observer hook while preserving current sticky CTA behavior.
-- [x] Adjust the launcher mobile offsets and safe-area spacing using shared state, with desktop positioning unchanged.
-- [x] Add only the necessary semantic avoidance markers to homepage, treatment index, treatment detail, final CTA, trust, and footer regions.
-- [x] Change the treatments index desktop CTA row to vertically center the button without changing mobile layout or CTA behavior.
-- [x] Verify homepage launcher behavior around hero, trust metrics, primary CTA, and sticky CTA transitions in EN/TR.
-- [x] Verify treatment index launcher behavior around cards, final CTA, and footer without hiding it throughout the catalogue.
-- [x] Verify treatment detail launcher behavior around the hero image and normal content, restoring the normal position after the hero leaves view.
-- [x] Validate 390px and 360px mobile layouts, including reachability, CTA/footer access, sticky/assistant separation, and no horizontal overflow.
-- [x] Validate treatments index CTA alignment at 1440px and 1280px.
-- [x] Verify keyboard access, focus rings, labels, tab order, open/close behavior, focus return, and reduced motion.
+- [x] Confirm the existing desktop CTA alignment, launcher offsets, observer targets, and protected areas before editing.
+- [x] Change avoidance behavior from mobile elevation to mounted, non-interactive visual hiding while preserving sticky CTA behavior.
+- [x] Keep the normal mobile safe-area position and existing sticky CTA clearance; remove the avoidance-specific `5rem` offset.
+- [x] Confirm avoidance markers cover only homepage hero/trust, final CTAs, treatment detail hero, and footer; leave the treatment catalogue unmarked.
+- [x] Preserve the treatments index desktop CTA row at `md:items-center` without changing mobile layout or CTA behavior.
+- [x] Verify homepage launcher hiding through hero/trust and restoration after those regions, including EN/TR and sticky CTA transitions.
+- [x] Verify treatment index launcher stability through cards and hiding over its final CTA/footer.
+- [x] Verify treatment detail launcher hiding over the hero/final CTA/footer and normal restoration after the hero.
+- [x] Validate 390px and 360px mobile screenshots for the homepage hero/trust, treatment detail hero, and treatment index final CTA.
+- [x] Validate treatments index CTA alignment at 1440px and 1280px remains unchanged.
+- [x] Verify keyboard access, aria-hidden/tab-index behavior, focus return, open assistant persistence, and reduced motion.
 - [x] Run `pnpm exec tsc --noEmit` and `pnpm build`; confirm protected assistant/session/API/n8n/Treatment Plan behavior remains untouched.
 
-**Acceptance criteria:** The treatments index CTA is vertically centered on desktop while its mobile composition remains unchanged. The Patient Assistant remains reachable and appears once, avoids important mobile imagery, text, CTA, trust, and footer regions through shared observer state, remains clear of the mobile sticky CTA, and restores normal positioning outside marked regions. Desktop launcher behavior, accessibility, session/chat behavior, Treatment Plan behavior, and all protected areas remain unchanged.
+**Acceptance criteria:** The treatments index CTA remains vertically centered on desktop while its mobile composition remains unchanged. On mobile, the mounted Patient Assistant launcher hides while selected avoidance regions are visible, remains stable through treatment cards, clears the sticky CTA when that CTA is visible, and restores its normal position afterward. The assistant panel/session state, accessibility behavior, desktop launcher behavior, Treatment Plan behavior, and all protected areas remain unchanged.
