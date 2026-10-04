@@ -1,12 +1,12 @@
 import { SITE } from '@/lib/constants'
 
-export function Wordmark({ onClick }: { onClick?: () => void }) {
+export function Wordmark({ href = '/', ariaLabel = `${SITE.name}, back to top`, onClick }: { href?: string; ariaLabel?: string; onClick?: () => void }) {
   return (
     <a
-      href="#top"
+      href={href}
       onClick={onClick}
       className="flex h-full items-center rounded-md"
-      aria-label={`${SITE.name}, back to top`}
+      aria-label={ariaLabel}
     >
       <span className="flex items-center gap-2">
         <span className="font-serif text-[1.75rem] leading-[1] tracking-[-0.01em]">{SITE.wordmark}</span>

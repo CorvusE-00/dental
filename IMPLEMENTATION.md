@@ -276,13 +276,13 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Update primary, footer, and mobile Treatments navigation for both locales.
-- [ ] Add index and detail routes to the sitemap.
-- [ ] Add localized metadata, canonical URLs, hreflang alternates, and Open Graph mappings.
-- [ ] Preserve the existing `NEXT_PUBLIC_SITE_URL` and social-image configuration.
-- [ ] Verify internal links, 404 behavior, and route-aware metadata.
-- [ ] Check Turkish pages for hardcoded English content.
-- [ ] Add only justified structured data using verified facts.
+- [x] Update primary, footer, and mobile Treatments navigation for both locales.
+- [x] Add index and detail routes to the sitemap.
+- [x] Add localized metadata, canonical URLs, hreflang alternates, and Open Graph mappings.
+- [x] Preserve the existing `NEXT_PUBLIC_SITE_URL` and social-image configuration.
+- [x] Verify internal links, 404 behavior, and route-aware metadata.
+- [x] Check Turkish pages for hardcoded English content.
+- [x] Keep structured data unchanged; no unverified clinic claims were added.
 
 **Acceptance criteria:** Treatment pages are reachable through navigation and sitemap, metadata is correct for EN/TR, canonical and alternate URLs resolve correctly, and localization is complete.
 

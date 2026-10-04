@@ -1,16 +1,21 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@/components/ui/sheet'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { Wordmark } from '@/components/layout/wordmark'
-import { mobileNav, primaryNav } from '@/lib/data'
+import { getHomeHref, getMobileNavItems, getPrimaryNavItems } from '@/lib/navigation'
 import { cn } from '@/lib/utils'
 import { LocaleSwitcher, useLocale } from '@/lib/i18n'
 
 export function Header() {
-  const { copy } = useLocale()
+  const { copy, locale } = useLocale()
+  const pathname = usePathname()
+  const primaryNav = getPrimaryNavItems(locale)
+  const mobileNav = getMobileNavItems(locale)
+  const homeHref = getHomeHref(locale)
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
@@ -44,7 +49,7 @@ export function Header() {
       )}
     >
       <div className="container-page flex h-(--header-height) items-center justify-between gap-6">
-        <Wordmark />
+        <Wordmark href={homeHref} ariaLabel={copy.wordmark} />
 
         <nav aria-label={copy.menu} className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -102,8 +107,13 @@ export function Header() {
                   <a
                     href={item.href}
                     onClick={(event) => {
+                      if (!item.href.includes('#') || pathname !== homeHref) {
+                        setMenuOpen(false)
+                        return
+                      }
+
                       event.preventDefault()
-                      pendingHashRef.current = item.href
+                      pendingHashRef.current = new URL(item.href, window.location.origin).hash
                       setMenuOpen(false)
                     }}
                     className="flex min-h-16 items-center font-serif text-3xl tracking-[-0.01em]"

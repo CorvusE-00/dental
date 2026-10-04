@@ -2,22 +2,6 @@ import type { TreatmentId } from '@/lib/treatments'
 
 export type { TreatmentId } from '@/lib/treatments'
 
-export type NavItem = { id: string; label: string; href: `#${string}` }
-
-export const primaryNav: NavItem[] = [
-  { id: 'treatments', label: 'Treatments', href: '#treatments' },
-  { id: 'results', label: 'Results', href: '#results' },
-  { id: 'doctors', label: 'Our Doctors', href: '#doctors' },
-  { id: 'faq', label: 'FAQ', href: '#faq' },
-]
-
-export const mobileNav: NavItem[] = [
-  ...primaryNav.slice(0, 1),
-  { id: 'local-care', label: 'Local Care', href: '#local-care' },
-  { id: 'international-care', label: 'International Care', href: '#international-care' },
-  ...primaryNav.slice(1),
-]
-
 export type Metric = { id: string; value: string; label: string }
 
 export const trustMetrics: Metric[] = [
@@ -329,7 +313,7 @@ export const faqs: Faq[] = [
   },
 ]
 
-export type FooterLink = { label: string; href: string }
+export type FooterLink = { id: string; label: string }
 export type FooterColumn = { id: string; title: string; links: FooterLink[] }
 
 export const footerColumns: FooterColumn[] = [
@@ -337,33 +321,33 @@ export const footerColumns: FooterColumn[] = [
     id: 'treatments',
     title: 'Treatments',
     links: [
-      { label: 'Dental Implants', href: '#treatments' },
-      { label: 'Veneers', href: '#treatments' },
-      { label: 'Smile Makeovers', href: '#treatments' },
-      { label: 'All-on-4 / All-on-6', href: '#treatments' },
-      { label: 'Zirconium Crowns', href: '#treatments' },
+      { id: 'dental-implants', label: 'Dental Implants' },
+      { id: 'veneers', label: 'Veneers' },
+      { id: 'smile-makeovers', label: 'Smile Makeovers' },
+      { id: 'all-on-4-all-on-6', label: 'All-on-4 / All-on-6' },
+      { id: 'zirconium-crowns', label: 'Zirconium Crowns' },
     ],
   },
   {
     id: 'explore',
     title: 'Explore',
     links: [
-      { label: 'Results', href: '#results' },
-      { label: 'Our Doctors', href: '#doctors' },
-      { label: 'Patient Journey', href: '#journey' },
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Contact', href: '#contact' },
+      { id: 'results', label: 'Results' },
+      { id: 'doctors', label: 'Our Doctors' },
+      { id: 'patient-journey', label: 'Patient Journey' },
+      { id: 'faq', label: 'FAQ' },
+      { id: 'contact', label: 'Contact' },
     ],
   },
   {
     id: 'patient-care',
     title: 'Patient Care',
     links: [
-      { label: 'Local Care', href: '#local-care' },
-      { label: 'International Care', href: '#international-care' },
-      { label: 'Treatment Planning', href: '#journey' },
-      { label: 'Aftercare', href: '#international-care' },
-      { label: 'Contact', href: '#contact' },
+      { id: 'local-care', label: 'Local Care' },
+      { id: 'international-care', label: 'International Care' },
+      { id: 'treatment-planning', label: 'Treatment Planning' },
+      { id: 'aftercare', label: 'Aftercare' },
+      { id: 'contact', label: 'Contact' },
     ],
   },
 ]

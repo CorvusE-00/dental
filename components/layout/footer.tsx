@@ -1,11 +1,12 @@
 'use client'
 
 import { SITE } from '@/lib/constants'
-import { footerColumns } from '@/lib/data'
+import { getFooterColumns } from '@/lib/navigation'
 import { useLocale } from '@/lib/i18n'
 
 export function Footer() {
-  const { copy } = useLocale()
+  const { copy, locale } = useLocale()
+  const columns = getFooterColumns(locale)
   return (
     <footer data-hide-sticky-cta className="overflow-hidden border-t border-border bg-background">
       <div className="container-page pt-18 md:pt-24">
@@ -24,7 +25,7 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-8 lg:justify-items-end">
-            {footerColumns.map((column) => (
+            {columns.map((column) => (
               <nav key={column.id} aria-labelledby={`footer-${column.id}`} className="flex flex-col gap-4">
                 <h2 id={`footer-${column.id}`} className="eyebrow">
                   {copy.footer.columns[column.id]?.title ?? column.title}

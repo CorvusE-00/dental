@@ -12,6 +12,7 @@ type FaqCopy = { question: string; answer: string }
 export type SiteCopy = {
   nav: string[]
   mobileNav: string[]
+  wordmark: string
   menu: string
   openMenu: string
   close: string
@@ -137,6 +138,7 @@ export type SiteCopy = {
 const english: SiteCopy = {
   nav: ['Treatments', 'Results', 'Our Doctors', 'FAQ'],
   mobileNav: ['Treatments', 'Local Care', 'International Care', 'Results', 'Our Doctors', 'FAQ'],
+  wordmark: 'Luma Dental Istanbul, back to home',
   menu: 'Menu',
   openMenu: 'Open menu',
   close: 'Close',
@@ -322,6 +324,7 @@ const turkish: SiteCopy = {
   ...english,
   nav: ['Tedaviler', 'Sonuçlar', 'Doktorlarımız', 'SSS'],
   mobileNav: ['Tedaviler', 'Yerel Bakım', 'Uluslararası Bakım', 'Sonuçlar', 'Doktorlarımız', 'SSS'],
+  wordmark: 'Luma Dental Istanbul, ana sayfaya dön',
   menu: 'Menü', openMenu: 'Menüyü aç', close: 'Kapat', skipToContent: 'İçeriğe geç',
   hero: { eyebrow: "İstanbul'da özel diş bakımı", title: 'Daha sağlıklı, daha özgüvenli bir gülüş.', emphasis: 'Size göre planlandı.', description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için modern estetik, restoratif ve implant diş hekimliği. Değiştirmek istediklerinizi konuşarak başlayın.", mobileDescription: "İstanbul'da yaşayanlar ve yurt dışından gelenler için modern, kişiye özel diş bakımı.", localLink: "İstanbul'da mısınız? Yerel bakımı keşfedin", internationalLink: "Buraya mı geliyorsunuz? Planlamanın nasıl işlediğini görün", localShortLink: "İstanbul'dayım", internationalShortLink: 'Buraya geliyorum', imageAlt: 'Aydınlık ve modern bir klinikte bakım planını konuşan diş hekimi ve hasta.' },
   trust: { ariaLabel: 'Luma hakkında kısaca', items: ['Klinisyen liderliğinde planlama', 'Net sonraki adımlar', 'İlk görüşmeden bakım sonrasına destek'], metrics: { patients: 'Tedavi gören hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da planlanan bakım" }, mobileMetrics: { patients: 'Hasta', experience: 'Klinik deneyim', rating: 'Hasta puanı', care: "İstanbul'da bakım" }, values: { patients: '8.000+', experience: '14+ yıl', rating: '4,9 / 5', care: 'Yerel + global' } },
