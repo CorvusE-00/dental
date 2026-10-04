@@ -258,11 +258,11 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 **Checklist:**
 
 - [ ] Apply only measured safe client-boundary improvements.
-- [ ] Remove or reduce measured unnecessary animation work.
-- [ ] Preserve existing Motion behavior where it contributes to the design.
-- [ ] Verify reduced-motion behavior after changes.
-- [ ] Verify Patient Assistant, Treatment Plan, forms, and locale switching remain unchanged.
-- [ ] Re-run build and performance measurements.
+- [x] Remove or reduce measured unnecessary animation work.
+- [x] Preserve existing Motion behavior where it contributes to the design.
+- [x] Verify reduced-motion behavior after changes.
+- [x] Verify Patient Assistant, Treatment Plan, forms, and locale switching remain unchanged.
+- [x] Re-run build and performance measurements.
 
 **Acceptance criteria:** JavaScript or animation cost improves where measured, interaction behavior is preserved, and no new dependency or unrelated refactor is introduced.
 

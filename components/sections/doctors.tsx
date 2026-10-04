@@ -17,15 +17,15 @@ export function Doctors() {
           title={copy.sections.doctors.title}
           description={copy.sections.doctors.description}
         />
-        <ul className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {team.map((member, index) => (
-            <li key={member.id}>
-              <Reveal delay={index * 0.06}>
+        <Reveal>
+          <ul className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {team.map((member) => (
+              <li key={member.id}>
                 <DoctorCard member={member} />
-              </Reveal>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   )

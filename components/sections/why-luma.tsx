@@ -85,22 +85,22 @@ function CareSection({
         <div className={`order-1 flex flex-col justify-center gap-10 lg:col-span-7 lg:gap-12 ${imageOnRight ? 'lg:order-1' : 'lg:order-2'}`}>
           <SectionHeading id={`${id}-title`} eyebrow={eyebrow} title={title} description={description} />
 
-          <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-            {features.map((feature, index) => {
-              const Icon = icons?.[feature.id]
-              return (
-              <li key={feature.id}>
-                <Reveal delay={index * 0.06} className="flex flex-col gap-3 border-t border-foreground/15 pt-5">
-                  <div className="flex items-center gap-3">
-                    {Icon ? <Icon aria-hidden="true" className="size-5 shrink-0 text-foreground/60" strokeWidth={1.5} /> : null}
-                    <h3 className="text-lg font-medium tracking-[-0.01em]">{feature.title}</h3>
-                  </div>
-                  <p className="leading-relaxed text-muted-foreground">{feature.description}</p>
-                </Reveal>
-              </li>
-              )
-            })}
-          </ul>
+          <Reveal>
+            <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+              {features.map((feature) => {
+                const Icon = icons?.[feature.id]
+                return (
+                  <li key={feature.id} className="flex flex-col gap-3 border-t border-foreground/15 pt-5">
+                    <div className="flex items-center gap-3">
+                      {Icon ? <Icon aria-hidden="true" className="size-5 shrink-0 text-foreground/60" strokeWidth={1.5} /> : null}
+                      <h3 className="text-lg font-medium tracking-[-0.01em]">{feature.title}</h3>
+                    </div>
+                    <p className="leading-relaxed text-muted-foreground">{feature.description}</p>
+                  </li>
+                )
+              })}
+            </ul>
+          </Reveal>
         </div>
 
         <div className={`order-2 relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted sm:aspect-[3/2] lg:col-span-5 lg:aspect-[4/5] ${imageOnRight ? 'lg:order-2' : 'lg:order-1'}`}>

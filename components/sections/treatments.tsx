@@ -29,17 +29,18 @@ export function Treatments() {
           </a>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {featuredTreatments.map((treatment, index) => (
-            <Reveal key={treatment.id} delay={(index % 2) * 0.08}>
+        <Reveal>
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {featuredTreatments.map((treatment) => (
               <TreatmentCard
+                key={treatment.id}
                 treatment={treatment}
                 learnMoreLabel={copy.sections.treatments.learnMore}
                 href={getTreatmentHref(locale, treatment.id)}
               />
-            </Reveal>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   )

@@ -18,10 +18,10 @@ export function Results() {
           description={copy.sections.results.description}
         />
 
-        <ul className="grid gap-12 lg:grid-cols-3 lg:gap-6">
-          {resultCases.map((result, index) => (
-            <li key={result.id}>
-              <Reveal delay={index * 0.08} className="flex flex-col gap-5">
+        <Reveal>
+          <ul className="grid gap-12 lg:grid-cols-3 lg:gap-6">
+            {resultCases.map((result) => (
+              <li key={result.id} className="flex flex-col gap-5">
                 <BeforeAfterSlider result={result} />
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg font-medium tracking-[-0.01em]">{copy.resultTreatments[result.id] ?? result.treatment}</h3>
@@ -29,10 +29,10 @@ export function Results() {
                     {result.patient}, {result.origin} · {copy.resultVisits[result.id] ?? result.visits}
                   </p>
                 </div>
-              </Reveal>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
         <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
           {copy.sections.results.disclaimer}

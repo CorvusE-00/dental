@@ -47,18 +47,19 @@ function LocalizedTreatmentsIndex() {
             <h2 id="treatment-catalogue-title" className="sr-only">
               {indexCopy.title}
             </h2>
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {treatments.map((treatment, index) => (
-                <Reveal key={treatment.id} delay={(index % 3) * 0.06}>
+            <Reveal>
+              <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {treatments.map((treatment) => (
                   <TreatmentCard
+                    key={treatment.id}
                     treatment={treatment}
                     learnMoreLabel={copy.sections.treatments.learnMore}
                     href={getTreatmentHref(locale, treatment.id)}
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />
-                </Reveal>
-              ))}
-            </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
         </section>
 
