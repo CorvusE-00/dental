@@ -414,3 +414,31 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 - [x] Run `pnpm exec tsc --noEmit` and `pnpm build`; confirm protected assistant/session/API/n8n/Treatment Plan behavior remains untouched.
 
 **Acceptance criteria:** The treatments index CTA remains vertically centered on desktop while its mobile composition remains unchanged. On mobile, the mounted Patient Assistant launcher stays right aligned and uses the normal `right-4` / `bottom-[calc(1rem+env(safe-area-inset-bottom))]` position when the sticky CTA is hidden, then moves directly above the visible homepage sticky CTA using `bottom-[calc(5.25rem+env(safe-area-inset-bottom))]` with a small gap. It never hides because of sticky CTA visibility, does not use section-aware positions, and hides only while the assistant panel or Treatment Plan modal is open. Treatment routes always use the normal position. Accessibility, session/chat behavior, desktop launcher behavior, Treatment Plan behavior, and all protected areas remain unchanged.
+
+## Phase 17 — Treatment detail sanity check
+
+**Status:** REVIEW COMPLETE — MINOR CHANGE IMPLEMENTED. The approved Routine Care quick-fact timeline wording is now distinct from the appointment wording.
+
+**Objective:** Review all six treatment detail pages in English and Turkish for meaningful plan factors, balanced section icon density, copy depth after the Phase 13 reduction, duplication, quick-fact usefulness, visual hierarchy, and responsive presentation. Do not manufacture changes for symmetry and do not redesign the treatment detail page.
+
+**Scope:** Review `routine-care`, `dental-implants`, `veneers`, `crowns`, `smile-makeover`, and `all-on-4` through `lib/treatments.ts`, `components/pages/treatment-detail-page.tsx`, and the treatment-detail labels in `lib/i18n.tsx`. Check every plan factor for clinical relevance, treatment specificity, useful decision context, and redundancy. Confirm that implants explain fixture/root replacement, healing/integration, final restoration, and bone/grafting context; veneers explain shells, material, preparation, and bite/enamel suitability; crowns explain coverage, damaged structure, preparation, and final fit; smile makeovers explain coordinated sequencing; all-on-4/all-on-6 explain full-arch support, implant strategy, healing, provisional and final restoration; and routine care explains examination, hygiene, prevention, and restorative follow-up.
+
+**Responsive review sizes:** `1440`, `1280`, `1024`, `768`, `390`, and `360`. Inspect plan-factor rows, icon and heading alignment, quick-fact wrapping, Turkish strings, process titles, copy density, section spacing, and horizontal overflow. Review the rendered page hierarchy rather than code alone.
+
+**Decision rule:** Classify each finding as `NO CHANGE`, `MINOR CHANGE`, or `MUST FIX`. A valid outcome is that no implementation is needed. If a change is justified, keep it minimal and do not re-expand the shortened copy. Do not propose changes to the Patient Assistant, n8n, chat API, session logic, Treatment Plan, homepage, treatment index, navigation, footer, metadata, sitemap, image assets, or performance architecture.
+
+**Review checklist:**
+
+- [x] Review all six treatment slugs in English and Turkish.
+- [x] Assess every plan factor and record the justified final count for each treatment.
+- [x] Review section icon frequency, size, stroke, spacing, and editorial balance.
+- [x] Check copy depth and the required clinical distinctions after the Phase 13 reduction.
+- [x] Check material duplication across introductions, overview, suitability, process, timing, pricing, aftercare, and FAQs.
+- [x] Verify quick facts remain concise, distinct, and useful.
+- [x] Review desktop and mobile hierarchy at all six required viewport sizes.
+- [x] Classify findings as `NO CHANGE`, `MINOR CHANGE`, or `MUST FIX`.
+- [x] Apply only the approved Routine Care quick-fact timeline wording change.
+
+**Approved minor change:** Routine Care now uses `Often same-day` for the English typical timeline and `Çoğu zaman aynı gün` for the Turkish typical timeline.
+
+**Protected areas:** Do not modify Patient Assistant files, `app/api/chat/**`, `lib/chat-client.ts`, n8n, session or message handling, Treatment Plan behavior, homepage sections, treatment index, navigation, footer, metadata, sitemap, image assets, or performance architecture during this phase.
