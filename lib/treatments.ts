@@ -309,9 +309,8 @@ export const treatmentCatalog = [
     slug: 'crowns',
     featuredOnHomepage: false,
     order: 4,
-    image: '/images/editorial/routine-care.jpg',
-    imageStatus: 'prototype-placeholder',
-    imageNote: 'No dedicated crowns asset is available yet; this uses the existing routine-care editorial image as a documented prototype placeholder.',
+    image: '/images/treatments/crowns.webp',
+    imageStatus: 'dedicated',
     content: {
       en: {
         name: 'Crowns',
@@ -344,7 +343,7 @@ export const treatmentCatalog = [
           title: 'Dental Crowns in Istanbul | Luma Dental Istanbul',
           description: 'Explore dental crown planning in Istanbul for teeth that may need support, coverage or a carefully considered restoration.',
         },
-        imageAlt: 'A bright dental treatment room used as a prototype image for crown planning.',
+        imageAlt: 'A clinician examining a ceramic dental crown in a modern dental clinic.',
       },
       tr: {
         name: 'Kuronlar',
@@ -377,7 +376,7 @@ export const treatmentCatalog = [
           title: 'İstanbul’da Dental Kuronlar | Luma Dental Istanbul',
           description: 'Destek, kaplama veya özenli bir restorasyona ihtiyaç duyabilecek dişler için İstanbul’da kuron planlamasını keşfedin.',
         },
-        imageAlt: 'Kuron planlaması için prototip görseli olarak kullanılan aydınlık bir diş tedavi odası.',
+        imageAlt: 'Modern bir diş kliniğinde seramik diş kuronunu inceleyen klinisyen.',
       },
     },
   },

@@ -329,3 +329,29 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 - [x] Run `pnpm exec tsc --noEmit` and `pnpm build`.
 
 **Acceptance criteria:** Treatment detail pages remain clinically clear and responsive with shorter visible copy, restrained icons, five-factor desktop planning rows, and no duplicate footer Contact link. Crowns uses a documented placeholder only if a dedicated asset is unavailable. Protected assistant, chat, Treatment Plan, metadata, navigation, locale, and homepage behavior remain unchanged.
+
+## Phase 14 — Dedicated Crowns image
+
+**Objective:** Replace the Crowns treatment's documented routine-care placeholder with one dedicated, generated prototype image for the treatment index card and detail hero.
+
+**Files planned for execution:** `public/images/treatments/crowns.webp`, `lib/treatments.ts`, and, if treatment-asset provenance is documented separately, `public/images/treatments/SOURCES.md`.
+
+**Implementation notes:** Generate a premium editorial dental-clinic photograph that clearly communicates crowns or restorative dentistry through a ceramic crown or restoration, clinician gloved hands, a tooth model, subtle dental tools, or a calm modern clinical setting. Keep it realistic, warm, uncluttered, and visibly dental without blood, extracted teeth, extreme mouth close-ups, implant-specific imagery, veneer-specific imagery, text, logos, overlays, or exaggerated advertising expressions. Use a landscape or near-4:3 source with safe space around the subject so the same asset crops cleanly in the approximately 5:4 desktop detail hero, 4:3 mobile/tablet detail hero, and 4:3 treatment card. Generate at least 1600px wide, convert the approved result to a high-quality WebP, and keep the final asset under 1MB where visual quality allows. Do not change the image optimization architecture or any unrelated asset.
+
+**Data update plan:** Update only the Crowns entry in `lib/treatments.ts` to use `/images/treatments/crowns.webp`, set `imageStatus` to `dedicated`, and remove the obsolete placeholder `imageNote` when appropriate. Review both localized `imageAlt` values so they describe the final generated crown/restorative scene accurately without changing treatment copy or route behavior.
+
+**Asset documentation plan:** Record the image as a generated prototype asset, including its intended Crowns treatment use and generation/provenance note, using the existing image-source documentation convention or a focused treatment-assets source file if no treatment-specific document currently exists. Do not claim clinic ownership, clinical outcomes, or real patient photography.
+
+**Checklist:**
+
+- [x] Generate and review one dedicated Crowns treatment image matching the approved visual and subject direction.
+- [x] Confirm the source composition supports the treatment card and detail hero crops at desktop, tablet, and mobile ratios.
+- [x] Save the approved production asset as `public/images/treatments/crowns.webp` at high visual quality and within the target byte budget where possible.
+- [x] Update only the Crowns image path, status, placeholder note, and localized image alt text in `lib/treatments.ts`.
+- [x] Document the generated prototype asset and its provenance using the repository's image-source convention.
+- [x] Verify Crowns has a unique image while Routine Care remains unchanged.
+- [x] Inspect EN/TR Crowns card and detail hero crops at 1440, 1280, 1024, 768, 390, and 360px.
+- [x] Check for broken image requests, recognizable crown/restoration context, obvious AI artifacts, and correct localized alt text.
+- [x] Run `pnpm exec tsc --noEmit` and `pnpm build`.
+
+**Acceptance criteria:** Crowns uses a dedicated generated WebP asset with safe responsive cropping, accurate EN/TR alt text, documented prototype provenance, and no obvious AI artifacts. Routine Care and all protected treatment layout, copy, assistant, n8n, Treatment Plan, navigation, metadata, sitemap, and performance architecture remain unchanged.
