@@ -4,10 +4,8 @@ import { useEffect } from 'react'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { MobileStickyCta } from '@/components/layout/mobile-sticky-cta'
-import { TreatmentPlanProvider } from '@/components/shared/treatment-plan-provider'
-import { PatientAssistantProvider } from '@/components/patient-assistant/patient-assistant-provider'
-import { PatientAssistant } from '@/components/patient-assistant/patient-assistant'
-import { LocaleProvider, type Locale, useLocale } from '@/lib/i18n'
+import { LumaPageProviders } from '@/components/shared/luma-page-providers'
+import { type Locale, useLocale } from '@/lib/i18n'
 import { Hero } from '@/components/sections/hero'
 import { TrustStrip } from '@/components/sections/trust-strip'
 import { AboutLuma } from '@/components/sections/about-luma'
@@ -22,14 +20,9 @@ import { FinalCta } from '@/components/sections/final-cta'
 
 export function SitePage({ locale }: { locale: Locale }) {
   return (
-    <LocaleProvider initialLocale={locale}>
-      <TreatmentPlanProvider>
-        <PatientAssistantProvider>
-          <LocalizedPageContent />
-          <PatientAssistant />
-        </PatientAssistantProvider>
-      </TreatmentPlanProvider>
-    </LocaleProvider>
+    <LumaPageProviders locale={locale}>
+      <LocalizedPageContent />
+    </LumaPageProviders>
   )
 }
 

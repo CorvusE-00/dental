@@ -355,3 +355,30 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 - [x] Run `pnpm exec tsc --noEmit` and `pnpm build`.
 
 **Acceptance criteria:** Crowns uses a dedicated generated WebP asset with safe responsive cropping, accurate EN/TR alt text, documented prototype provenance, and no obvious AI artifacts. Routine Care and all protected treatment layout, copy, assistant, n8n, Treatment Plan, navigation, metadata, sitemap, and performance architecture remain unchanged.
+
+## Phase 15 — Patient Assistant on treatment routes
+
+**Objective:** Make the existing Patient Assistant launcher and panel available exactly once on the English and Turkish treatment index and treatment detail routes while preserving its current behavior and keeping the homepage unchanged.
+
+**Current mounting and root cause:** `components/site-page.tsx` currently mounts `PatientAssistantProvider` and `PatientAssistant` inside the homepage's `LocaleProvider` and `TreatmentPlanProvider`. `components/pages/treatments-index-page.tsx` and `components/pages/treatment-detail-page.tsx` provide only `LocaleProvider` and `TreatmentPlanProvider`, and render no Patient Assistant provider or component. The treatment routes therefore have neither the assistant context consumed by the launcher/panel nor an assistant mount in their page tree. `app/layout.tsx` is only the document shell and does not currently provide locale, Treatment Plan, or assistant context.
+
+**Provider dependencies:** The assistant requires `LocaleProvider` for localized launcher, panel, quick-reply, and error copy; `PatientAssistantProvider` for open state, messages, reset, focus return, and session ID; and `TreatmentPlanProvider` for launcher hiding and Treatment Plan handoff. The assistant must remain inside all three provider scopes.
+
+**Recommended architecture:** Add one small shared client wrapper, such as `components/shared/luma-page-providers.tsx`, that composes `LocaleProvider`, `TreatmentPlanProvider`, and `PatientAssistantProvider`, renders page children, and mounts one existing `PatientAssistant`. Use that wrapper from `SitePage`, `TreatmentsIndexPage`, and `TreatmentDetailPage`. Remove the homepage-only provider/component mount from `components/site-page.tsx` once the shared wrapper owns it. Do not change any file under `components/patient-assistant/**`; do not move providers to `app/layout.tsx`; do not add a second launcher, panel, session provider, or dialog.
+
+**Execution scope:** Planned production changes are limited to the new shared provider wrapper plus `components/site-page.tsx`, `components/pages/treatments-index-page.tsx`, and `components/pages/treatment-detail-page.tsx`. No changes are planned for `app/api/chat/**`, `lib/chat-client.ts`, n8n, prompts, session implementation, Treatment Plan contracts or modal behavior, navigation, metadata, sitemap, locale architecture, or treatment content.
+
+**Checklist:**
+
+- [x] Confirm the current assistant mount and provider dependency tree before editing.
+- [x] Add the smallest shared page-provider wrapper that preserves Locale, Treatment Plan, and Patient Assistant provider order.
+- [x] Mount the existing assistant through that wrapper on the homepage, treatment index, and treatment detail page components.
+- [x] Remove the old homepage-only assistant mount after the shared wrapper is in use.
+- [x] Verify exactly one launcher, one dialog, and one assistant session context on every required route.
+- [x] Verify EN/TR coverage for `/`, `/treatments`, `/treatments/dental-implants`, `/tr/treatments`, and `/tr/treatments/dental-implants`, with the existing homepage behavior unchanged.
+- [x] Verify launcher open/close, reset, locale copy, focus return, quick replies, and Treatment Plan handoff without changing assistant or Treatment Plan logic.
+- [x] Check mobile launcher/panel behavior at 390px and 360px, CTA/footer access, sticky/floating control interaction, and horizontal overflow.
+- [x] Verify keyboard behavior, dialog focus trapping, accessible labels, close controls, and reduced motion remain unchanged.
+- [x] Run TypeScript checks and the production build; report n8n transport limitations separately if local environment configuration prevents transport verification.
+
+**Acceptance criteria:** The existing Patient Assistant appears once and is usable on the homepage, both treatment index routes, and both treatment detail route families. Locale copy, session/reset behavior, accessibility, Treatment Plan handoff, launcher positioning, and homepage behavior remain unchanged. No API, n8n, chatbot, treatment content, or unrelated architecture changes are introduced.

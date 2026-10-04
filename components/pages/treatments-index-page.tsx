@@ -5,17 +5,15 @@ import { Footer } from '@/components/layout/footer'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { Reveal } from '@/components/shared/reveal'
 import { TreatmentCard } from '@/components/shared/treatment-card'
-import { TreatmentPlanProvider } from '@/components/shared/treatment-plan-provider'
-import { LocaleProvider, type Locale, useLocale } from '@/lib/i18n'
+import { LumaPageProviders } from '@/components/shared/luma-page-providers'
+import { type Locale, useLocale } from '@/lib/i18n'
 import { getAllTreatments, getTreatmentHref } from '@/lib/treatments'
 
 export function TreatmentsIndexPage({ locale }: { locale: Locale }) {
   return (
-    <LocaleProvider initialLocale={locale}>
-      <TreatmentPlanProvider>
-        <LocalizedTreatmentsIndex />
-      </TreatmentPlanProvider>
-    </LocaleProvider>
+    <LumaPageProviders locale={locale}>
+      <LocalizedTreatmentsIndex />
+    </LumaPageProviders>
   )
 }
 

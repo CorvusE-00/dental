@@ -7,17 +7,15 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { PrimaryCta } from '@/components/shared/primary-cta'
-import { TreatmentPlanProvider } from '@/components/shared/treatment-plan-provider'
-import { LocaleProvider, type Locale, useLocale } from '@/lib/i18n'
+import { LumaPageProviders } from '@/components/shared/luma-page-providers'
+import { type Locale, useLocale } from '@/lib/i18n'
 import { getTreatmentsIndexHref, type TreatmentDefinition } from '@/lib/treatments'
 
 export function TreatmentDetailPage({ locale, treatment }: { locale: Locale; treatment: TreatmentDefinition }) {
   return (
-    <LocaleProvider initialLocale={locale}>
-      <TreatmentPlanProvider>
-        <LocalizedTreatmentDetail treatment={treatment} />
-      </TreatmentPlanProvider>
-    </LocaleProvider>
+    <LumaPageProviders locale={locale}>
+      <LocalizedTreatmentDetail treatment={treatment} />
+    </LumaPageProviders>
   )
 }
 
