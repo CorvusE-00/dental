@@ -181,10 +181,11 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Choose four distinct Lucide icons that match the Local Care feature meanings.
-- [ ] Pass the Local Care icon map through the existing shared care section API.
-- [ ] Match the current International Care icon size, stroke, color, and spacing.
-- [ ] Verify decorative accessibility behavior and localized rendering.
+- [x] Choose four distinct Lucide icons that match the Local Care feature meanings.
+- [x] Pass the Local Care icon map through the existing shared care section API.
+- [x] Match the current International Care icon size, stroke, color, and spacing.
+- [x] Verify decorative accessibility behavior and localized rendering.
+- [ ] Validate icon alignment and wrapping at 1440, 1280, 1024, 768, 390, and 360px where exact viewport tooling is available.
 
 **Acceptance criteria:** Local Care displays four consistent icons without changing its copy, layout structure, or the International Care presentation.
 

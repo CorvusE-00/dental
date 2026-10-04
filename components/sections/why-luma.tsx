@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import type { LucideIcon } from 'lucide-react'
-import { CalendarDays, ClipboardCheck, HeartHandshake, UserRoundCheck } from 'lucide-react'
+import { CalendarCheck, CalendarDays, ClipboardCheck, HeartHandshake, HeartPulse, ListChecks, UserRoundCheck, UsersRound } from 'lucide-react'
 import { Reveal } from '@/components/shared/reveal'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { internationalFeatures, localFeatures } from '@/lib/data'
@@ -13,6 +13,13 @@ const internationalFeatureIcons: Record<string, LucideIcon> = {
   coordinator: UserRoundCheck,
   logistics: CalendarDays,
   aftercare: HeartHandshake,
+}
+
+const localFeatureIcons: Record<string, LucideIcon> = {
+  'local-consultation': UsersRound,
+  'clear-options': ListChecks,
+  'everyday-care': HeartPulse,
+  'local-aftercare': CalendarCheck,
 }
 
 export function WhyLuma() {
@@ -27,6 +34,7 @@ export function WhyLuma() {
         title={copy.sections.local.title}
         description={copy.sections.local.description}
         features={localFeatures.map((feature) => ({ ...feature, ...copy.localFeatures[feature.id] }))}
+        icons={localFeatureIcons}
       />
       <CareSection
         id="international-care"
