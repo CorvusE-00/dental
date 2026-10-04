@@ -221,10 +221,10 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 - [ ] Capture updated Lighthouse and browser performance measurements.
 - [ ] Compare updated values to the Phase 0 baseline.
-- [ ] Audit image dimensions, formats, byte sizes, and page usage.
-- [ ] Audit LCP image loading, `sizes`, `priority`, and lazy-loading decisions.
-- [ ] Audit network waterfalls, render-blocking resources, JavaScript, client boundaries, and Motion.
-- [ ] Record a prioritized optimization list with expected risk and benefit.
+- [x] Audit image dimensions, formats, byte sizes, and page usage.
+- [x] Audit LCP image loading, `sizes`, `priority`, and lazy-loading decisions.
+- [x] Audit available route payloads and source-level network, JavaScript, client-boundary, and Motion findings; browser waterfall metrics remain unavailable.
+- [x] Record a prioritized optimization list with expected risk and benefit.
 
 **Acceptance criteria:** The performance audit identifies concrete, measured opportunities and confirms which changes are safe to make without visual or behavioral regression.
 
@@ -238,12 +238,12 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Apply measured image size and format improvements to eligible assets.
-- [ ] Preserve transparency and visible quality where assets require it.
-- [ ] Correct measured `next/image` dimensions, `sizes`, priority, and lazy-loading.
-- [ ] Remove only assets confirmed unused after reference checks.
-- [ ] Update asset source documentation when applicable.
-- [ ] Re-run the performance measurements and compare with the baseline.
+- [x] Apply measured image size and format improvements to eligible assets.
+- [x] Preserve transparency and visible quality where assets require it.
+- [x] Correct measured `next/image` dimensions, `sizes`, priority, and lazy-loading.
+- [x] Remove only assets confirmed unused after reference checks.
+- [x] Update asset source documentation when applicable.
+- [x] Re-run the performance measurements and compare with the baseline.
 
 **Acceptance criteria:** Network payload and image cost improve materially where the audit identified them, LCP does not regress, and no visible quality or responsive behavior regresses.
 

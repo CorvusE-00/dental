@@ -159,7 +159,7 @@ export const treatmentCatalog = [
     slug: 'dental-implants',
     featuredOnHomepage: true,
     order: 2,
-    image: '/images/treatments/dental-implants.png',
+    image: '/images/treatments/dental-implants.webp',
     imageStatus: 'dedicated',
     content: {
       en: {
@@ -234,7 +234,7 @@ export const treatmentCatalog = [
     slug: 'veneers',
     featuredOnHomepage: true,
     order: 3,
-    image: '/images/treatments/veneers.png',
+    image: '/images/treatments/veneers.webp',
     imageStatus: 'dedicated',
     content: {
       en: {
@@ -385,7 +385,7 @@ export const treatmentCatalog = [
     slug: 'smile-makeover',
     featuredOnHomepage: true,
     order: 5,
-    image: '/images/treatments/smile-makeover.png',
+    image: '/images/treatments/smile-makeover.webp',
     imageStatus: 'dedicated',
     content: {
       en: {
@@ -460,7 +460,7 @@ export const treatmentCatalog = [
     slug: 'all-on-4',
     featuredOnHomepage: false,
     order: 6,
-    image: '/images/treatments/all-on-4.png',
+    image: '/images/treatments/all-on-4.webp',
     imageStatus: 'dedicated',
     content: {
       en: {

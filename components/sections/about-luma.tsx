@@ -24,7 +24,7 @@ export function AboutLuma() {
             src="/images/editorial/about-clinic.jpg"
             alt={copy.sections.about.imageAlt}
             fill
-            sizes="(min-width: 1024px) 58vw, 100vw"
+            sizes="(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw"
             className="object-cover object-[center_50%]"
           />
         </div>

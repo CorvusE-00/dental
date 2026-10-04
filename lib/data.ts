@@ -69,11 +69,11 @@ export const resultCases: ResultCase[] = [
     treatment: '20 Zirconium Crowns',
     visits: '2 visits · Istanbul',
     before: {
-      src: '/images/results/case-1-before.png',
+      src: '/images/results/case-1-before.webp',
       alt: 'Before treatment: worn, discoloured teeth with visible gaps.',
     },
     after: {
-      src: '/images/results/case-1-after.png',
+      src: '/images/results/case-1-after.webp',
       alt: 'After treatment: even, natural-shade zirconium crowns.',
     },
   },
@@ -84,11 +84,11 @@ export const resultCases: ResultCase[] = [
     treatment: '8 Porcelain Veneers',
     visits: '1 visit · Istanbul',
     before: {
-      src: '/images/results/case-2-before.png',
+      src: '/images/results/case-2-before.webp',
       alt: 'Before treatment: slightly crooked front teeth with chipped edges and staining.',
     },
     after: {
-      src: '/images/results/case-2-after.png',
+      src: '/images/results/case-2-after.webp',
       alt: 'After treatment: aligned porcelain veneers in a soft natural shade.',
     },
   },
@@ -99,11 +99,11 @@ export const resultCases: ResultCase[] = [
     treatment: 'All-on-6, both arches',
     visits: '2 visits · Istanbul',
     before: {
-      src: '/images/results/case-3-before.png',
+      src: '/images/results/case-3-before.webp',
       alt: 'Before treatment: several missing teeth and receded gums.',
     },
     after: {
-      src: '/images/results/case-3-after.png',
+      src: '/images/results/case-3-after.webp',
       alt: 'After treatment: full upper and lower implant-supported bridges.',
     },
   },
@@ -208,7 +208,7 @@ export const team: TeamMember[] = [
     role: 'Founder & Prosthodontist',
     credentials: 'DDS, MSc',
     experience: '14+ years experience',
-    image: '/images/team/kerem-aydin.png',
+    image: '/images/team/kerem-aydin.webp',
     imageAlt: 'Portrait of Dr. Kerem Aydin in the clinic.',
   },
   {
@@ -217,7 +217,7 @@ export const team: TeamMember[] = [
     role: 'Oral & Maxillofacial Surgeon',
     credentials: 'DDS, PhD',
     experience: '12+ years experience',
-    image: '/images/team/elif-demir.png',
+    image: '/images/team/elif-demir.webp',
     imageAlt: 'Portrait of Dr. Elif Demir in the clinic.',
   },
   {
@@ -226,7 +226,7 @@ export const team: TeamMember[] = [
     role: 'Cosmetic Dentist',
     credentials: 'DDS',
     experience: '8+ years experience',
-    image: '/images/team/sofia-marin.png',
+    image: '/images/team/sofia-marin.webp',
     imageAlt: 'Portrait of Dr. Sofia Marin in the clinic.',
   },
   {
@@ -234,7 +234,7 @@ export const team: TeamMember[] = [
     name: 'Maya Thompson',
     role: 'International Patient Coordinator',
     languages: 'English / German',
-    image: '/images/team/maya-thompson.png',
+    image: '/images/team/maya-thompson.webp',
     imageAlt: 'Portrait of Maya Thompson, International Patient Coordinator.',
   },
 ]
@@ -267,7 +267,7 @@ export const testimonials: Testimonial[] = [
     name: 'Jonas K.',
     origin: 'Munich, Germany',
     treatment: 'Veneers',
-    image: '/images/testimonials/jonas.png',
+    image: '/images/testimonials/jonas.webp',
     imageAlt: 'Portrait of Jonas, a fictional Luma patient.',
   },
   {

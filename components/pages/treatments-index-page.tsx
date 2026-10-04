@@ -54,6 +54,7 @@ function LocalizedTreatmentsIndex() {
                     treatment={treatment}
                     learnMoreLabel={copy.sections.treatments.learnMore}
                     href={getTreatmentHref(locale, treatment.id)}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   />
                 </Reveal>
               ))}

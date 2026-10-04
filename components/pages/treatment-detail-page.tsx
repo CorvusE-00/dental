@@ -61,7 +61,8 @@ function LocalizedTreatmentDetail({ treatment }: { treatment: TreatmentDefinitio
                   src={treatment.image}
                   alt={content.imageAlt}
                   fill
-                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  priority
+                  sizes="(min-width: 1280px) 680px, (min-width: 1024px) 52vw, 100vw"
                   className="object-cover"
                 />
               </div>

@@ -7,9 +7,10 @@ type TreatmentCardProps = {
   treatment: HomepageTreatment
   learnMoreLabel: string
   href?: string
+  sizes?: string
 }
 
-export function TreatmentCard({ treatment, learnMoreLabel, href }: TreatmentCardProps) {
+export function TreatmentCard({ treatment, learnMoreLabel, href, sizes = '(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw' }: TreatmentCardProps) {
   const card = (
     <>
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -17,7 +18,7 @@ export function TreatmentCard({ treatment, learnMoreLabel, href }: TreatmentCard
           src={treatment.image}
           alt={treatment.imageAlt}
           fill
-          sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+          sizes={sizes}
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
       </div>
