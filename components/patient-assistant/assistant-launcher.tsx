@@ -18,8 +18,7 @@ export function AssistantLauncher() {
     typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
   ))
   const modalHidden = isOpen || treatmentPlanOpen
-  const stickyCtaHidden = isMobile && isStickyCtaVisible
-  const hidden = modalHidden || stickyCtaHidden
+  const stickyCtaElevated = isMobile && isStickyCtaVisible
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767px)')
@@ -35,15 +34,17 @@ export function AssistantLauncher() {
       aria-label={copy.patientAssistant.launcherLabel}
       aria-expanded={isOpen}
       aria-controls="patient-assistant-panel"
-      aria-hidden={hidden || undefined}
-      tabIndex={hidden ? -1 : 0}
+      aria-hidden={modalHidden || undefined}
+      tabIndex={modalHidden ? -1 : 0}
       onClick={(event) => openAssistant({ source: 'floating-launcher' }, event.currentTarget)}
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
         'fixed right-4 z-40 inline-flex min-h-12 items-center gap-2.5 rounded-full border border-primary/10 bg-primary px-4 text-sm font-medium text-primary-foreground shadow-[0_12px_30px_rgba(21,35,33,0.16)] transition-[bottom,opacity,visibility] duration-300 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground',
-        'bottom-[calc(1rem+env(safe-area-inset-bottom))]',
-        hidden && 'pointer-events-none invisible opacity-0',
+        stickyCtaElevated
+          ? 'bottom-[calc(5.25rem+env(safe-area-inset-bottom))]'
+          : 'bottom-[calc(1rem+env(safe-area-inset-bottom))]',
+        modalHidden && 'pointer-events-none invisible opacity-0',
         'md:right-6 md:bottom-6',
       )}
     >
