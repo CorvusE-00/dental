@@ -199,12 +199,13 @@ The Patient Assistant UI, `/api/chat`, `lib/chat-client.ts`, n8n transport and r
 
 **Checklist:**
 
-- [ ] Preserve the four ordered journey steps and localized copy.
-- [ ] Implement the full-width desktop horizontal timeline.
-- [ ] Implement the mobile vertical timeline.
-- [ ] Remove the large side image if it is no longer needed by the final structure.
-- [ ] Preserve the Patient Journey CTA and existing destination.
-- [ ] Verify semantic ordered-list structure, focus behavior, and reduced motion.
+- [x] Preserve the four ordered journey steps and localized copy.
+- [x] Implement the full-width desktop horizontal timeline.
+- [x] Implement the mobile vertical timeline.
+- [x] Remove the large side image if it is no longer needed by the final structure.
+- [x] Preserve the Patient Journey CTA and existing destination.
+- [x] Verify semantic ordered-list structure, focus behavior, and reduced motion.
+- [ ] Validate the timeline at 1440, 1280, 1024, 768, 390, and 360px where exact viewport tooling is available.
 
 **Acceptance criteria:** The Patient Journey reads as one connected four-step process on desktop and mobile, remains accessible, and keeps the current CTA behavior.
 

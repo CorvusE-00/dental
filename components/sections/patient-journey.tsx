@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { PrimaryCta } from '@/components/shared/primary-cta'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { patientJourney } from '@/lib/data'
@@ -10,44 +9,43 @@ export function PatientJourney() {
   const { copy } = useLocale()
 
   return (
-    <section id="journey" aria-labelledby="journey-title" className="section-y scroll-mt-[calc(var(--header-height)+1rem)]">
-      <div className="container-page grid gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="flex flex-col gap-10 lg:col-span-7">
-          <SectionHeading
-            id="journey-title"
-            eyebrow={copy.sections.journey.eyebrow}
-            title={copy.sections.journey.title}
-            description={copy.sections.journey.description}
+    <section id="journey" aria-labelledby="journey-title" className="section-y scroll-mt-[calc(var(--header-height)+1rem)] bg-background">
+      <div className="container-page flex flex-col gap-12 md:gap-16">
+        <SectionHeading
+          id="journey-title"
+          eyebrow={copy.sections.journey.eyebrow}
+          title={copy.sections.journey.title}
+          description={copy.sections.journey.description}
+          align="center"
+          className="mx-auto max-w-3xl"
+        />
+
+        <div className="relative">
+          <div
+            aria-hidden="true"
+            className="absolute bottom-6 left-6 top-6 w-px bg-border lg:bottom-auto lg:left-[12.5%] lg:right-[12.5%] lg:top-6 lg:h-px lg:w-auto"
           />
 
-          <ol className="grid gap-x-8 gap-y-0 sm:grid-cols-2">
+          <ol className="relative grid gap-10 lg:grid-cols-4 lg:gap-6">
             {patientJourney.map((step, index) => {
               const localized = copy.journey[step.id] ?? step
               return (
-                <li key={step.id} className="grid grid-cols-[2.5rem_1fr] gap-3 border-t border-foreground/15 py-5 last:border-b sm:nth-last-2:border-b">
-                  <span className="font-serif text-xl leading-none text-muted-foreground tabular-nums">
+                <li key={step.id} className="relative grid grid-cols-[3rem_minmax(0,1fr)] gap-4 lg:flex lg:min-w-0 lg:flex-col lg:items-center lg:gap-5 lg:text-center">
+                  <div className="z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-border bg-background font-serif text-xl leading-none text-primary tabular-nums">
                     {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <div className="flex flex-col gap-2">
+                  </div>
+                  <div className="flex min-w-0 flex-col gap-2 pt-1 lg:items-center lg:pt-0">
                     <h3 className="font-medium tracking-[-0.01em]">{localized.title}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{localized.description}</p>
+                    <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">{localized.description}</p>
                   </div>
                 </li>
               )
             })}
           </ol>
-
-          <PrimaryCta size="lg" className="w-full sm:w-fit" />
         </div>
 
-        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted ring-1 ring-foreground/10 sm:aspect-[16/10] lg:col-span-5 lg:aspect-[4/3] lg:self-center">
-          <Image
-            src="/images/editorial/international-care.jpg"
-            alt={copy.sections.journey.imageAlt}
-            fill
-            sizes="(min-width: 1024px) 40vw, 100vw"
-            className="object-cover"
-          />
+        <div className="flex justify-center">
+          <PrimaryCta size="lg" className="w-full sm:w-fit" />
         </div>
       </div>
     </section>
