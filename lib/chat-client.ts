@@ -8,10 +8,21 @@ export type ChatRequest = {
 
 type ChatResponse = {
   reply: unknown
+  error?: unknown
+}
+
+type ControlledChatErrorResponse = ChatResponse & {
+  error: unknown
 }
 
 function isChatResponse(value: unknown): value is ChatResponse {
   return typeof value === 'object' && value !== null && 'reply' in value
+}
+
+function isControlledChatError(value: unknown): value is ControlledChatErrorResponse {
+  return isChatResponse(value)
+    && typeof value.error === 'string'
+    && (value.error === 'rate_limited' || value.error === 'duplicate_message')
 }
 
 export async function requestChatReply(payload: ChatRequest) {
@@ -28,7 +39,15 @@ export async function requestChatReply(payload: ChatRequest) {
     throw new Error('CHAT_REQUEST_FAILED')
   }
 
-  if (!response.ok || !isChatResponse(responseBody) || typeof responseBody.reply !== 'string' || !responseBody.reply.trim()) {
+  if (!response.ok) {
+    if (isControlledChatError(responseBody) && typeof responseBody.reply === 'string' && responseBody.reply.trim()) {
+      return { reply: responseBody.reply.trim() }
+    }
+
+    throw new Error('CHAT_REQUEST_FAILED')
+  }
+
+  if (!isChatResponse(responseBody) || typeof responseBody.reply !== 'string' || !responseBody.reply.trim()) {
     throw new Error('CHAT_REQUEST_FAILED')
   }
 
