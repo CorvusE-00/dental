@@ -32,6 +32,21 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null
 }
 
+function getInvalidRequestReply(value: unknown) {
+  const locale = isRecord(value) && value.locale === 'tr' ? 'tr' : 'en'
+  const message = isRecord(value) && typeof value.message === 'string' ? value.message.trim() : ''
+
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    return locale === 'tr'
+      ? 'Mesajınız çok uzun. Lütfen daha kısa bir soru gönderin.'
+      : 'Your message is too long. Please send a shorter question.'
+  }
+
+  return locale === 'tr'
+    ? 'Lütfen mesajınızı kontrol edip tekrar deneyin.'
+    : 'Please check your message and try again.'
+}
+
 function parseChatRequest(value: unknown): ChatRequest | null {
   if (!isRecord(value)) return null
 
@@ -72,7 +87,7 @@ export async function POST(request: Request) {
   }
 
   const payload = parseChatRequest(body)
-  if (!payload) return errorResponse(400, 'invalid_request')
+  if (!payload) return errorResponse(400, 'invalid_request', getInvalidRequestReply(body))
 
   const webhookUrl = getWebhookUrl()
   if (!webhookUrl) return errorResponse(503, 'chat_unavailable')
