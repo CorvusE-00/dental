@@ -1,9 +1,17 @@
 export type ChatLocale = 'en' | 'tr'
 
+export type ChatContext = {
+  intent?: 'treatment-plan' | 'consultation' | 'question'
+  source?: 'floating-launcher' | 'hero' | 'treatment-card' | 'international-care' | 'final-cta'
+  patientType?: 'local' | 'international'
+  treatment?: string
+}
+
 export type ChatRequest = {
   message: string
   locale: ChatLocale
   sessionId: string
+  context?: ChatContext
 }
 
 type ChatResponse = {

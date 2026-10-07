@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { admitChatRequest } from '@/lib/chat-rate-limiter'
+import type { ChatContext } from '@/lib/chat-client'
 
 type ChatLocale = 'en' | 'tr'
 
@@ -8,12 +9,18 @@ type ChatRequest = {
   message: string
   locale: ChatLocale
   sessionId: string
+  context?: ChatContext
 }
 
 const MAX_MESSAGE_LENGTH = 1500
 const MAX_REPLY_LENGTH = 4000
 const WEBHOOK_TIMEOUT_MS = 10_000
 const SESSION_ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9_-]{7,199}$/
+const CHAT_CONTEXT_KEYS = new Set(['intent', 'source', 'patientType', 'treatment'])
+const CHAT_CONTEXT_INTENTS = ['treatment-plan', 'consultation', 'question'] as const
+const CHAT_CONTEXT_SOURCES = ['floating-launcher', 'hero', 'treatment-card', 'international-care', 'final-cta'] as const
+const CHAT_CONTEXT_PATIENT_TYPES = ['local', 'international'] as const
+const MAX_CONTEXT_TREATMENT_LENGTH = 80
 
 async function readClinicKnowledge() {
   try {
@@ -47,18 +54,54 @@ function getInvalidRequestReply(value: unknown) {
     : 'Please check your message and try again.'
 }
 
+function isAllowedContextValue<T extends string>(values: readonly T[], value: unknown): value is T {
+  return typeof value === 'string' && values.includes(value as T)
+}
+
+function parseChatContext(value: unknown): ChatContext | undefined | null {
+  if (value === undefined) return undefined
+  if (!isRecord(value) || Object.keys(value).some((key) => !CHAT_CONTEXT_KEYS.has(key))) return null
+
+  const context: ChatContext = {}
+
+  if ('intent' in value) {
+    if (!isAllowedContextValue(CHAT_CONTEXT_INTENTS, value.intent)) return null
+    context.intent = value.intent
+  }
+
+  if ('source' in value) {
+    if (!isAllowedContextValue(CHAT_CONTEXT_SOURCES, value.source)) return null
+    context.source = value.source
+  }
+
+  if ('patientType' in value) {
+    if (!isAllowedContextValue(CHAT_CONTEXT_PATIENT_TYPES, value.patientType)) return null
+    context.patientType = value.patientType
+  }
+
+  if ('treatment' in value) {
+    if (typeof value.treatment !== 'string') return null
+    const treatment = value.treatment.trim()
+    if (!treatment || treatment.length > MAX_CONTEXT_TREATMENT_LENGTH || /[\u0000-\u001f\u007f]/.test(treatment)) return null
+    context.treatment = treatment
+  }
+
+  return context
+}
+
 function parseChatRequest(value: unknown): ChatRequest | null {
   if (!isRecord(value)) return null
 
   const message = typeof value.message === 'string' ? value.message.trim() : ''
   const locale = value.locale === 'en' || value.locale === 'tr' ? value.locale : null
   const sessionId = typeof value.sessionId === 'string' ? value.sessionId.trim() : ''
+  const context = parseChatContext(value.context)
 
-  if (!message || message.length > MAX_MESSAGE_LENGTH || !locale || !SESSION_ID_PATTERN.test(sessionId)) {
+  if (!message || message.length > MAX_MESSAGE_LENGTH || !locale || !SESSION_ID_PATTERN.test(sessionId) || context === null) {
     return null
   }
 
-  return { message, locale, sessionId }
+  return { message, locale, sessionId, ...(context === undefined ? {} : { context }) }
 }
 
 function getWebhookUrl() {

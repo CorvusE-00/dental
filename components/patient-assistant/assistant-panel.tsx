@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { useLocale } from '@/lib/i18n'
-import { requestChatReply } from '@/lib/chat-client'
+import { requestChatReply, type ChatContext } from '@/lib/chat-client'
 import { AssistantComposer } from './assistant-composer'
 import { AssistantTypingIndicator } from './assistant-typing-indicator'
 import { MessageBubble } from './message-bubble'
@@ -22,15 +22,16 @@ export function AssistantPanel() {
     isOpen,
     flow,
     messages,
+    activeContext,
     returnFocusRef,
     getSessionId,
     closeAssistant,
     resetConversation,
     appendMessage,
-    addExchange,
   } = usePatientAssistant()
   const messagesRef = useRef<HTMLDivElement>(null)
   const requestIdRef = useRef(0)
+  const isPendingRef = useRef(false)
   const [isPending, setIsPending] = useState(false)
 
   useEffect(() => {
@@ -59,43 +60,54 @@ export function AssistantPanel() {
   }, [copy.patientAssistant, flow])
 
   function handleQuickReply(reply: { id: string; label: string }) {
-    const assistantCopy = copy.patientAssistant
     if (reply.id === 'treatment-plan') {
-      addExchange(assistantCopy.treatmentPlanAction, assistantCopy.locationQuestion, 'treatment-location')
+      void handleMessage(reply.label, 'treatment-location', { intent: 'treatment-plan' })
       return
     }
     if (reply.id === 'consultation') {
-      addExchange(assistantCopy.consultationAction, assistantCopy.consultationResponse, 'consultation')
+      void handleMessage(reply.label, 'consultation', { intent: 'consultation' })
       return
     }
     if (reply.id === 'question') {
-      addExchange(assistantCopy.questionAction, assistantCopy.questionResponse, 'question')
+      void handleMessage(reply.label, 'question', { intent: 'question' })
       return
     }
-    addExchange(reply.label, assistantCopy.locationResponse, 'question')
+    void handleMessage(reply.label, 'question', reply.id === 'local' ? { patientType: 'local' } : { patientType: 'international' })
   }
 
   function handleReset() {
     requestIdRef.current += 1
+    isPendingRef.current = false
     setIsPending(false)
     resetConversation()
   }
 
-  async function handleTypedMessage(message: string) {
-    if (isPending) return
+  async function handleMessage(message: string, nextFlow: 'treatment-location' | 'consultation' | 'question', context?: ChatContext) {
+    if (isPendingRef.current) return
 
     const requestId = ++requestIdRef.current
-    appendMessage('patient', message, 'question')
+    const requestContext = activeContext || context
+      ? { ...(activeContext ?? {}), ...(context ?? {}) }
+      : undefined
+    isPendingRef.current = true
+    appendMessage('patient', message, nextFlow)
     setIsPending(true)
 
     try {
-      const { reply } = await requestChatReply({ message, locale, sessionId: getSessionId() })
+      const { reply } = await requestChatReply({ message, locale, sessionId: getSessionId(), ...(requestContext ? { context: requestContext } : {}) })
       if (requestId === requestIdRef.current) appendMessage('assistant', reply)
     } catch {
       if (requestId === requestIdRef.current) appendMessage('assistant', copy.patientAssistant.connectionError)
     } finally {
-      if (requestId === requestIdRef.current) setIsPending(false)
+      if (requestId === requestIdRef.current) {
+        isPendingRef.current = false
+        setIsPending(false)
+      }
     }
+  }
+
+  function handleTypedMessage(message: string) {
+    void handleMessage(message, 'question')
   }
 
   return (
