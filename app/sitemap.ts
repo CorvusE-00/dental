@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { absoluteUrl, siteConfig } from '@/lib/site-config'
-import { getHomeHref } from '@/lib/navigation'
+import { getHomeHref, getLegalHref, type LegalPageSlug } from '@/lib/navigation'
 import { getTreatmentHref, getTreatmentsIndexHref, routableTreatmentSlugs } from '@/lib/treatments'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     tr: absoluteUrl(getTreatmentsIndexHref('tr')),
     'x-default': absoluteUrl(getTreatmentsIndexHref('en')),
   }
+  const legalPages: LegalPageSlug[] = ['privacy', 'cookies', 'terms']
 
   return [
     ...locales.map((locale) => ({
@@ -34,6 +35,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       alternates: { languages: treatmentIndexAlternates },
     })),
+    ...legalPages.flatMap((page) => {
+      const languages = {
+        en: absoluteUrl(getLegalHref('en', page)),
+        tr: absoluteUrl(getLegalHref('tr', page)),
+        'x-default': absoluteUrl(getLegalHref('en', page)),
+      }
+
+      return locales.map((locale) => ({
+        url: absoluteUrl(getLegalHref(locale, page)),
+        lastModified,
+        changeFrequency: 'yearly' as const,
+        priority: 0.4,
+        alternates: { languages },
+      }))
+    }),
     ...routableTreatmentSlugs.flatMap((slug) => {
       const languages = {
         en: absoluteUrl(getTreatmentHref('en', slug)),

@@ -1,12 +1,17 @@
 'use client'
 
 import { SITE } from '@/lib/constants'
-import { getFooterColumns } from '@/lib/navigation'
+import { getFooterColumns, getLegalHref } from '@/lib/navigation'
 import { useLocale } from '@/lib/i18n'
 
 export function Footer() {
   const { copy, locale } = useLocale()
   const columns = getFooterColumns(locale)
+  const legalLinks = [
+    { label: copy.footer.legal[0], href: getLegalHref(locale, 'privacy') },
+    { label: copy.footer.legal[1], href: getLegalHref(locale, 'cookies') },
+    { label: copy.footer.legal[2], href: getLegalHref(locale, 'terms') },
+  ]
   return (
     <footer data-hide-sticky-cta data-avoid-floating-assistant className="overflow-hidden border-t border-border bg-background">
       <div className="container-page pt-18 md:pt-24">
@@ -53,8 +58,12 @@ export function Footer() {
             {SITE.year} {SITE.name}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2" aria-label={copy.footer.legalLabel}>
-            {copy.footer.legal.map((label) => (
-              <li key={label}>{label}</li>
+            {legalLinks.map((link) => (
+              <li key={link.href}>
+                <a href={link.href} className="inline-flex min-h-10 items-center transition-colors hover:text-foreground">
+                  {link.label}
+                </a>
+              </li>
             ))}
           </ul>
         </div>

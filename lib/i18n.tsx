@@ -8,6 +8,8 @@ export type Locale = 'en' | 'tr'
 type FeatureCopy = { title: string; description: string }
 type JourneyCopy = { title: string; description: string }
 type FaqCopy = { question: string; answer: string }
+type LegalSection = { id?: string; title: string; paragraphs: string[]; bullets?: string[]; contactEmail?: boolean }
+type LegalPageCopy = { eyebrow: string; title: string; description: string; lastUpdated: string; sections: LegalSection[] }
 
 export type SiteCopy = {
   nav: string[]
@@ -130,6 +132,11 @@ export type SiteCopy = {
     prototypeNotice: string
     assistantRole: string
     patientRole: string
+  }
+  legal: {
+    privacy: LegalPageCopy
+    cookies: LegalPageCopy
+    terms: LegalPageCopy
   }
   footer: { description: string; legalLabel: string; prototype: string; columns: Record<string, { title: string; links: Record<string, string> }>; language: string; location: string; legal: string[] }
   common: { before: string; after: string; comparison: string; beforeVisible: string; optional: string }
@@ -316,6 +323,122 @@ const english: SiteCopy = {
     assistantRole: 'Luma assistant',
     patientRole: 'You',
   },
+  legal: {
+    privacy: {
+      eyebrow: 'Privacy policy',
+      title: 'How information is handled.',
+      description: 'A concise privacy notice for the fictional Luma Dental Istanbul prototype and its patient assistant channels.',
+      lastUpdated: 'Last updated: October 8, 2026',
+      sections: [
+        {
+          title: 'About this prototype',
+          paragraphs: ['Luma Dental Istanbul is a fictional dental clinic experience created for demonstration and testing. It is not a real clinic or a substitute for a clinical service.'],
+        },
+        {
+          title: 'Information the assistant may process',
+          paragraphs: ['The website and WhatsApp patient assistant may use AI-powered services. When you interact with the assistant, your messages and technical or session data may be processed to answer questions, continue conversation context, support contact or lead follow-up, and support consultation-related workflows.'],
+        },
+        {
+          title: 'Storage and retention',
+          paragraphs: ['Assistant messages may be temporarily or persistently stored by the services used to operate the prototype so that conversation continuity and follow-up can work. Information is intended to be retained only as reasonably necessary for prototype operation, service delivery, and testing.'],
+        },
+        {
+          title: 'Please do not share sensitive information',
+          paragraphs: ['Please do not submit the following through the website or WhatsApp assistant:', 'The assistant is not an emergency service, does not provide a medical diagnosis, and cannot respond to urgent situations. Contact the appropriate local emergency service for an emergency.'],
+          bullets: ['Sensitive medical records or diagnostic images', 'Payment card information or passwords', 'Emergency information requiring immediate care'],
+        },
+        {
+          title: 'Service providers and WhatsApp',
+          paragraphs: ['Third-party providers may support hosting, automation, AI or model processing, messaging, email, and related infrastructure. WhatsApp interactions may also be subject to Meta and WhatsApp privacy terms and settings.'],
+        },
+        {
+          id: 'data-deletion',
+          title: 'Access, correction and deletion',
+          paragraphs: ['You may request access to, correction of, or deletion of information you submitted through the prototype by contacting the address below. Please include enough relevant conversation or contact information for the team to locate the submission. Requests will be reviewed and handled as reasonably practicable; instant deletion or a fixed legal timeframe is not promised.'],
+          contactEmail: true,
+        },
+        {
+          title: 'Security and contact',
+          paragraphs: ['Reasonable security measures are used for the prototype, but no transmission over the internet can be guaranteed completely secure. Questions about this notice or a request about submitted information can be sent to:'],
+          contactEmail: true,
+        },
+      ],
+    },
+    cookies: {
+      eyebrow: 'Cookie policy',
+      title: 'A clear view of browser storage.',
+      description: 'This notice explains the limited browser storage used by the fictional Luma Dental Istanbul prototype.',
+      lastUpdated: 'Last updated: October 8, 2026',
+      sections: [
+        {
+          title: 'What this covers',
+          paragraphs: ['Cookies are small files stored by a website. Browser storage can provide a similar local function. This policy covers those technologies when they are used by the prototype.'],
+        },
+        {
+          title: 'Essential and preference storage',
+          paragraphs: ['The current site may use essential browser storage or session information to support basic functionality, language preference, interface state, and security-related operation. The current locale preference is stored in the browser so the site can remember whether English or Turkish was selected.'],
+        },
+        {
+          title: 'No non-essential tracking is currently implemented',
+          paragraphs: ['The current codebase does not implement analytics, advertising cookies, tracking pixels, marketing cookies, or a separate consent platform.'],
+        },
+        {
+          title: 'Third-party services',
+          paragraphs: ['If you interact with WhatsApp or another external service, that platform may use its own cookies or similar technologies under its own policies.'],
+        },
+        {
+          title: 'Your choices',
+          paragraphs: ['You can clear browser storage through your browser settings. Doing so may reset language preferences or other local interface state. Blocking essential storage may affect how parts of the prototype work.'],
+        },
+        {
+          title: 'Contact',
+          paragraphs: ['Questions about this cookie notice can be sent to:'],
+          contactEmail: true,
+        },
+      ],
+    },
+    terms: {
+      eyebrow: 'Terms',
+      title: 'Using this prototype responsibly.',
+      description: 'Simple terms for the fictional Luma Dental Istanbul website, assistant, and related demonstration channels.',
+      lastUpdated: 'Last updated: October 8, 2026',
+      sections: [
+        {
+          title: 'Prototype and information use',
+          paragraphs: ['Luma Dental Istanbul is a fictional prototype. Website and assistant content is provided for demonstration and general information, and may be incomplete, illustrative, or changed without notice.'],
+        },
+        {
+          title: 'No medical advice or treatment relationship',
+          paragraphs: ['Using the website or assistant does not create a doctor-patient relationship. Content is not a diagnosis or personalized medical advice. Treatment suitability requires an appropriate professional clinical assessment.'],
+        },
+        {
+          title: 'Plans, prices and outcomes',
+          paragraphs: ['Prices, timing, availability, treatment suitability, outcomes, and clinic-specific facts are not guaranteed unless explicitly confirmed through an appropriate assessment and communication from the relevant provider.'],
+        },
+        {
+          title: 'Emergency use is prohibited',
+          paragraphs: ['Do not use the website, assistant, or WhatsApp channel for emergencies or urgent medical concerns. Contact the appropriate local emergency service or qualified healthcare provider.'],
+        },
+        {
+          title: 'Acceptable use',
+          paragraphs: ['You must not abuse, attack, probe, automate-spam, overload, impersonate, or misuse the website, assistant, messaging channels, or related infrastructure.'],
+        },
+        {
+          title: 'Availability and third-party services',
+          paragraphs: ['The prototype may be changed, suspended, or interrupted. Third-party hosting, automation, AI, messaging, email, and other services may be involved and may have their own terms and policies.'],
+        },
+        {
+          title: 'Responsibility',
+          paragraphs: ['Because this is a fictional demonstration, no promise is made that the service will be complete, continuously available, or suitable for a particular purpose. To the extent permitted by applicable law, use of the prototype is at your own discretion and reliance on its content should be limited accordingly.'],
+        },
+        {
+          title: 'Contact',
+          paragraphs: ['Questions about these terms can be sent to:'],
+          contactEmail: true,
+        },
+      ],
+    },
+  },
   footer: { description: 'Thoughtful cosmetic, restorative and everyday dental care for people in Istanbul and patients travelling from abroad.', legalLabel: 'Legal (not available in this prototype)', prototype: 'Luma Dental Istanbul is a fictional clinic created for demonstration purposes.', language: 'Language', location: 'Nişantaşı, Istanbul, Türkiye', legal: ['Privacy Policy', 'Cookie Policy', 'Terms'], columns: { treatments: { title: 'Treatments', links: { 'Dental Implants': 'Dental Implants', Veneers: 'Veneers', 'Smile Makeovers': 'Smile Makeovers', 'All-on-4 / All-on-6': 'All-on-4 / All-on-6', 'Zirconium Crowns': 'Zirconium Crowns' } }, explore: { title: 'Explore', links: { Results: 'Results', 'Our Doctors': 'Our Doctors', 'Patient Journey': 'Patient Journey', FAQ: 'FAQ', Contact: 'Contact' } }, 'patient-care': { title: 'Patient Care', links: { 'Local Care': 'Local Care', 'International Care': 'International Care', 'Treatment Planning': 'Treatment Planning', Aftercare: 'Aftercare', Contact: 'Contact' } } } },
   common: { before: 'Before', after: 'After', comparison: 'Before and after comparison', beforeVisible: '% before image visible', optional: 'optional' },
 }
@@ -445,6 +568,122 @@ const turkish: SiteCopy = {
     prototypeNotice: 'Prototip asistan. Mesajlar asistan hizmetine gönderilir ve görüşmeyi sürdürmek veya takip desteği sağlamak için saklanabilir. Lütfen hassas tıbbi kayıtları, ödeme bilgilerini veya acil durum bilgilerini paylaşmayın. Bu asistan acil durumlar için değildir.',
     assistantRole: 'Luma asistanı',
     patientRole: 'Siz',
+  },
+  legal: {
+    privacy: {
+      eyebrow: 'Gizlilik politikası',
+      title: 'Bilgiler nasıl ele alınır?',
+      description: 'Kurgusal Luma Dental Istanbul prototipi ve hasta asistanı kanalları için kısa gizlilik bildirimi.',
+      lastUpdated: 'Son güncelleme: 8 Ekim 2026',
+      sections: [
+        {
+          title: 'Bu prototip hakkında',
+          paragraphs: ["Luma Dental Istanbul, gösterim ve test amacıyla oluşturulmuş kurgusal bir diş kliniği deneyimidir. Gerçek bir klinik değildir ve klinik hizmetin yerine geçmez."],
+        },
+        {
+          title: 'Asistanın işleyebileceği bilgiler',
+          paragraphs: ['Web sitesi ve WhatsApp hasta asistanı yapay zekâ destekli hizmetler kullanabilir. Asistanla iletişim kurduğunuzda mesajlarınız ile teknik veya oturum bilgileriniz; soruları yanıtlamak, görüşme bağlamını sürdürmek, iletişim veya potansiyel hasta takibini desteklemek ve görüşme süreçlerine yardımcı olmak için işlenebilir.'],
+        },
+        {
+          title: 'Saklama ve muhafaza süresi',
+          paragraphs: ['Asistan mesajları, görüşme sürekliliği ve takip desteğinin çalışabilmesi için prototipi işleten hizmetler tarafından geçici veya kalıcı olarak saklanabilir. Bilgilerin yalnızca prototipin çalışması, hizmetin sunulması ve testler için makul ölçüde gerekli olduğu süre boyunca tutulması amaçlanır.'],
+        },
+        {
+          title: 'Lütfen hassas bilgileri paylaşmayın',
+          paragraphs: ['Web sitesi veya WhatsApp asistanı üzerinden aşağıdaki bilgileri göndermeyin:', 'Asistan acil durum hizmeti değildir, tıbbi teşhis sunmaz ve acil durumlara yanıt veremez. Acil bir durumda uygun yerel acil yardım hizmetine başvurun.'],
+          bullets: ['Hassas tıbbi kayıtlar veya teşhis görüntüleri', 'Banka veya kredi kartı bilgileri ya da şifreler', 'Acil müdahale gerektiren acil durum bilgileri'],
+        },
+        {
+          title: 'Hizmet sağlayıcılar ve WhatsApp',
+          paragraphs: ['Barındırma, otomasyon, yapay zekâ veya model işleme, mesajlaşma, e-posta ve ilgili altyapı için üçüncü taraf sağlayıcılar kullanılabilir. WhatsApp görüşmeleri ayrıca Meta ve WhatsApp gizlilik koşullarına ve ayarlarına tabi olabilir.'],
+        },
+        {
+          id: 'data-deletion',
+          title: 'Erişim, düzeltme ve silme',
+          paragraphs: ['Prototip üzerinden gönderdiğiniz bilgilerinize erişim, düzeltme veya silme talebinde bulunmak için aşağıdaki adresten bize ulaşabilirsiniz. Ekibin ilgili gönderimi bulabilmesi için görüşme veya iletişim bilgilerini yeterli ölçüde belirtin. Talepler makul ölçüde incelenip ele alınır; anında silme veya sabit bir yasal süre taahhüt edilmez.'],
+          contactEmail: true,
+        },
+        {
+          title: 'Güvenlik ve iletişim',
+          paragraphs: ['Prototip için makul güvenlik önlemleri kullanılır; ancak internet üzerinden yapılan hiçbir aktarımın tamamen güvenli olduğu garanti edilemez. Bu bildirim veya gönderdiğiniz bilgilerle ilgili sorularınızı şu adrese iletebilirsiniz:'],
+          contactEmail: true,
+        },
+      ],
+    },
+    cookies: {
+      eyebrow: 'Çerez politikası',
+      title: 'Tarayıcı depolamasına açık bir bakış.',
+      description: 'Bu bildirim, kurgusal Luma Dental Istanbul prototipinin kullandığı sınırlı tarayıcı depolamasını açıklar.',
+      lastUpdated: 'Son güncelleme: 8 Ekim 2026',
+      sections: [
+        {
+          title: 'Bu bildirim neyi kapsar?',
+          paragraphs: ['Çerezler, bir web sitesi tarafından saklanan küçük dosyalardır. Tarayıcı depolaması da benzer bir yerel işlev sağlayabilir. Bu politika, prototip tarafından kullanıldığında bu teknolojileri kapsar.'],
+        },
+        {
+          title: 'Gerekli ve tercih depolaması',
+          paragraphs: ['Mevcut site; temel işlevleri, dil tercihini, arayüz durumunu ve güvenlikle ilgili çalışmayı desteklemek için gerekli tarayıcı depolamasını veya oturum bilgilerini kullanabilir. Mevcut dil tercihi, İngilizce veya Türkçe seçimini hatırlamak için tarayıcıda saklanır.'],
+        },
+        {
+          title: 'Şu anda gerekli olmayan takip kullanılmıyor',
+          paragraphs: ['Mevcut kod tabanında analiz, reklam çerezleri, takip pikselleri, pazarlama çerezleri veya ayrı bir izin platformu bulunmamaktadır.'],
+        },
+        {
+          title: 'Üçüncü taraf hizmetler',
+          paragraphs: ['WhatsApp veya başka bir harici hizmetle etkileşime girerseniz, bu platform kendi politikaları kapsamında kendi çerezlerini veya benzer teknolojileri kullanabilir.'],
+        },
+        {
+          title: 'Seçenekleriniz',
+          paragraphs: ['Tarayıcı ayarlarınızdan tarayıcı depolamasını temizleyebilirsiniz. Bu işlem dil tercihini veya diğer yerel arayüz durumlarını sıfırlayabilir. Gerekli depolamayı engellemek prototipin bazı bölümlerinin çalışma şeklini etkileyebilir.'],
+        },
+        {
+          title: 'İletişim',
+          paragraphs: ['Bu çerez bildirimiyle ilgili sorularınızı şu adrese iletebilirsiniz:'],
+          contactEmail: true,
+        },
+      ],
+    },
+    terms: {
+      eyebrow: 'Koşullar',
+      title: 'Bu prototipi sorumlu şekilde kullanın.',
+      description: 'Kurgusal Luma Dental Istanbul web sitesi, asistanı ve ilgili gösterim kanalları için temel koşullar.',
+      lastUpdated: 'Son güncelleme: 8 Ekim 2026',
+      sections: [
+        {
+          title: 'Prototip ve bilgilerin kullanımı',
+          paragraphs: ['Luma Dental Istanbul kurgusal bir prototiptir. Web sitesi ve asistan içeriği gösterim ve genel bilgilendirme amacıyla sunulur; eksik, örnek niteliğinde olabilir veya önceden bildirim yapılmadan değiştirilebilir.'],
+        },
+        {
+          title: 'Tıbbi tavsiye veya tedavi ilişkisi yoktur',
+          paragraphs: ['Web sitesini veya asistanı kullanmanız doktor-hasta ilişkisi oluşturmaz. İçerik teşhis veya kişiye özel tıbbi tavsiye değildir. Tedaviye uygunluk için uygun bir profesyonel klinik değerlendirme gerekir.'],
+        },
+        {
+          title: 'Planlar, fiyatlar ve sonuçlar',
+          paragraphs: ['Fiyatlar, süreler, uygunluk, tedavi sonuçları, müsaitlik ve kliniğe özgü bilgiler; uygun bir değerlendirme ve ilgili sağlayıcıdan açık bir teyit olmadıkça garanti edilmez.'],
+        },
+        {
+          title: 'Acil durumlarda kullanmayın',
+          paragraphs: ['Web sitesini, asistanı veya WhatsApp kanalını acil durumlar ya da acil tıbbi endişeler için kullanmayın. Uygun yerel acil yardım hizmetine veya nitelikli bir sağlık uzmanına başvurun.'],
+        },
+        {
+          title: 'Kabul edilebilir kullanım',
+          paragraphs: ['Web sitesini, asistanı, mesajlaşma kanallarını veya ilgili altyapıyı kötüye kullanmamalı, saldırmamalı, taramamalı, otomatik spam göndermemeli, kimliğinizi başkası gibi göstermemeli, aşırı yüklememeli veya başka şekilde yanlış kullanmamalısınız.'],
+        },
+        {
+          title: 'Kullanılabilirlik ve üçüncü taraf hizmetler',
+          paragraphs: ['Prototip değiştirilebilir, askıya alınabilir veya kesintiye uğrayabilir. Üçüncü taraf barındırma, otomasyon, yapay zekâ, mesajlaşma, e-posta ve diğer hizmetler kullanılabilir; bunların kendi koşulları ve politikaları olabilir.'],
+        },
+        {
+          title: 'Sorumluluk',
+          paragraphs: ['Bu bir kurgusal gösterim olduğu için hizmetin eksiksiz, sürekli erişilebilir veya belirli bir amaca uygun olacağına dair söz verilmez. Uygulanabilir hukukun izin verdiği ölçüde prototipi kullanmak sizin takdirinizdedir ve içeriğe güvenmeniz buna göre sınırlı olmalıdır.'],
+        },
+        {
+          title: 'İletişim',
+          paragraphs: ['Bu koşullarla ilgili sorularınızı şu adrese iletebilirsiniz:'],
+          contactEmail: true,
+        },
+      ],
+    },
   },
   footer: { description: "İstanbul'da yaşayanlar ve yurt dışından gelen hastalar için özenli estetik, restoratif ve günlük diş bakımı.", legalLabel: 'Yasal bilgiler (bu prototipte mevcut değil)', prototype: 'Luma Dental Istanbul, gösterim amacıyla oluşturulmuş kurgusal bir kliniktir.', language: 'Dil', location: "Nişantaşı, İstanbul, Türkiye", legal: ['Gizlilik Politikası', 'Çerez Politikası', 'Koşullar'], columns: { treatments: { title: 'Tedaviler', links: { 'Dental Implants': 'Diş İmplantları', Veneers: 'Porselen Laminalar', 'Smile Makeovers': 'Gülüş Tasarımı', 'All-on-4 / All-on-6': 'All-on-4 / All-on-6', 'Zirconium Crowns': 'Zirkonyum Kuronlar' } }, explore: { title: 'Keşfet', links: { Results: 'Sonuçlar', 'Our Doctors': 'Doktorlarımız', 'Patient Journey': 'Hasta Yolculuğu', FAQ: 'SSS', Contact: 'İletişim' } }, 'patient-care': { title: 'Hasta Bakımı', links: { 'Local Care': 'Yerel Bakım', 'International Care': 'Uluslararası Bakım', 'Treatment Planning': 'Tedavi Planlaması', Aftercare: 'Bakım Sonrası', Contact: 'İletişim' } } } },
   common: { before: 'Önce', after: 'Sonra', comparison: 'Öncesi ve sonrası karşılaştırması', beforeVisible: '% önce görseli görünür', optional: 'isteğe bağlı' },

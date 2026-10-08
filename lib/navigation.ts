@@ -12,6 +12,7 @@ export type HomepageSectionId =
   | 'contact'
 
 export type NavItem = { id: string; label: string; href: string }
+export type LegalPageSlug = 'privacy' | 'cookies' | 'terms'
 
 export function getHomeHref(locale: Locale) {
   return locale === 'tr' ? '/tr' : '/'
@@ -19,6 +20,10 @@ export function getHomeHref(locale: Locale) {
 
 export function getSectionHref(locale: Locale, section: HomepageSectionId) {
   return `${getHomeHref(locale)}#${section}`
+}
+
+export function getLegalHref(locale: Locale, page: LegalPageSlug) {
+  return `${locale === 'tr' ? '/tr' : ''}/${page}`
 }
 
 export function getPrimaryNavItems(locale: Locale): NavItem[] {
